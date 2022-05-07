@@ -16,8 +16,14 @@
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
         
+        <script type="text/javascript">
+        
+        
+        </script>
+        
 </head>
 <body>
+<button onclick="location.href='cartTest.jsp'">장바구니에 제품 넣기 테스트</button><br>
 	<%
 	String name = null;
 	String id = null;
@@ -25,6 +31,7 @@
 	String email = null;
 	String phone = null;
 	int admin = 0;
+	int cartcnt = 0;
 	
 	if(session.getAttribute("name") != null){
 		name = (String) session.getAttribute("name");
@@ -33,7 +40,10 @@
 		email = (String) session.getAttribute("email");
 		phone = (String) session.getAttribute("phone");
 		admin = (int) session.getAttribute("admin");
+		cartcnt = (int) session.getAttribute("cartcnt");
 	}
+	
+	
 	%>
 
 	
@@ -43,6 +53,7 @@
 	이메일<%=email%><br>
 	전화번호<%=phone%><br>
 	권한<%=admin%><br>
+	장바구니<%=cartcnt%><br>
 	
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
@@ -70,7 +81,6 @@
                             </ul>
                         </li>
                     </ul>
-
                     &nbsp;&nbsp;&nbsp;
                     <%if(name != null){ %>
 	                <form action ="myPage.jsp" class="d-flex">
@@ -79,11 +89,11 @@
 	                    </button>
 	                </form>
 	                <br>
-	                <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
+	                <form action="cartlist.do" class="d-flex">
+                        <button id="cartbtn" class="btn btn-outline-dark" type="submit">
+						<i class="bi-cart-fill me-1"></i>
                             	장바구니
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0 <!-- 장바구니에 담긴 수 --></span>
+                            <span class="badge bg-dark text-white ms-1 rounded-pill"><%=cartcnt%> <!-- 장바구니에 담긴 수 --></span>
                         </button>
                     </form>
 	                <br>

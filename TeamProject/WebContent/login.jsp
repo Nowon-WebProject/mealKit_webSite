@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>이젠, 집에서 | 로그인</title>
-<link href="css/styles.css" rel="stylesheet" />
+<link href="../css/styles.css" rel="stylesheet" />
 <style>
 /* CSS RESET */
 * {

@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.co.EZHOME.dao.CartDAO;
 import kr.co.EZHOME.dao.UserDAO;
+import kr.co.EZHOME.dto.CartDTO;
 import kr.co.EZHOME.dto.UserDTO;
 
 /**
@@ -50,13 +52,13 @@ public class LoginServlet extends HttpServlet {
 		String pwd = request.getParameter("pwd");
 
 		UserDAO udao = UserDAO.getInstance();
+		CartDAO cdao = CartDAO.getInstance();
 		int result = udao.userCheck(userid, pwd);
 		if (result == 1) {
 			UserDTO udto = udao.getMember(userid);
-
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", udto);
-			
 			
 			session.setAttribute("name", udto.getName());
 			session.setAttribute("id", udto.getUserid());
@@ -65,19 +67,27 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("phone",udto.getPhone());
 			session.setAttribute("admin", udto.getAdmin());
 			
+			session.setAttribute("cartcnt", cdao.cartCnt(userid));
+			
+			
 			
 			session.setAttribute("result", result);
 			
 			request.setAttribute("message", "로그인 되었습니다.");
 			url = "index.jsp";
+			
 		} else if (result == 0) {
 			request.setAttribute("message", "비밀번호가 맞지 않습니다.");
 		} else if (result == -1) {
 			request.setAttribute("message", "존재하지 않는 회원입니다.");
 		} 
-
+		
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);
+		
+		
+		
 	}
 
 }
