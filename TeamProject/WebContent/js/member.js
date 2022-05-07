@@ -25,8 +25,8 @@ function idCheck(){
 		
 		return;
 	}
-	
-	var url="idCheck.do?userid="+document.frm.userid.value;
+
+	var url="/TeamProject/idCheck?userid="+document.frm.userid.value;
 	window.open(url,"_blank_1","toolbar=no,menubar=no,"+"scrollbars=yes,resizable=no,width=450,height=200");
 }
 

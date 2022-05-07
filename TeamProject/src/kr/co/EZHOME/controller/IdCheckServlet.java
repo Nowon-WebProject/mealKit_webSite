@@ -15,7 +15,7 @@ import kr.co.EZHOME.dao.UserDAO;
 /**
  * Servlet implementation class IdCheckServlet
  */
-@WebServlet("/idCheck.do")
+@WebServlet("/idCheck")
 public class IdCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -41,7 +41,7 @@ public class IdCheckServlet extends HttpServlet {
 		request.setAttribute("userid",userid);
 		request.setAttribute("result",result);
 		
-		RequestDispatcher dispatcher=request.getRequestDispatcher("idcheck.jsp");
+		RequestDispatcher dispatcher=request.getRequestDispatcher("/join/idcheck.jsp");
 		 dispatcher.forward(request, response);
 	}
 

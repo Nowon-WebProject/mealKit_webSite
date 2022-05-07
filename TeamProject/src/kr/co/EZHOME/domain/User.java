@@ -1,24 +1,25 @@
-package kr.co.EZHOME.dto;
+package kr.co.EZHOME.domain;
 
-import kr.co.EZHOME.domain.User;
-
-public class UserDTO {
+public class User {
+	
 	private String name;
 	private String userid;
-	private String pwd;
+	private String password;
 	private String email;
 	private String phone;
 	private int admin;
 	
+	public User() {
+		
+	}
 	
-	public UserDTO(String name, String userid, String pwd, String email, String phone, int admin) {
-		super();
-		this.name = name;
-		this.userid = userid;
-		this.pwd = pwd;
-		this.email = email;
-		this.phone = phone;
-		this.admin = admin;
+	public LoginStatus login(String inputPassword) {
+		
+		if(password != null && password.equals(inputPassword)) {
+			return LoginStatus.LOGIN_SUCCESS;
+		}else {
+			return LoginStatus.PASSWORD_WRONG;
+		}
 	}
 	
 	public String getName() {
@@ -31,13 +32,16 @@ public class UserDTO {
 		return userid;
 	}
 	public void setUserid(String userid) {
+		if (userid == null) {
+			throw new IllegalArgumentException("아이디가 비워있습니다.");
+		}
 		this.userid = userid;
 	}
-	public String getPwd() {
-		return pwd;
+	public String getPassword() {
+		return password;
 	}
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getEmail() {
 		return email;
@@ -58,8 +62,5 @@ public class UserDTO {
 		this.admin = admin;
 	}
 	
-	public String toString() {
-		return "UserDTO[name="+name+",userid="+userid+",pwd="+pwd
-				              +",email="+email+",phone="+phone+",admin="+admin+"]";
-	}
+	
 }

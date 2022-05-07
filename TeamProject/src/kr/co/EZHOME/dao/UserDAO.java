@@ -3,11 +3,14 @@ package kr.co.EZHOME.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import kr.co.EZHOME.domain.LoginStatus;
+import kr.co.EZHOME.domain.User;
 import kr.co.EZHOME.dto.UserDTO;
 
 public class UserDAO {
@@ -32,9 +35,10 @@ public class UserDAO {
 		return conn;
 	}
 	
-	public int userCheck(String userid,String pwd) {
-		int result=-1;
-		String sql="select pwd from usertbl where userid=?";
+	public User findUser (String userid) throws Exception {
+		LoginStatus result = null;
+		String sql="select * from usertbl where userid=?";
+		User user = new User();
 		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -47,17 +51,18 @@ public class UserDAO {
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
-				if(rs.getString("pwd") != null && rs.getString("pwd").equals(pwd)) {
-					result=1; 
-				}else {
-					result=0;
-				}
-			}else {
-				result=-1; 
+				user.setName(rs.getString("name"));
+				user.setUserid(rs.getString("userid"));
+				user.setPassword(rs.getString("pwd"));
+				user.setEmail(rs.getString("email"));
+				user.setPhone(rs.getString("phone"));
+				user.setAdmin(rs.getInt("admin"));
 			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
+			else {
+				throw new IllegalArgumentException("존재하지 않는 회원입니다.");
+			}
+		}
+		finally {
 			try {
 				if(rs != null)
 					rs.close();
@@ -70,8 +75,51 @@ public class UserDAO {
 			}
 		}
 		
-		return result;
+		return user;
 	}
+
+	//userCheck의 pwd 비교하는 기능을 domain 패키지의 User 객체에서 수행하도록 변경
+//	public LoginStatus userCheck(String userid,String pwd) {
+//		LoginStatus result = null;
+//		String sql="select pwd from usertbl where userid=?";
+//		
+//		Connection conn=null;
+//		PreparedStatement pstmt=null;
+//		ResultSet rs=null;
+//		
+//		try {
+//			conn=getConnection();
+//			pstmt=conn.prepareStatement(sql);
+//			pstmt.setString(1, userid);
+//			rs=pstmt.executeQuery();
+//			
+//			if(rs.next()) {
+//				if(rs.getString("pwd") != null && rs.getString("pwd").equals(pwd)) {
+//					result= LoginStatus.LOGIN_SUCCESS; 
+//				}else {
+//					result= LoginStatus.PASSWORD_WRONG;
+//				}
+//			}else {
+//				result= LoginStatus.NOT_EXIST_USER;
+//			}
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}finally {
+//			try {
+//				if(rs != null)
+//					rs.close();
+//				if(pstmt != null)
+//					pstmt.close();
+//				if(conn != null)
+//					conn.close();
+//			}catch(Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		
+//		return result;
+//	}
+	
 	public UserDTO getMember(String userid) {
 		UserDTO udto=null;
 		String sql="select * from usertbl where userid=?";
@@ -86,15 +134,8 @@ public class UserDAO {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, userid);
 			rs=pstmt.executeQuery();
-			
 			if(rs.next()) {
-				udto=new UserDTO();
-				udto.setName(rs.getString("name"));
-				udto.setUserid(rs.getString("userid"));
-				udto.setPwd(rs.getString("pwd"));
-				udto.setEmail(rs.getString("email"));
-				udto.setPhone(rs.getString("phone"));
-				udto.setAdmin(rs.getInt("admin"));
+				udto=new UserDTO(rs.getString("name"), rs.getString("userid"), rs.getString("pwd"), rs.getString("email"), rs.getString("phone"), rs.getInt("admin"));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -129,7 +170,7 @@ public class UserDAO {
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
-					result=1; // 아이디 패스워드 일치
+					result=1; // 아이디 일치
 			}else {
 					result=-1; // 아이디 없음
 			}

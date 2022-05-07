@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<!-- 로그인 페이지 -->
 <html>
 <head>
 <meta charset="UTF-8">
 <title>이젠, 집에서 | 로그인</title>
-<link href="css/styles.css" rel="stylesheet" />
+<link href="/TeamProject/css/styles.css" rel="stylesheet" />
 <style>
 /* CSS RESET */
 * {
@@ -94,12 +95,12 @@ li {
 </style>
 </head>
 <body>
-<jsp:include page="nav.jsp"></jsp:include>
+<jsp:include page="/ui/nav.jsp"></jsp:include>
 	<br><br><br><br><br>
 	<div id="wrap">
 	<div class="table" align="center">
 		<div class="table-cell">
-			<form action="login.do" method="post" name="frm">
+			<form action="/TeamProject/login" method="post" name="frm">
 				<div class="login-container">
 					<h3 class="login--title">로그인</h3>
 					<div align="left"><label class=form-input--title for="userid">아이디</label></div>
@@ -108,12 +109,12 @@ li {
 					<input type="password" id="userid" name="pwd" class="form-input">
 					<div style="color:red"><Strong>${message}</Strong></div>
 					<input type="submit" class="form-btn" value="로그인" id="login">
-					<input type="button" class="form-btn" value="회원가입" id="signup" onclick="location.href='terms.jsp'">
+					<input type="button" class="form-btn" value="회원가입" id="signup" onclick="location.href='/TeamProject/join/terms.jsp'">
 				</div>
 			</form>
 		</div>
 	</div>
 	</div>
-	<jsp:include page="footer.jsp"></jsp:include>
+	<jsp:include page="/ui/footer.jsp"></jsp:include>
 </body>
 </html>
