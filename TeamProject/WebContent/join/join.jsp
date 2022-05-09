@@ -29,7 +29,7 @@
             background-color:#fd7e14
         }
     </style>
-    <script type="text/javascript" src="/TeamProject/js/member.js?test=8"></script>
+    <script type="text/javascript" src="/TeamProject/js/member.js?"></script>
 </head>
 <body>
 <jsp:include page="/ui/nav.jsp"></jsp:include>
@@ -40,7 +40,7 @@
         <br><br><br>
     </div>
     <div id="wrap">
-<form action="/TeamProject/join" method="post" name="frm">
+<form action="/TeamProject/join.do" method="post" name="frm">
 	<table>
 		<tr>
 			<td>이름</td>

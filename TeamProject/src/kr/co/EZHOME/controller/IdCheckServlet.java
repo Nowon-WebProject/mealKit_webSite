@@ -10,12 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.EZHOME.dao.UserDAO;
+import kr.co.EZHOME.domain.DataStatus;
 
 
 /**
  * Servlet implementation class IdCheckServlet
  */
-@WebServlet("/idCheck")
+@WebServlet("/idCheck.do")
 public class IdCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,7 +37,7 @@ public class IdCheckServlet extends HttpServlet {
 		
 		String userid=request.getParameter("userid");
 		UserDAO udao=UserDAO.getInstance();
-		int result=udao.confrimID(userid);
+		DataStatus result= udao.confrimID(userid);
 		
 		request.setAttribute("userid",userid);
 		request.setAttribute("result",result);

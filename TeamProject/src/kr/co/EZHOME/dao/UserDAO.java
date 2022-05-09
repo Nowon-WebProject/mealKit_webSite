@@ -9,6 +9,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import kr.co.EZHOME.domain.DataStatus;
 import kr.co.EZHOME.domain.LoginStatus;
 import kr.co.EZHOME.domain.User;
 import kr.co.EZHOME.dto.UserDTO;
@@ -36,7 +37,6 @@ public class UserDAO {
 	}
 	
 	public User findUser (String userid) throws Exception {
-		LoginStatus result = null;
 		String sql="select * from usertbl where userid=?";
 		User user = new User();
 		
@@ -120,43 +120,8 @@ public class UserDAO {
 //		return result;
 //	}
 	
-	public UserDTO getMember(String userid) {
-		UserDTO udto=null;
-		String sql="select * from usertbl where userid=?";
-		
-		Connection conn=null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		
-
-		try {
-			conn=getConnection();
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, userid);
-			rs=pstmt.executeQuery();
-			if(rs.next()) {
-				udto=new UserDTO(rs.getString("name"), rs.getString("userid"), rs.getString("pwd"), rs.getString("email"), rs.getString("phone"), rs.getInt("admin"));
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(rs != null)
-					rs.close();
-				if(pstmt != null)
-					pstmt.close();
-				if(conn != null)
-					conn.close();
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return udto;
-	}
-	
-	public int confrimID(String userid) {
-		int result=-1;
+	public DataStatus confrimID(String userid) {
+		DataStatus result = null;
 		String sql="select userid from usertbl where userid=?";
 		
 		Connection conn=null;
@@ -170,9 +135,9 @@ public class UserDAO {
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
-					result=1; // 아이디 일치
+					result = DataStatus.Exist; // 아이디 일치
 			}else {
-					result=-1; // 아이디 없음
+					result = DataStatus.Not_Exist; // 아이디 없음
 			}
 			
 		}catch(Exception e) {
