@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<!-- 회원가입 페이지 -->
 <html>
 <head>
 <meta charset="UTF-8">
 <title>이젠, 집에서 | 회원가입</title>
-<link href="css/styles.css" rel="stylesheet" />
+<link href="/TeamProject/css/styles.css" rel="stylesheet" />
     <title>회원가입 화면</title>
     
     <style>
@@ -28,10 +29,10 @@
             background-color:#fd7e14
         }
     </style>
-    <script type="text/javascript" src="js/member.js"></script>
+    <script type="text/javascript" src="/TeamProject/js/member.js?"></script>
 </head>
 <body>
-<jsp:include page="nav.jsp"></jsp:include>
+<jsp:include page="/ui/nav.jsp"></jsp:include>
 <!-- 왼쪽, 오른쪽 바깥여백을 auto로 주면 중앙정렬된다.  -->
     <div align="center">
         <br><br>
@@ -39,7 +40,7 @@
         <br><br><br>
     </div>
     <div id="wrap">
-<form action="join.do" method="post" name="frm">
+<form action="/TeamProject/join.do" method="post" name="frm">
 	<table>
 		<tr>
 			<td>이름</td>
@@ -89,6 +90,6 @@
 </form>
 </div>
 
-<jsp:include page="footer.jsp"></jsp:include>
+<jsp:include page="/ui/footer.jsp"></jsp:include>
 </body>
 </html>

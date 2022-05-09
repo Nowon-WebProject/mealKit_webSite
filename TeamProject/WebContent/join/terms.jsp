@@ -2,10 +2,11 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<!-- 약관 페이지 -->
 <head>
 <meta charset="UTF-8">
 <title>이젠, 집에서 | 회원가입</title>
-<link href="css/styles.css" rel="stylesheet" />
+<link href="/TeamProject/css/styles.css" rel="stylesheet" />
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -42,7 +43,7 @@
 </style>
 </head>
 <body>
-<jsp:include page="nav.jsp"></jsp:include>
+<jsp:include page="/ui/nav.jsp"></jsp:include>
 <div id="wrap">
 <div id="table" align="center">
 <div class="table-cell">
@@ -286,13 +287,13 @@
 				<div align="left"><input type="checkbox" id="check_1"  name="" /> <strong>(필수)</strong><em>만 14세 이상입니다</em>.<br/></div>
              	<div align="left"><input type="checkbox" id="check_2"  name="" /> <strong>(필수)</strong> <em>이용약관</em><br /></div>
                 <div align="left"><input type="checkbox" id="check_3"  name="" /> <strong>(필수)</strong> <em>개인정보 수집 및 이용</em><br /></div>
-				<input type="button" class="form-btn" value="이전" onclick="location.href='login.jsp'">
+				<input type="button" class="form-btn" value="이전" onclick="location.href='/TeamProject/login/login.jsp'">
 				<input type="button" class="form-btn" value="다음" id="nextBtn">
 			</form>		
 </div>
 </div>		
 </div>
 </div>
-<jsp:include page="footer.jsp"></jsp:include>
+<jsp:include page="/ui/footer.jsp"></jsp:include>
 </body>
 </html>

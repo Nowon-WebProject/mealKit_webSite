@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.EZHOME.dao.UserDAO;
+import kr.co.EZHOME.domain.DataStatus;
 
 
 /**
@@ -36,12 +37,12 @@ public class IdCheckServlet extends HttpServlet {
 		
 		String userid=request.getParameter("userid");
 		UserDAO udao=UserDAO.getInstance();
-		int result=udao.confrimID(userid);
+		DataStatus result= udao.confrimID(userid);
 		
 		request.setAttribute("userid",userid);
 		request.setAttribute("result",result);
 		
-		RequestDispatcher dispatcher=request.getRequestDispatcher("idcheck.jsp");
+		RequestDispatcher dispatcher=request.getRequestDispatcher("/join/idcheck.jsp");
 		 dispatcher.forward(request, response);
 	}
 

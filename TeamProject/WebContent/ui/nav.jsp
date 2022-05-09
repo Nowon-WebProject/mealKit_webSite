@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<!-- 메인 페이지  navigation bar 부분 -->
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -9,12 +10,12 @@
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="/TeamProject/css/styles.css" rel="stylesheet" />
         
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+        <script src="/TeamProject/js/scripts.js"></script>
         
 </head>
 <body>
@@ -46,11 +47,11 @@
 	
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="index.jsp">이젠, 집에서</a>
+                <a class="navbar-brand" href="/TeamProject/index.jsp">이젠, 집에서</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link" href="about.jsp">사이트 소개</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/TeamProject/introduce/about.jsp">사이트 소개</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">게시판</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -73,7 +74,7 @@
 
                     &nbsp;&nbsp;&nbsp;
                     <%if(name != null){ %>
-	                <form action ="myPage.jsp" class="d-flex">
+	                <form action ="/TeamProject/myPage/myPage.jsp" class="d-flex">
 	                    <button class="btn btn-outline-dark" type="submit">
 	                            	마이페이지
 	                    </button>
@@ -87,13 +88,13 @@
                         </button>
                     </form>
 	                <br>
-                    <form action ="logout.jsp" class="d-flex">
+                    <form action ="/TeamProject/login/logout.jsp" class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                             		로그아웃
                         </button>
                     </form>    
 	                    <%if(admin == 1){ %>
-	                    <form action ="managePage.jsp" class="d-flex">
+	                    <form action ="/TeamProject/managePage/managePage.jsp" class="d-flex">
 	                        <button class="btn btn-outline-dark" type="submit">
 	                            	관리자페이지
 	                        </button>
@@ -101,7 +102,7 @@
 	                    
 	                    <%} %>      
                     <%} else { %>
-                    <form action ="login.jsp" class="d-flex">
+                    <form action ="/TeamProject/login/login.jsp" class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                             	로그인/회원가입</button>
                     </form>

@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import kr.co.EZHOME.dao.UserDAO;
+import kr.co.EZHOME.domain.LoginStatus;
+import kr.co.EZHOME.domain.User;
 import kr.co.EZHOME.dto.UserDTO;
 
 /**
@@ -31,9 +34,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// response.getWriter().append("Served at: ").append(request.getContextPath());
-	
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -42,42 +43,57 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// doGet(request, response);
 		
-		String url = "login.jsp";
+		String url = "/login/login.jsp";
 		String userid = request.getParameter("userid");
 		String pwd = request.getParameter("pwd");
-
-		UserDAO udao = UserDAO.getInstance();
-		int result = udao.userCheck(userid, pwd);
-		if (result == 1) {
-			UserDTO udto = udao.getMember(userid);
-
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", udto);
-			
-			
-			session.setAttribute("name", udto.getName());
-			session.setAttribute("id", udto.getUserid());
-			session.setAttribute("pwd",udto.getPwd());
-			session.setAttribute("email",udto.getEmail());
-			session.setAttribute("phone",udto.getPhone());
-			session.setAttribute("admin", udto.getAdmin());
-			
-			
-			session.setAttribute("result", result);
-			
+		User user;
+		
+		try {
+			validate(userid, pwd);
+			UserDAO udao = UserDAO.getInstance();
+			user = udao.findUser(userid);
+		}catch (Exception e) {
+			request.setAttribute("message", e.getMessage());
+			forward(request, response, url);
+			e.printStackTrace();
+			return;
+		}
+		
+		LoginStatus result = user.login(pwd);
+		
+		if (result == LoginStatus.LOGIN_SUCCESS) {
+			makeSession(request, user);
 			request.setAttribute("message", "로그인 되었습니다.");
 			url = "index.jsp";
-		} else if (result == 0) {
+		} else if (result == LoginStatus.PASSWORD_WRONG) {
 			request.setAttribute("message", "비밀번호가 맞지 않습니다.");
-		} else if (result == -1) {
-			request.setAttribute("message", "존재하지 않는 회원입니다.");
-		} 
-
+		}
+		forward(request, response, url);
+	}
+	
+	private void forward(HttpServletRequest request, HttpServletResponse response, String url) throws IOException, ServletException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);
 	}
-
+	
+	private void makeSession(HttpServletRequest request, User user) {
+		HttpSession session = request.getSession();
+		session.setAttribute("loginUser", user);
+		session.setAttribute("name", user.getName());
+		session.setAttribute("id", user.getUserid());
+		session.setAttribute("pwd",user.getPassword());
+		session.setAttribute("email",user.getEmail());
+		session.setAttribute("phone",user.getPhone());
+		session.setAttribute("admin", user.getAdmin());
+	}
+	
+	private void validate(String userid, String pwd) {
+		if (userid == null || userid == "") {
+			throw new IllegalArgumentException("아이디가 비워있습니다.");
+		}
+		else if(pwd == null || pwd == "") {
+			throw new IllegalArgumentException("패스워드가 비워있습니다.");
+		}
+	}
 }

@@ -58,14 +58,8 @@ public class JoinServlet extends HttpServlet {
 		
 		System.out.println(name);
 		
-		UserDTO udto=new UserDTO();
-		udto.setName(name);
-		udto.setUserid(userid);
-		udto.setPwd(pwd);
-		udto.setEmail(email);
-		udto.setPhone(phone);
-		udto.setAdmin(Integer.parseInt(admin));
-		
+		UserDTO udto=new UserDTO(name, userid, pwd, email, phone, Integer.parseInt(admin));
+
 		UserDAO udao=UserDAO.getInstance();
 		int result=udao.insertMember(udto);
 		
