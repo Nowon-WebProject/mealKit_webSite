@@ -197,13 +197,17 @@ public class UserDAO {
 		try {
 			conn=getConnection();
 			pstmt=conn.prepareStatement(sql);
+			
 			pstmt.setString(1,udto.getPwd());
 			pstmt.setString(2,udto.getEmail());
 			pstmt.setString(3,udto.getPhone());
 			pstmt.setInt(4,udto.getAdmin());
 			pstmt.setString(5,udto.getUserid());
 			
-			result=pstmt.executeUpdate();//
+			result=pstmt.executeUpdate();
+			
+			
+			
 			System.out.println("result="+result);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -219,6 +223,8 @@ public class UserDAO {
 		}
 		
 		return result;
+		
+		
 	}
 
 }

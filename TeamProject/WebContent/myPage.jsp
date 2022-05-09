@@ -13,7 +13,7 @@
 
 	<div align="center">
 	<%= session.getAttribute("name")%>님 안녕하세요<br>
-	<a href ="#">회원정보 수정</a>
+	<a href ="modify.jsp">회원정보 수정</a>
 	</div>
 <jsp:include page="footer.jsp"></jsp:include>
 </body>
