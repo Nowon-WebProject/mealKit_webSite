@@ -15,13 +15,21 @@
 <form action="/TeamProject/idCheck.do" method="get" name="frm">
 	아이디<input type="text" name="userid" value="${userid}">
 	    <input type="submit" value="중복 체크"><br>
-	    
+	
+	<c:if test="${result == DataStatus.Invalid_InputValue}">
+		<script type="text/javascript">
+			opener.document.frm.userid.value="";
+		</script>
+		아이디는 4글자 이상이어야만 합니다.
+	</c:if>
+	
 	<c:if test="${result == DataStatus.Exist }">
 		<script type="text/javascript">
 			opener.document.frm.userid.value="";
 		</script>
 		${userid}는 이미 사용 중인 아이디입니다.
 	</c:if>
+	
 	<c:if test="${result == DataStatus.Not_Exist }">
 		${userid}는 사용 가능한 아이디입니다.
 		<input type="button" value="사용" onclick="idok('${userid}')">

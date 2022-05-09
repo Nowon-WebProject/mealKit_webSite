@@ -71,14 +71,8 @@
 			<td><input type="text" name="phone" size="20"></td>
 		</tr>
 		<tr>
-			<td>등급</td>
-			<td>
-				<input type="radio" name="admin" value="0" checked="checked">일반회원
-				<input type="radio" name="admin" value="1">관리자
-			</td>
-		</tr>
-		<tr>
 			<td colspan="2" align="center">
+				<input type="hidden" name="admin" value="0">
 				<input type="submit" value="확인" onclick="return joinCheck()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="reset" value="취소">
 			</td>

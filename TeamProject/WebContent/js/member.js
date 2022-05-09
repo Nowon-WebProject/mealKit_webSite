@@ -25,6 +25,13 @@ function idCheck(){
 		
 		return;
 	}
+	
+	if(document.frm.userid.value.length < 4){
+		alert("아이디 4글자 이상이어야 합니다.");
+		document.frm.userid.focus();
+	
+	return false;
+	}
 
 	var url="/TeamProject/idCheck.do?userid="+document.frm.userid.value;
 	window.open(url,"_blank_1","toolbar=no,menubar=no,"+"scrollbars=yes,resizable=no,width=450,height=200");

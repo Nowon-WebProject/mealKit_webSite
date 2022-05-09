@@ -72,7 +72,7 @@ public class JoinServlet extends HttpServlet {
 			request.setAttribute("message","회원 가입에 실패했습니다.");
 		}
 		
-		RequestDispatcher dispatcher=request.getRequestDispatcher("login.jsp");
+		RequestDispatcher dispatcher=request.getRequestDispatcher("/login/login.jsp");
 		 dispatcher.forward(request, response);
 	}
 
