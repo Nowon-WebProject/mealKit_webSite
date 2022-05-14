@@ -19,32 +19,14 @@
         
 </head>
 <body>
-	<%
-	String name = null;
-	String id = null;
-	String pw = null;
-	String email = null;
-	String phone = null;
-	int admin = 0;
-	
-	if(session.getAttribute("name") != null){
-		name = (String) session.getAttribute("name");
-		id = (String) session.getAttribute("id");
-		pw = (String) session.getAttribute("pw");
-		email = (String) session.getAttribute("email");
-		phone = (String) session.getAttribute("phone");
-		admin = (int) session.getAttribute("admin");
-	}
-	%>
-
-	
-	이름<%=name%><br>
-	아이디<%=id%><br>
-	비밀번호<%=pw%><br>
-	이메일<%=email%><br>
-	전화번호<%=phone%><br>
-	권한<%=admin%><br>
-	
+<%
+	String name = (String)session.getAttribute("name");
+	int admin;
+	if (name == null)
+		admin = -1;
+	else
+		admin = (Integer)session.getAttribute("admin");
+%>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="/TeamProject/index.jsp">이젠, 집에서</a>

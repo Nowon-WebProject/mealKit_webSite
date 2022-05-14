@@ -1,6 +1,7 @@
 package kr.co.EZHOME.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -54,8 +55,13 @@ public class UserDAO {
 				user.setName(rs.getString("name"));
 				user.setUserid(rs.getString("userid"));
 				user.setPassword(rs.getString("pwd"));
+				user.setBirth(rs.getDate("birth").toString());
 				user.setEmail(rs.getString("email"));
 				user.setPhone(rs.getString("phone"));
+				user.setRegistDate(rs.getDate("registDate").toString());
+				user.setAddr(rs.getString("addr"));
+				user.setDeli(rs.getString("deli"));
+				user.setPoint(rs.getInt("point"));
 				user.setAdmin(rs.getInt("admin"));
 			}
 			else {
@@ -159,8 +165,8 @@ public class UserDAO {
 	}
 	
 	public int insertMember(UserDTO udto) {
-		int result=-1;
-		String sql="insert into usertbl values(?,?,?,?,?,?)";
+		int result=-1;				// name1, username2, pwd3, birth4, email5, phone6, rdate7, addr8, deli9, point10, admin11
+		String sql="insert into usertbl values(?, ?, ?, ?, ?, ?, default, ?, ?, ?, ?)";		
 		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -171,9 +177,13 @@ public class UserDAO {
 			pstmt.setString(1,udto.getName());
 			pstmt.setString(2,udto.getUserid());
 			pstmt.setString(3,udto.getPwd());
-			pstmt.setString(4,udto.getEmail());
-			pstmt.setString(5,udto.getPhone());
-			pstmt.setInt(6,udto.getAdmin());
+			pstmt.setDate(4,udto.transformDate(udto.getBirth()));
+			pstmt.setString(5,udto.getEmail());
+			pstmt.setString(6,udto.getPhone());
+			pstmt.setString(7,udto.getAddr());
+			pstmt.setString(8,udto.getDeliAddr());
+			pstmt.setInt(9,udto.getPoint());
+			pstmt.setInt(10,udto.getAdmin());
 			
 			result=pstmt.executeUpdate();
 			
