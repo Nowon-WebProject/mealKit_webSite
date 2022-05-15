@@ -22,6 +22,7 @@
 <%
 	String name = (String)session.getAttribute("name");
 	int admin;
+	//세션이 없는 경우
 	if (name == null)
 		admin = -1;
 	else

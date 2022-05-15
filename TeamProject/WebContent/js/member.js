@@ -1,18 +1,82 @@
 //반응형 jquery 문
 $(document).ready(function() {
+	//전화번호 -자동입력
 	$(".phone").keydown(function(event) {
+		//event.charCode : 눌린 키보드의 char 값
+		//event.keyCode : 눌린 키보드의 char 값
+		//크롬의 경우 keyCode에 값이 찍힌다
+		//즉 key 값은 눌린 키보드의 값이라고 보면된다
+		//둘다 없을땐 0
 		var key = event.charCode || event.keyCode || 0;
 		$text = $(this);
+		// 8 = 백스페이스 , 9 = tab
 		if (key !== 8 && key !== 9) {
 			if ($text.val().length === 3) {
 				$text.val($text.val() + '-');
 			}
+			// == vs ===
+			// ==은 우항에 맞게 형변환하여 true,false 를 해주지만 === 은 형변환을 해서 비교하지 않는다
+			// ex) 1 == '1' (true), 1 === '1' (false)
 			if ($text.val().length === 8) {
 				$text.val($text.val() + '-');
 			}
 		}
- 
+		// 8: 벡스페이스, 9: tab , 46 : . , 48 ~ 57 : 숫자  96~105: 숫자 (탠키리스 아닌 키보드의 숫자패드)
+		// 눌린값 리턴
 		return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
+	});
+	
+	//user id 클릭시 아이디 유효성 검증 띄우기
+	$("#userid").one("click", function() {
+		var txt_guide = $(".txt_guide");
+		
+		txt_guide.css("display", "block");
+	});
+	
+	$("#userid").keyup(function(event) {
+		var key = event.charCode || event.keyCode || 0;
+		var text = $(this);
+		var valid = true;
+		var checkEng = false;
+		
+		//새로운 값이 들어왔으므로 id 중복체크 다시해줘야함
+		$(".goodCheckedId").attr("class", "badCheckedId");
+		
+		if (text.val().length < 4) {
+			//class 변경 attr 에 클래스명 적을때는 . 찍지 말것
+			$(".goodId").attr("class", "badId");
+			document.frm.idValid.value = false;
+			return ;
+		}
+		//입력한 문자열에 영문자 혹은 숫자가 있을경우
+		for (var i = 0; i < text.val().length; i++) {
+			//해당 문자를 아스키코드로 변환
+			var c = text.val().charCodeAt(i);
+
+			//영문일때 현재 반복문 스킵
+			if ((c >= 65 && c <= 90) || (c >=  97 && c <= 122)) {
+				//아이디가 숫자만 일때를 대비하여 eng 유무를 check
+				checkEng = true;
+				continue ;
+			}
+			//숫자일때 현재 반복문 스킵
+			if (c >= 48 && c <= 57) {
+				continue;
+			}
+			//영어 및 숫자가 아닌 문자가 문자열에 들어있을때
+			valid = false;
+			break;
+		}
+		
+		if (valid == true && checkEng == true) {
+			$(".badId").attr("class", "goodId");
+			document.frm.idValid.value = true;
+		}
+		else {
+			$(".goodId").attr("class", "badId");
+			document.frm.idValid.value = false;
+		}
+		return ;
 	});
 });
 
@@ -45,11 +109,11 @@ function idCheck(){
 		return;
 	}
 	
-	if(document.frm.userid.value.length < 4){
-		alert("아이디 4글자 이상이어야 합니다.");
+	if(document.frm.idValid.value === "false"){
+		alert("아이디는 4자 이상의 영문 혹은 영문과 숫자를 조합 이어야 합니다.");
 		document.frm.userid.focus();
 	
-	return false;
+		return false;
 	}
 
 	var url="/TeamProject/idCheck.do?userid="+document.frm.userid.value;
@@ -59,6 +123,8 @@ function idCheck(){
 function idok(userid){
 	opener.frm.userid.value=document.frm.userid.value;
 	opener.frm.reid.value=document.frm.userid.value;
+	//중복확인 되었을때 guide txt 도 초록색으로 변경
+	opener.$(".badCheckedId").attr("class", "goodCheckedId");
 	self.close();
 }
 
