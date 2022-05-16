@@ -55,14 +55,25 @@ public class UserDAO {
 				user.setName(rs.getString("name"));
 				user.setUserid(rs.getString("userid"));
 				user.setPassword(rs.getString("pwd"));
-				user.setBirth(rs.getDate("birth").toString());
 				user.setEmail(rs.getString("email"));
 				user.setPhone(rs.getString("phone"));
-				user.setRegistDate(rs.getDate("registDate").toString());
 				user.setAddr(rs.getString("addr"));
 				user.setDeli(rs.getString("deli"));
 				user.setPoint(rs.getInt("point"));
 				user.setAdmin(rs.getInt("admin"));
+				//Date값이 null 일때 toString 메서드를 사용하면 NullPointerException 에러가 발생한다
+				if (rs.getDate("birth") == null) {
+					user.setBirth(null);
+				}
+				else {
+					user.setBirth(rs.getDate("birth").toString());
+				}
+				if (rs.getDate("RegistDate") == null) {
+					user.setRegistDate(null);
+				}
+				else {
+					user.setRegistDate(rs.getDate("birth").toString());
+				}
 			}
 			else {
 				throw new IllegalArgumentException("존재하지 않는 회원입니다.");

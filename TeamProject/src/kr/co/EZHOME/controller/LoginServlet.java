@@ -45,8 +45,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String url = "/login/login.jsp";
-		//소문자로 바꿔서 userid 넣기 (DB 자체에서 소대문자 구분을 안하기 때문)
-		String userid = request.getParameter("userid").toLowerCase();
+		String userid = request.getParameter("userid");
 		String pwd = request.getParameter("pwd");
 		User user;
 		
