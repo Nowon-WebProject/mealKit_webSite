@@ -31,54 +31,12 @@
             background-color:#fd7e14
         }
         
-        .txt_guide {
-        	display: none;
-        }
-        
-        .badId, .badCheckedId {
-/* 		    display: none; */
-		    padding: 10px 0 9px;
-		    font-size: 12px;
-		    color: red;
-		    line-height: 18px;
-	   		word-break: break-all; 
-		    letter-spacing: -.1px;
- 		    clear: both;
-		}
- 		.badId:before, .badCheckedId:before{ 
- 			/* \2715 : x 아이콘*/
-     		content: '\2715'; 
-     		display: inline-block; 
-    		padding: 0 4px 0 2px; 
-    		font-size: 12px; 
-     		vertical-align: 0; 
- 		} 
- 		
- 		.goodId, .goodCheckedId {
-/* 		    display: none; */
-			/* \2713 : 체크아이콘 */
-			content: '\2713';
-		    padding: 10px 0 9px;
-		    font-size: 12px;
-		    color: green;
-		    line-height: 18px;
-	   		word-break: break-all; 
-		    letter-spacing: -.1px;
- 		    clear: both;
-		}
- 		
- 		.goodId:before, .goodCheckedId:before {
-    		content: '\2713';
-    		display: inline-block;
-    		padding: 0 4px 0 2px;
-    		font-size: 12px;
-    		vertical-align: 0;
- 		}
+
 		
     </style>
     <script type="text/javascript" src="/TeamProject/js/libs/jquery-3.6.0.min.js"></script>
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-    <script type="text/javascript" src="/TeamProject/js/member.js?test=40"></script>
+    <script type="text/javascript" src="/TeamProject/js/member.js?test=48"></script>
     <!-- 도로명 주소 검색시 사용하는 daum api -->
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
@@ -111,7 +69,7 @@
 			<tr>
 				<td/>
 				<td>
-					<p class="txt_guide" >
+					<p class="txt_guideId" >
 						<span class="badId">4자 이상의 영문 혹은 영문과 숫자를 조합</span>
 						<input type="hidden" name="idValid" size="20">
 						<br>
@@ -125,7 +83,17 @@
 			</tr>
 			<tr height="30">
 				<td width="80">암호 확인</td>
-				<td><input type="password" name="pwd_check" size="20">*</td>
+				<td><input type="password" id="pwd_check" name="pwd_check" size="20">*</td>
+			</tr>
+			<tr>
+				<td/>
+				<td>
+				<!-- 작업해야함 -->
+					<p class="txt_guidePassword" >
+						<span class="passwordGuide">비밀번호를 입력해주세요</span>
+						<input type="hidden" name="passwordValid" size="20">
+					</p>
+				</td>
 			</tr>
 			<tr>
 				<td>생년월일</td>

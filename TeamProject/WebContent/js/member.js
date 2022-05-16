@@ -28,7 +28,7 @@ $(document).ready(function() {
 	
 	//user id 클릭시 아이디 유효성 검증 띄우기
 	$("#userid").one("click", function() {
-		var txt_guide = $(".txt_guide");
+		var txt_guide = $(".txt_guideId");
 		
 		txt_guide.css("display", "block");
 	});
@@ -77,6 +77,26 @@ $(document).ready(function() {
 			document.frm.idValid.value = false;
 		}
 		return ;
+	});
+	
+	$("#pwd_check").one("click", function() {
+		var txt_guide = $(".txt_guidePassword");
+		
+		txt_guide.css("display", "block");
+	});
+	
+	$("#pwd_check").keyup(function(event) {
+		var key = event.charCode || event.keyCode || 0;
+		var text = $(this);
+		var guideText = $(".passwordGuide");
+		
+		if (text.val().length === 0) {
+			guideText.text('비밀번호를 입력해주세요');
+			//guideText.html('비밀번호를 입력해주세요');
+			return ;
+		}
+		
+		
 	});
 });
 
