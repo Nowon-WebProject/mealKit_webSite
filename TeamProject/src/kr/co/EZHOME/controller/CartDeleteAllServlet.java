@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.EZHOME.dao.CartDAO;
 import kr.co.EZHOME.dto.CartDTO;
@@ -42,7 +43,8 @@ public class CartDeleteAllServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
-		String userid = request.getParameter("userid");
+		HttpSession session = request.getSession();
+		String userid = (String) session.getAttribute("userid");
 		CartDAO cdao = CartDAO.getInstance();
 		cdao.deleteAllCart(userid);
 		response.sendRedirect("cartlist.do");

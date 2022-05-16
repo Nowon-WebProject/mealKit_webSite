@@ -42,12 +42,11 @@ public class PurchaseOkListServlet extends HttpServlet {
 		String url="purchaseOkInfo.jsp";
 		
 		HttpSession session = request.getSession();
-		String userid = (String) session.getAttribute("id");
+		String userid = (String) session.getAttribute("userid");
 		
 		PurchaseDAO pdao=PurchaseDAO.getInstance();
 		ArrayList<PurchaseDTO> plist = pdao.selectPurchaseList(userid);
 		request.setAttribute("plist", plist);
-		
 		
 		RequestDispatcher dispatcher=request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);

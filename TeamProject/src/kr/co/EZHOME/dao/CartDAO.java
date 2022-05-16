@@ -34,8 +34,8 @@ public class CartDAO {
 	}
 
 	public ArrayList<CartDTO> selectCartProduct(String userid) {
-		String sql = "select cart_seq, product_price, product_name, product_cnt from carttbl where userid=? order by cart_seq asc";
-		ArrayList<CartDTO> productList = new ArrayList<CartDTO>();
+		String sql = "select cart_seq, item_price, item_name, item_cnt from carttbl where userid=? order by cart_seq asc";
+		ArrayList<CartDTO> itemList = new ArrayList<CartDTO>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -49,10 +49,10 @@ public class CartDAO {
 			while (rs.next()) {
 				CartDTO cdto = new CartDTO();
 				cdto.setCart_seq(rs.getInt("cart_seq"));
-				cdto.setProduct_name(rs.getString("product_name"));
-				cdto.setProduct_price(rs.getString("product_price"));
-				cdto.setProduct_cnt(rs.getInt("product_cnt"));
-				productList.add(cdto);
+				cdto.setItem_name(rs.getString("item_name"));
+				cdto.setItem_price(rs.getString("item_price"));
+				cdto.setItem_cnt(rs.getInt("item_cnt"));
+				itemList.add(cdto);
 
 			}
 		} catch (Exception e) {
@@ -69,11 +69,11 @@ public class CartDAO {
 				e.printStackTrace();
 			}
 		}
-		return productList;
+		return itemList;
 	}
 
 	public ArrayList<CartDTO> updateCartProduct(CartDTO cdto) {
-		String sql = "update carttbl set product_cnt=? where userid=?";
+		String sql = "update carttbl set item_cnt=? where userid=?";
 
 		ArrayList<CartDTO> productList = new ArrayList<CartDTO>();
 		Connection conn = null;
@@ -82,9 +82,10 @@ public class CartDAO {
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, cdto.getProduct_cnt());
+			pstmt.setInt(1, cdto.getItem_cnt());
 			pstmt.setString(2, cdto.getUserid());
 			pstmt.executeUpdate();
+			System.out.println(cdto.getUserid()+"님의 장바구니 등록 완료");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -103,7 +104,7 @@ public class CartDAO {
 	}
 
 	public int cartCnt(String userid) {
-		int CartCnt = 0;
+		int cartCnt = 0;
 		String sql = "select count(*) from carttbl where userid=?";
 
 		Connection conn = null;
@@ -117,7 +118,8 @@ public class CartDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				CartCnt = rs.getInt(1);
+				cartCnt = rs.getInt(1);
+				System.out.println(userid+"님의 장바구니 갯수"+cartCnt);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -134,7 +136,7 @@ public class CartDAO {
 			}
 		}
 
-		return CartCnt;
+		return cartCnt;
 	}
 
 	public void insertCart(CartDTO cdto) {
@@ -147,11 +149,13 @@ public class CartDAO {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, cdto.getUserid());
-			pstmt.setString(2, cdto.getProduct_name());
-			pstmt.setString(3, cdto.getProduct_price());
-			pstmt.setInt(4, cdto.getProduct_cnt());
+			pstmt.setString(2, cdto.getItem_name());
+			pstmt.setString(3, cdto.getItem_price());
+			pstmt.setInt(4, cdto.getItem_cnt());
 
 			pstmt.executeUpdate();
+			
+			System.out.println(cdto.getUserid()+"님의 장바구니에 담기 완료");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -178,7 +182,7 @@ public class CartDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, cart_seq);
 			pstmt.executeUpdate();
-			System.out.println("삭제 성공");
+			System.out.println("장바구니 번호"+cart_seq+"번 삭제 완료");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -205,7 +209,7 @@ public class CartDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userid);
 			pstmt.executeUpdate();
-			System.out.println("전체삭제 성공");
+			System.out.println(userid+"님의 장바구니 전체삭제 완료");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -222,8 +226,8 @@ public class CartDAO {
 
 	}
 	
-	public void cartCntModify(int product_cnt, int cart_seq) {
-		String sql="update carttbl set product_cnt=? where cart_seq=?";
+	public void cartCntModify(int item_cnt, int cart_seq) {
+		String sql="update carttbl set item_cnt=? where cart_seq=?";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -231,10 +235,10 @@ public class CartDAO {
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, product_cnt);
+			pstmt.setInt(1, item_cnt);
 			pstmt.setInt(2, cart_seq);
 			pstmt.executeUpdate();
-			System.out.println("수량변경 성공");
+			System.out.println("장바구니 번호"+cart_seq+"번 수량"+item_cnt+"으로 변경 완료");
 
 		} catch (Exception e) {
 			e.printStackTrace();

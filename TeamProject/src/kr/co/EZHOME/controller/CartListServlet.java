@@ -40,14 +40,14 @@ public class CartListServlet extends HttpServlet {
 		String url="cart.jsp";
 		
 		HttpSession session = request.getSession();
-		String userid = (String) session.getAttribute("id");
+		String userid = (String) session.getAttribute("userid");
 		
-		CartDAO productDAO=CartDAO.getInstance();
-		ArrayList<CartDTO> clist=productDAO.selectCartProduct(userid);
+		CartDAO cdao=CartDAO.getInstance();
+		ArrayList<CartDTO> clist=cdao.selectCartProduct(userid);
 		request.setAttribute("clist", clist);
 		
 		
-		session.setAttribute("cartcnt", productDAO.cartCnt(userid));
+		session.setAttribute("cartcnt", cdao.cartCnt(userid));
 		
 		
 		RequestDispatcher dispatcher=request.getRequestDispatcher(url);

@@ -46,25 +46,24 @@ public class CartInsertServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		HttpSession session=request.getSession();
 		request.setCharacterEncoding("utf-8");
-
-		String userid = request.getParameter("userid");
-		String product_name = request.getParameter("product_name");
-		String product_price = request.getParameter("product_price");
-		String product_cnt = request.getParameter("product_cnt");
+		String userid = (String) session.getAttribute("userid");
+		String item_name = request.getParameter("item_name");
+		String item_price = request.getParameter("item_price");
+		String item_cnt = request.getParameter("item_cnt");
 
 
 		CartDTO cdto = new CartDTO();
 		cdto.setUserid(userid);
-		cdto.setProduct_name(product_name);
-		cdto.setProduct_price(product_price);
-		cdto.setProduct_cnt(Integer.parseInt(product_cnt));
+		cdto.setItem_name(item_name);
+		cdto.setItem_price(item_price);
+		cdto.setItem_cnt(Integer.parseInt(item_cnt));
 		
 
 		CartDAO cdao = CartDAO.getInstance();
 		cdao.insertCart(cdto);
 		
-		HttpSession session=request.getSession();
 		
 		session.setAttribute("cartcnt",cdao.cartCnt(userid));
 		

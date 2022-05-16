@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import kr.co.EZHOME.dao.CartDAO;
 import kr.co.EZHOME.dto.CartDTO;
+import kr.co.EZHOME.dto.UserDTO;
 
 /**
  * Servlet implementation class PurchaseServlet
@@ -46,15 +47,12 @@ public class PurchaseServlet extends HttpServlet {
 		String url="purchase.jsp";
 		
 		HttpSession session = request.getSession();
-		String userid = (String) session.getAttribute("id");
+		String userid = (String) session.getAttribute("userid");
 		
-		CartDAO productDAO=CartDAO.getInstance();
-		ArrayList<CartDTO> clist=productDAO.selectCartProduct(userid);
+		CartDAO cdao=CartDAO.getInstance();
+		ArrayList<CartDTO> clist=cdao.selectCartProduct(userid);
 		request.setAttribute("clist", clist);
-		
-		
-		session.setAttribute("cartcnt", productDAO.cartCnt(userid));
-		
+		session.setAttribute("cartcnt", cdao.cartCnt(userid));
 		
 		RequestDispatcher dispatcher=request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);

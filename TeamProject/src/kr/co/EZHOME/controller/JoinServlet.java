@@ -52,8 +52,13 @@ public class JoinServlet extends HttpServlet {
 		String  name=request.getParameter("name");
 		String  userid=request.getParameter("userid");
 		String  pwd=request.getParameter("pwd");
+		String  birth=request.getParameter("birth");
 		String  email=request.getParameter("email");
 		String  phone=request.getParameter("phone");
+		// 생성일자
+		String  addr=request.getParameter("addr");
+		String  deliAddr=request.getParameter("deliAddr");
+		String  point=request.getParameter("point");
 		String  admin=request.getParameter("admin");
 		
 		System.out.println(name);
@@ -62,8 +67,13 @@ public class JoinServlet extends HttpServlet {
 		udto.setName(name);
 		udto.setUserid(userid);
 		udto.setPwd(pwd);
+		
 		udto.setEmail(email);
 		udto.setPhone(phone);
+		
+		udto.setAddr(addr);
+		udto.setDeliAddr(deliAddr);
+		udto.setPoint(Integer.parseInt(point));
 		udto.setAdmin(Integer.parseInt(admin));
 		
 		UserDAO udao=UserDAO.getInstance();

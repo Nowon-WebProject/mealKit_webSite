@@ -42,11 +42,11 @@ public class CartCntModify extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		
-		int product_cnt = Integer.parseInt(request.getParameter("product_cnt"));
+		int item_cnt = Integer.parseInt(request.getParameter("item_cnt"));
 		int cart_seq =  Integer.parseInt(request.getParameter("cart_seq"));
 		
 		CartDAO cdao = CartDAO.getInstance();
-		cdao.cartCntModify(product_cnt, cart_seq);
+		cdao.cartCntModify(item_cnt, cart_seq);
 		
 		response.sendRedirect("cartlist.do");
 		

@@ -61,11 +61,13 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("loginUser", udto);
 			
 			session.setAttribute("name", udto.getName());
-			session.setAttribute("id", udto.getUserid());
+			session.setAttribute("userid", udto.getUserid());
 			session.setAttribute("pwd",udto.getPwd());
 			session.setAttribute("email",udto.getEmail());
 			session.setAttribute("phone",udto.getPhone());
 			session.setAttribute("admin", udto.getAdmin());
+			session.setAttribute("addr", udto.getAddr());
+			session.setAttribute("point", udto.getPoint());
 			
 			session.setAttribute("cartcnt", cdao.cartCnt(userid));
 			
