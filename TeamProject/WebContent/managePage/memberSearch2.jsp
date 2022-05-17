@@ -47,11 +47,8 @@ td {
 	<br>
 	<br>
 	<%
-		request.setCharacterEncoding("UTF-8");
-		String type = request.getParameter("type");
-		String key = request.getParameter("key");
-		UserDAO mdao = UserDAO.getInstance();
-		Vector<UserVO> vec = mdao.MemberSearch(type, key);
+		
+		Vector<UserVO> vec =(Vector<UserVO>)request.getAttribute("vec");
 	%>
 	<div id="wrap" align="center">
 	<table class='mini'>
@@ -78,7 +75,7 @@ td {
 			%>
 		</table>
 		<br> <br>
-		<form action="memberSearch2.jsp" method="post">
+		<form action="/TeamProject/memberSearch.do" method="post">
 			<select name="type">
 				<option value="userid">ID</option>
 				<option value="name">이름</option>

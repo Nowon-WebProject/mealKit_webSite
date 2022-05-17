@@ -60,7 +60,7 @@ td {
 				<th>이메일</th>
 				<th>전화번호</th>
 			</tr></table>
-		<table class='scrolltable'>
+		<table >
 	
 			<%
 				for (int i = 0; i < vec.size(); i++) {
@@ -77,7 +77,7 @@ td {
 			%>
 		</table>
 		<br> <br>
-		<form action="memberSearch2.jsp" method="post">
+		<form action="/TeamProject/memberSearch.do" method="post">
 			<select name="type">
 				<option value="userid">ID</option>
 				<option value="name">이름</option>
