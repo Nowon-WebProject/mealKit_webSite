@@ -45,10 +45,21 @@ public class memberSearchServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String type = request.getParameter("type");
 		String key = request.getParameter("key");
+		String[] arr= {"","",""};
+		
+		if(type.equals("userid")) {
+			arr[0]="selected";
+		}else if(type.equals("name")) {
+			arr[1]="selected";
+		}else if(type.equals("phone")) {
+			arr[2]="selected";
+		}
+		
 		UserDAO mdao = UserDAO.getInstance();
 		Vector<UserVO> vec = mdao.MemberSearch(type, key);
 		
 		request.setAttribute("vec", vec);
+		request.setAttribute("arr", arr);
 		
 		ServletContext context = getServletContext();
 		 RequestDispatcher dispatcher = context.getRequestDispatcher("//managePage/memberSearch2.jsp");

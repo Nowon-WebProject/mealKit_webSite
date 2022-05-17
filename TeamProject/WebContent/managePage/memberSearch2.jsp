@@ -18,21 +18,21 @@
 .info table {
 	width: 800px;
 	height: 300px;
-	border: 1px solid #000;
+	border: 1px solid orange;
 	border-spacing: 0;
 }
 
 .info th {
 	width: 200px;
 	height: 35px;
-	border: 1px solid #000;
-	background: #ace;
+	border: 1px solid orange;
+	background: orange;
 }
 
 .info td {
 	width: 200px;
 	height: 30px;
-	border: 1px solid #000;
+	border: 1px solid orange;
 	
 }
 </style>
@@ -43,7 +43,7 @@
 	<br>
 	<br>
 	<%
-		
+		String[] arr=(String[])request.getAttribute("arr");
 		Vector<UserVO> vec =(Vector<UserVO>)request.getAttribute("vec");
 	%>
 	<div align="center" class="info" >
@@ -72,9 +72,9 @@
 		<br> <br>
 		<form action="/TeamProject/memberSearch.do" method="post">
 			<select name="type">
-				<option value="userid">ID</option>
-				<option value="name">이름</option>
-				<option value="phone">전화번호</option>
+				<option value="userid"<%=arr[0] %>>ID</option>
+				<option value="name"<%=arr[1] %>>이름</option>
+				<option value="phone"<%=arr[2] %>>전화번호</option>
 			</select> <input type="text" name="key"> <input type="submit"
 				value="검색">
 

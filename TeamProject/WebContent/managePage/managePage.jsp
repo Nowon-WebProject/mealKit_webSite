@@ -22,7 +22,7 @@
 		<h2>관리자 페이지</h2>
 		<br>
 		<br>
-		<button type="button" class="btn btn-primary active" id="btn"
+		<button type="button" class="btn btn-primary active" id="btn" color="orange"
 			onclick="document.location.href='memberSearch.jsp'">회원 관리</button>
 	</div>
 	<br>

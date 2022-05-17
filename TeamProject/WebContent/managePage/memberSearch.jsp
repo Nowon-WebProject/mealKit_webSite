@@ -18,21 +18,21 @@
 .info table {
 	width: 800px;
 	height: 300px;
-	border: 1px solid #000;
+	border: 1px solid orange;
 	border-spacing: 0;
 }
 
 .info th {
 	width: 200px;
 	height: 35px;
-	border: 1px solid #000;
-	background: #ace;
+	border: 1px solid orange;
+	background: orange;
 }
 
 .info td {
 	width: 200px;
 	height: 30px;
-	border: 1px solid #000;
+	border: 1px solid orange;
 	
 }
 </style>
