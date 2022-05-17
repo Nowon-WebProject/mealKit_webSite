@@ -4,15 +4,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+
 import kr.co.EZHOME.domain.DataStatus;
 import kr.co.EZHOME.domain.LoginStatus;
 import kr.co.EZHOME.domain.User;
 import kr.co.EZHOME.dto.UserDTO;
+import kr.co.EZHOME.dto.UserVO;
 
 public class UserDAO {
 
@@ -77,6 +80,7 @@ public class UserDAO {
 		
 		return user;
 	}
+	
 
 	//userCheck의 pwd 비교하는 기능을 domain 패키지의 User 객체에서 수행하도록 변경
 //	public LoginStatus userCheck(String userid,String pwd) {
@@ -226,5 +230,73 @@ public class UserDAO {
 		
 		return result;
 	}
-
+	public Vector<UserVO> allSelectMember(){
+	      // 가변 길이로 데이터를 저장
+	      Vector<UserVO> vec=new Vector<UserVO>();
+	      
+	      UserVO udto=null;
+	      String sql="select * from usertbl";
+	      
+	      Connection conn=null;
+	      PreparedStatement pstmt=null;
+	      ResultSet rs=null;
+	      
+	      try {
+	         conn=getConnection();
+	         pstmt=conn.prepareStatement(sql);//
+	         rs=pstmt.executeQuery();//
+	         
+	         while(rs.next()) {
+	        	 UserVO mbean=new UserVO();
+	            mbean.setName(rs.getString(1));
+	            mbean.setUserid(rs.getString(2));
+	            mbean.setPwd(rs.getString(3));
+	            mbean.setEmail(rs.getString(4));
+	            mbean.setPhone(rs.getString(5));
+	            mbean.setAdmin(rs.getInt(6));
+	            vec.add(mbean);//
+	         }
+	         conn.close();
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	      }
+	      
+	      return vec;//
+	   }
+	public Vector<UserVO> MemberSearch(String type,String key){
+	      // 가변 길이로 데이터를 저장
+	      Vector<UserVO> vec=new Vector<UserVO>();
+	      
+	      
+	      UserDTO udto=null;
+	      String sql="select * from usertbl where "+type+" like "+"'%"+key+"%'";
+	      
+	      Connection conn=null;
+	      PreparedStatement pstmt=null;
+	      ResultSet rs=null;
+	      
+	     try {
+	         conn=getConnection();
+	         pstmt=conn.prepareStatement(sql);//
+	         rs=pstmt.executeQuery();//
+	         
+	         while(rs.next()) {
+	        	 UserVO mbean=new UserVO();
+	            mbean.setName(rs.getString(1));
+	            mbean.setUserid(rs.getString(2));
+	            mbean.setPwd(rs.getString(3));
+	            mbean.setEmail(rs.getString(4));
+	            mbean.setPhone(rs.getString(5));
+	            mbean.setAdmin(rs.getInt(6));
+	            vec.add(mbean);
+	         }
+	         conn.close();
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	      }
+	      
+	      
+	      
+	      return vec;//
+	   }
 }
