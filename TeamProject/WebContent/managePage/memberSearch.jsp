@@ -14,31 +14,26 @@
 	display: block;
 	overflow: auto;
 }
-.mini {
-	width: 800px;
-	height: 35px;
-	border: 1px solid #000;
-	background: #ace;
-}
 
-table {
+.info table {
 	width: 800px;
 	height: 300px;
 	border: 1px solid #000;
 	border-spacing: 0;
 }
 
-th {
+.info th {
 	width: 200px;
 	height: 35px;
 	border: 1px solid #000;
 	background: #ace;
 }
 
-td {
+.info td {
 	width: 200px;
 	height: 30px;
 	border: 1px solid #000;
+	
 }
 </style>
 </head>
@@ -52,15 +47,15 @@ td {
 		Vector<UserVO> vec = udao.allSelectMember();
 	%>
 
-	<div align="center">
-	<table class='mini'>
+	<div align="center" class="info" >
+	<table class="scrolltable">
 	<tr>
 				<th>이름</th>
 				<th>아이디</th>
 				<th>이메일</th>
 				<th>전화번호</th>
-			</tr></table>
-		<table >
+			</tr>
+		
 	
 			<%
 				for (int i = 0; i < vec.size(); i++) {
