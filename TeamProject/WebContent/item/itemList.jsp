@@ -14,10 +14,11 @@
 		<table class="list">
 			<tr>
 				<td colspan="10" style="border: white; text-align: right">
-					<a href="itemWrite.do">상품 등록</a>
+					<a href="itemWrite2.do">상품 등록</a>
 				</td>
 			</tr>
 			<tr>
+				<td>사진</td>
 				<td>상품 번호</td>
 				<td>카테고리</td>
 				<td>상품명</td>
@@ -31,6 +32,7 @@
 			</tr>
 			<c:forEach var="item" items="${itemList}">
 				<tr class="record">
+					<td>${item.item_pictureUrl}</td>
 					<td>${item.item_num}</td>
 					<td>${item.item_category}</td>
 					<td>${item.item_name}</td>
