@@ -57,28 +57,69 @@ public class ModifyServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		// doGet(request, response);
 		
-	
-		request.setCharacterEncoding("utf-8");
-
+		request.setCharacterEncoding("UTF-8");
+		
 		String userid = request.getParameter("userid");
 		String pwd = request.getParameter("pwd");
-		String email = request.getParameter("email");
-		String phone = request.getParameter("phone");
-		String admin = request.getParameter("admin");
-
-		UserDTO udto = new UserDTO();
-		udto.setUserid(userid);
-		udto.setPwd(pwd);
-		udto.setEmail(email);
-		udto.setPhone(phone);
-		udto.setAdmin(Integer.parseInt(admin));
-
-
-		UserDAO udao = UserDAO.getInstance();		
-		udao.updateMember(udto);
-		response.sendRedirect("login.do");
+		String email=request.getParameter("email")+"@"+request.getParameter("eMailSite");
+		String addr= "("+request.getParameter("addr")+") "+ request.getParameter("addr1") +", "+ request.getParameter("addr2");
+		UserDAO udao = UserDAO.getInstance();
+		int result = udao.userCheck(userid, pwd);
 		
+			
+		//String eMailSite = request.getParameter("eMailSite");
+		//String eMailForm = request.getParameter("eMailForm");
+		//String test = "직접입력";
+		//	if (test.equals(request.getParameter("emailForm"))) {
+		//		String email = "@" + eMailSite;
+		//	} else {
+		//		String email = "@" + eMailForm;
+		//	}
+			
+			
+			UserDTO udto = udao.getMember(userid);
+			udto.setPwd(request.getParameter("pwd"));
+			udto.setEmail(email);
+			udto.setPhone(request.getParameter("phone"));
+			udto.setAddr(addr);
+			
+			
+			
+			HttpSession session = request.getSession();
+			
+			session.setAttribute("loginUser", udto);
+			
+			session.setAttribute("name", udto.getName());
+			session.setAttribute("id", udto.getUserid());
+			session.setAttribute("pwd",udto.getPwd());
+			session.setAttribute("birth", udto.getBirth());
+			session.setAttribute("email",udto.getEmail());			 
+			session.setAttribute("phone",udto.getPhone());
+			session.setAttribute("rdate", udto.getRegistDate());
+			session.setAttribute("addr", udto.getAddr());
+			session.setAttribute("deli", udto.getDeliAddr());
+			session.setAttribute("admin", udto.getAdmin());
+			session.setAttribute("result", result);
+			
+			
+			result=udao.updateMember(udto);
+			
+		/*
+		 * if (result == 1) { System.out.println("회원정보수정 성공");
+		 * response.sendRedirect("index.jsp"); // 성공하면 메인화면으로 } else {
+		 * System.out.println("회원정보수정 실패"); response.sendRedirect("modify.jsp"); // 실패하면
+		 * modify 머물러 있음. }
+		 * 
+		 */
+					
+			String url = "index.jsp";
 		 
+		  RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+		  dispatcher.forward(request, response);
+		 
+		
+	}
+		
 	}
 
-}
+

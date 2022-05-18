@@ -61,8 +61,12 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("name", udto.getName());
 			session.setAttribute("id", udto.getUserid());
 			session.setAttribute("pwd",udto.getPwd());
+			session.setAttribute("birth", udto.getBirth());
 			session.setAttribute("email",udto.getEmail());
 			session.setAttribute("phone",udto.getPhone());
+			session.setAttribute("rdate", udto.getRegistDate());
+			session.setAttribute("addr", udto.getAddr());
+			session.setAttribute("deli", udto.getDeliAddr());
 			session.setAttribute("admin", udto.getAdmin());
 			
 			

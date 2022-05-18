@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>이젠, 집에서 | 회원가입</title>
 <link href="css/styles.css" rel="stylesheet" />
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>회원가입 화면</title>
     
     <style>
@@ -62,13 +64,43 @@
 			<td><input type="password" name="pwd_check" size="20">*</td>
 		</tr>
 		<tr>
-			<td>이메일</td>
-			<td><input type="text" name="email" size="20"></td>
-		</tr>
+			<td> 생년월일 </td>
+			<td><input type="text" name="birth"></td>
+		<tr>
+				<td>이메일</td>
+				<td><input type="text" name="email" size="20">
+				
+					<select>
+						<option>naver.com</option>
+						<option>daum.com</option>
+						<option>google.com</option>
+						<option>직접입력</option>
+					</select>
+					
+				</td>	
+			</tr>
 		<tr>
 			<td>전화번호</td>
 			<td><input type="text" name="phone" size="20"></td>
 		</tr>
+		
+		<tr>
+		<td>가입날짜</td>
+		<td><input type="text" name="rdate"></td>
+		</tr>
+		<tr>
+				<td>주소</td>
+				<td>
+				<input type="text" name="addr" id="sample4_postcode" placeholder="우편번호">
+				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+				<input type="text"  name="deli" id="sample4_roadAddress" placeholder="도로명주소">
+				<input type="text" name="deli" id="sample4_jibunAddress" placeholder="지번주소"><br>
+				<span id="guide" name="deli" style="color:#999;display:none"></span>
+				<input type="text" name="deli" id="sample4_detailAddress" placeholder="상세주소" size="60"><br>
+				<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
+				
+				</td>
+			</tr>
 		<tr>
 			<td>등급</td>
 			<td>

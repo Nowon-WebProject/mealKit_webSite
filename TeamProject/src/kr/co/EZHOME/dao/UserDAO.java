@@ -94,7 +94,22 @@ public class UserDAO {
 				udto.setPwd(rs.getString("pwd"));
 				udto.setEmail(rs.getString("email"));
 				udto.setPhone(rs.getString("phone"));
+				udto.setAddr(rs.getString("addr"));
+				udto.setDeliAddr(rs.getString("deli"));
 				udto.setAdmin(rs.getInt("admin"));
+				
+				if (rs.getDate("birth") == null) {
+					udto.setBirth(null);
+				}
+				else {
+					udto.setBirth(rs.getDate("birth").toString());
+				}
+				if (rs.getDate("RegistDate") == null) {
+					udto.setRegistDate(null);
+				}
+				else {
+					udto.setRegistDate(rs.getDate("birth").toString());
+				}
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -153,8 +168,8 @@ public class UserDAO {
 	}
 	
 	public int insertMember(UserDTO udto) {
-		int result=-1;
-		String sql="insert into usertbl values(?,?,?,?,?,?)";
+		int result=-1;		// name1, username2, pwd3, birth4, email5, phone6, rdate7, addr8, deli9, point10, admin11
+		String sql="insert into usertbl values(?, ?, ?, ?, ?, ?, default, ?, ?, ?, ?)";		
 		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -165,9 +180,13 @@ public class UserDAO {
 			pstmt.setString(1,udto.getName());
 			pstmt.setString(2,udto.getUserid());
 			pstmt.setString(3,udto.getPwd());
-			pstmt.setString(4,udto.getEmail());
-			pstmt.setString(5,udto.getPhone());
-			pstmt.setInt(6,udto.getAdmin());
+			pstmt.setDate(4,udto.transformDate(udto.getBirth()));
+			pstmt.setString(5,udto.getEmail());
+			pstmt.setString(6,udto.getPhone());
+			pstmt.setString(7,udto.getAddr());
+			pstmt.setString(8,udto.getDeliAddr());
+			pstmt.setInt(9,udto.getPoint());
+			pstmt.setInt(10,udto.getAdmin());
 			
 			result=pstmt.executeUpdate();
 			
@@ -189,7 +208,7 @@ public class UserDAO {
 	
 	public int updateMember(UserDTO udto) {
 		int result=-1;
-		String sql="update usertbl set pwd=?,email=?,phone=?,admin=? where userid=?";
+		String sql="update usertbl set pwd=?,email=?,phone=?,Addr=? where userid=?";
 		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -201,12 +220,10 @@ public class UserDAO {
 			pstmt.setString(1,udto.getPwd());
 			pstmt.setString(2,udto.getEmail());
 			pstmt.setString(3,udto.getPhone());
-			pstmt.setInt(4,udto.getAdmin());
+			pstmt.setString(4,udto.getAddr());
 			pstmt.setString(5,udto.getUserid());
 			
 			result=pstmt.executeUpdate();
-			
-			
 			
 			System.out.println("result="+result);
 		}catch(Exception e) {
@@ -223,8 +240,7 @@ public class UserDAO {
 		}
 		
 		return result;
-		
-		
 	}
+	
 
 }
