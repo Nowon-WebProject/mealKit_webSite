@@ -34,16 +34,23 @@ public class IdCheckServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		
+		String url = "/join/idcheck.jsp";
 		String userid=request.getParameter("userid");
-		UserDAO udao=UserDAO.getInstance();
-		DataStatus result= udao.confrimID(userid);
+		DataStatus result;
 		
-		request.setAttribute("userid",userid);
-		request.setAttribute("result",result);
+		//id 길이가 4미만일때 예외처리
+		if (userid.length() < 4) {
+			result = DataStatus.Invalid_InputValue;
+		}
+		else {
+			UserDAO udao=UserDAO.getInstance();
+			result= udao.confrimID(userid);
+		}
 		
-		RequestDispatcher dispatcher=request.getRequestDispatcher("/join/idcheck.jsp");
-		 dispatcher.forward(request, response);
+		request.setAttribute("userid", userid);
+		request.setAttribute("result", result);
+		
+		forward(request, response, url);
 	}
 
 	/**
@@ -54,4 +61,8 @@ public class IdCheckServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
+	private void forward(HttpServletRequest request, HttpServletResponse response, String url) throws IOException, ServletException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+		dispatcher.forward(request, response);
+	}
 }

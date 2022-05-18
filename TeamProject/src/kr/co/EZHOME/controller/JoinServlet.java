@@ -47,18 +47,25 @@ public class JoinServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		
-		request.setCharacterEncoding("utf-8");
+ 		request.setCharacterEncoding("utf-8");
 		
-		String  name=request.getParameter("name");
-		String  userid=request.getParameter("userid");
-		String  pwd=request.getParameter("pwd");
-		String  email=request.getParameter("email");
-		String  phone=request.getParameter("phone");
-		String  admin=request.getParameter("admin");
+		String name=request.getParameter("name");
+		String userid=request.getParameter("userid");
+		String pwd=request.getParameter("pwd");
+		String email=request.getParameter("email");
+		String phone=request.getParameter("phone");
+		String admin=request.getParameter("admin");
+		String birth = request.getParameter("birth"); 
 		
-		System.out.println(name);
+		//address 값 받아오기
+		String addr1 = request.getParameter("addr1");
+		//도로명 주소만
+		String roadAddr = request.getParameter("roadAddr");
+		String addr3 = request.getParameter("addr3");
 		
-		UserDTO udto=new UserDTO(name, userid, pwd, email, phone, Integer.parseInt(admin));
+		String addr = "("+addr1 + ") " + roadAddr + ", " + addr3;
+		
+		UserDTO udto=new UserDTO(name, userid, pwd, birth, email, phone, null, addr, null, 0, Integer.parseInt(admin));
 
 		UserDAO udao=UserDAO.getInstance();
 		int result=udao.insertMember(udto);

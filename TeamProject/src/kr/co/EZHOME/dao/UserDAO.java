@@ -1,21 +1,19 @@
 package kr.co.EZHOME.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-
 import kr.co.EZHOME.domain.DataStatus;
 import kr.co.EZHOME.domain.LoginStatus;
 import kr.co.EZHOME.domain.User;
 import kr.co.EZHOME.dto.UserDTO;
-import kr.co.EZHOME.dto.UserVO;
 
 public class UserDAO {
 
@@ -59,7 +57,23 @@ public class UserDAO {
 				user.setPassword(rs.getString("pwd"));
 				user.setEmail(rs.getString("email"));
 				user.setPhone(rs.getString("phone"));
+				user.setAddr(rs.getString("addr"));
+				user.setDeli(rs.getString("deli"));
+				user.setPoint(rs.getInt("point"));
 				user.setAdmin(rs.getInt("admin"));
+				//Date값이 null 일때 toString 메서드를 사용하면 NullPointerException 에러가 발생한다
+				if (rs.getDate("birth") == null) {
+					user.setBirth(null);
+				}
+				else {
+					user.setBirth(rs.getDate("birth").toString());
+				}
+				if (rs.getDate("RegistDate") == null) {
+					user.setRegistDate(null);
+				}
+				else {
+					user.setRegistDate(rs.getDate("birth").toString());
+				}
 			}
 			else {
 				throw new IllegalArgumentException("존재하지 않는 회원입니다.");
@@ -80,7 +94,6 @@ public class UserDAO {
 		
 		return user;
 	}
-	
 
 	//userCheck의 pwd 비교하는 기능을 domain 패키지의 User 객체에서 수행하도록 변경
 //	public LoginStatus userCheck(String userid,String pwd) {
@@ -163,8 +176,8 @@ public class UserDAO {
 	}
 	
 	public int insertMember(UserDTO udto) {
-		int result=-1;
-		String sql="insert into usertbl values(?,?,?,?,?,?)";
+		int result=-1;				// name1, username2, pwd3, birth4, email5, phone6, rdate7, addr8, deli9, point10, admin11
+		String sql="insert into usertbl values(?, ?, ?, ?, ?, ?, default, ?, ?, ?, ?)";		
 		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -175,9 +188,13 @@ public class UserDAO {
 			pstmt.setString(1,udto.getName());
 			pstmt.setString(2,udto.getUserid());
 			pstmt.setString(3,udto.getPwd());
-			pstmt.setString(4,udto.getEmail());
-			pstmt.setString(5,udto.getPhone());
-			pstmt.setInt(6,udto.getAdmin());
+			pstmt.setDate(4,udto.transformDate(udto.getBirth()));
+			pstmt.setString(5,udto.getEmail());
+			pstmt.setString(6,udto.getPhone());
+			pstmt.setString(7,udto.getAddr());
+			pstmt.setString(8,udto.getDeliAddr());
+			pstmt.setInt(9,udto.getPoint());
+			pstmt.setInt(10,udto.getAdmin());
 			
 			result=pstmt.executeUpdate();
 			
@@ -199,138 +216,7 @@ public class UserDAO {
 	
 	public int updateMember(UserDTO udto) {
 		int result=-1;
-		
-		String sql="update usertbl set pwd = ?, email = ?, phone = ?, admin = ?, name = ? where userid = ?";
-		
-		Connection conn=null;
-		PreparedStatement pstmt=null;
-		
-		try {
-			conn=getConnection();
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,udto.getPwd());
-			pstmt.setString(2,udto.getEmail());
-			pstmt.setString(3,udto.getPhone());
-			pstmt.setInt(4,udto.getAdmin());
-			pstmt.setString(5,udto.getName());
-			pstmt.setString(6,udto.getUserid());
-			result=pstmt.executeUpdate();//
-			System.out.println("result="+result);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(pstmt != null)
-					pstmt.close();
-				if(conn != null)
-					conn.close();
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return result;
-	}
-	public Vector<UserVO> allSelectMember(){
-	      // 가변 길이로 데이터를 저장
-	      Vector<UserVO> vec=new Vector<UserVO>();
-	      
-	      UserVO udto=null;
-	      String sql="select * from usertbl";
-	      
-	      Connection conn=null;
-	      PreparedStatement pstmt=null;
-	      ResultSet rs=null;
-	      
-	      try {
-	         conn=getConnection();
-	         pstmt=conn.prepareStatement(sql);//
-	         rs=pstmt.executeQuery();//
-	         
-	         while(rs.next()) {
-	        	 UserVO mbean=new UserVO();
-	            mbean.setName(rs.getString(1));
-	            mbean.setUserid(rs.getString(2));
-	            mbean.setPwd(rs.getString(3));
-	            mbean.setEmail(rs.getString(4));
-	            mbean.setPhone(rs.getString(5));
-	            mbean.setAdmin(rs.getInt(6));
-	            vec.add(mbean);//
-	         }
-	         conn.close();
-	      }catch(Exception e) {
-	         e.printStackTrace();
-	      }
-	      
-	      return vec;//
-	   }
-	public Vector<UserVO> MemberSearch(String type,String key){
-	      // 가변 길이로 데이터를 저장
-	      Vector<UserVO> vec=new Vector<UserVO>();
-	      
-	      
-	      UserDTO udto=null;
-	      String sql="select * from usertbl where "+type+" like "+"'%"+key+"%'";
-	      
-	      Connection conn=null;
-	      PreparedStatement pstmt=null;
-	      ResultSet rs=null;
-	      
-	     try {
-	         conn=getConnection();
-	         pstmt=conn.prepareStatement(sql);//
-	         rs=pstmt.executeQuery();//
-	         
-	         while(rs.next()) {
-	        	 UserVO mbean=new UserVO();
-	            mbean.setName(rs.getString(1));
-	            mbean.setUserid(rs.getString(2));
-	            mbean.setPwd(rs.getString(3));
-	            mbean.setEmail(rs.getString(4));
-	            mbean.setPhone(rs.getString(5));
-	            mbean.setAdmin(rs.getInt(6));
-	            vec.add(mbean);
-	         }
-	         conn.close();
-	      }catch(Exception e) {
-	         e.printStackTrace();
-	      }
-	      
-	      
-	      
-	      return vec;//
-	   }
-	public int deleteMember(String delete) {
-		int result=-1;
-		String sql="delete from usertbl where userid = '"+delete+"'";
-		
-		Connection conn=null;
-		PreparedStatement pstmt=null;
-		
-		try {
-			conn=getConnection();
-			pstmt=conn.prepareStatement(sql);
-			result=pstmt.executeUpdate();//
-			System.out.println("result="+result);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(pstmt != null)
-					pstmt.close();
-				if(conn != null)
-					conn.close();
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return result;
-	}
-	public int updateMember2(UserDTO udto) {
-		int result=-1;
-		
-		String sql="update usertbl set pwd = ?, email = ?, phone = ?, admin = ?, name = ? where userid = ?";
+		String sql="update usertbl set pwd=?,email=?,phone=?,admin=? where userid=?";
 		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -342,8 +228,8 @@ public class UserDAO {
 			pstmt.setString(2,udto.getEmail());
 			pstmt.setString(3,udto.getPhone());
 			pstmt.setInt(4,udto.getAdmin());
-			pstmt.setString(5,udto.getName());
-			pstmt.setString(6,udto.getUserid());
+			pstmt.setString(5,udto.getUserid());
+			
 			result=pstmt.executeUpdate();//
 			System.out.println("result="+result);
 		}catch(Exception e) {
@@ -361,4 +247,5 @@ public class UserDAO {
 		
 		return result;
 	}
+
 }
