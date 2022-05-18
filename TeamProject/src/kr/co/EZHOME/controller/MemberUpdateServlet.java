@@ -1,7 +1,6 @@
 package kr.co.EZHOME.controller;
 
 import java.io.IOException;
-import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -13,19 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.EZHOME.dao.UserDAO;
 import kr.co.EZHOME.dto.UserDTO;
-import kr.co.EZHOME.dto.UserVO;
 
 /**
- * Servlet implementation class memberSearchServlet
+ * Servlet implementation class MemberUpdateServlet
  */
-@WebServlet("/memberSearch.do")
-public class memberSearchServlet extends HttpServlet {
+@WebServlet("/MemberUpdate.do")
+public class MemberUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public memberSearchServlet() {
+    public MemberUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,43 +41,46 @@ public class memberSearchServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		request.setCharacterEncoding("UTF-8");
-		String type = request.getParameter("type");
-		String key = request.getParameter("key");
-		String delete=request.getParameter("delete");
+		String update = request.getParameter("update");	
+		String  name=request.getParameter("name");
+		String  userid=request.getParameter("userid");
+		String  pwd=request.getParameter("pwd");
+		String  email=request.getParameter("email");
+		String  phone=request.getParameter("phone");
+		String  admin=request.getParameter("admin");
 		
-		
-		String[] arr= {"","",""};
-		
-		UserDAO mdao = UserDAO.getInstance();
-		
-		if(delete!=null) {
-			try {mdao.deleteMember(delete);
-				
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-	
-		
-		if(type.equals("userid")) {
-			arr[0]="selected";
-		}else if(type.equals("name")) {
-			arr[1]="selected";
-		}else if(type.equals("phone")) {
-			arr[2]="selected";
-		}
+		if(name!=null) {
+			UserDTO udto=new UserDTO(name,userid,pwd,email,phone,Integer.parseInt(admin));
+			udto.setName(name);
+			udto.setUserid(userid);
+			udto.setPwd(pwd);
+			udto.setEmail(email);
+			udto.setPhone(phone);
+			udto.setAdmin(Integer.parseInt(admin));
 			
-		Vector<UserVO> vec = mdao.MemberSearch(type, key);
-		
-		request.setAttribute("vec", vec);
-		request.setAttribute("arr", arr);
-		request.setAttribute("delete", delete);
+			UserDAO udao=UserDAO.getInstance();
+			udao.updateMember(udto);
+			
+			
+			
+			ServletContext context = getServletContext();
+			RequestDispatcher dispatcher=request.getRequestDispatcher("/managePage/memberSearch.jsp");
+			 dispatcher.forward(request, response);
+			
+		}else {
+		request.setAttribute("update", update);
 		
 		ServletContext context = getServletContext();
-		 RequestDispatcher dispatcher = context.getRequestDispatcher("//managePage/memberSearch2.jsp");
+		 RequestDispatcher dispatcher = context.getRequestDispatcher("//managePage/memberUpdate.jsp");
 		 
 		 dispatcher.forward(request, response);
+		}
+		}
+		
+		
+		
 	}
 
-}
+

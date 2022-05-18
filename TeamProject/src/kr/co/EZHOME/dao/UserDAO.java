@@ -199,7 +199,8 @@ public class UserDAO {
 	
 	public int updateMember(UserDTO udto) {
 		int result=-1;
-		String sql="update usertbl set pwd=?,email=?,phone=?,admin=? where userid=?";
+		
+		String sql="update usertbl set pwd = ?, email = ?, phone = ?, admin = ?, name = ? where userid = ?";
 		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -211,8 +212,8 @@ public class UserDAO {
 			pstmt.setString(2,udto.getEmail());
 			pstmt.setString(3,udto.getPhone());
 			pstmt.setInt(4,udto.getAdmin());
-			pstmt.setString(5,udto.getUserid());
-			
+			pstmt.setString(5,udto.getName());
+			pstmt.setString(6,udto.getUserid());
 			result=pstmt.executeUpdate();//
 			System.out.println("result="+result);
 		}catch(Exception e) {
@@ -299,4 +300,65 @@ public class UserDAO {
 	      
 	      return vec;//
 	   }
+	public int deleteMember(String delete) {
+		int result=-1;
+		String sql="delete from usertbl where userid = '"+delete+"'";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			result=pstmt.executeUpdate();//
+			System.out.println("result="+result);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null)
+					pstmt.close();
+				if(conn != null)
+					conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	public int updateMember2(UserDTO udto) {
+		int result=-1;
+		
+		String sql="update usertbl set pwd = ?, email = ?, phone = ?, admin = ?, name = ? where userid = ?";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,udto.getPwd());
+			pstmt.setString(2,udto.getEmail());
+			pstmt.setString(3,udto.getPhone());
+			pstmt.setInt(4,udto.getAdmin());
+			pstmt.setString(5,udto.getName());
+			pstmt.setString(6,udto.getUserid());
+			result=pstmt.executeUpdate();//
+			System.out.println("result="+result);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null)
+					pstmt.close();
+				if(conn != null)
+					conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
 }

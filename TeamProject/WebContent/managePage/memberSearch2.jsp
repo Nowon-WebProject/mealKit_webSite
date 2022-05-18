@@ -45,7 +45,12 @@
 	<%
 		String[] arr=(String[])request.getAttribute("arr");
 		Vector<UserVO> vec =(Vector<UserVO>)request.getAttribute("vec");
+		
 	%>
+	
+	
+	
+	
 	<div align="center" class="info" >
 	<table class="scrolltable">
 	<tr>
@@ -54,23 +59,28 @@
 				<th>이메일</th>
 				<th>전화번호</th>
 			</tr>
-			
+			<form action="/TeamProject/memberSearch.do" method="post">
 			<%
 				for (int i = 0; i < vec.size(); i++) {
 					UserVO mbean = vec.get(i);
 			%>
+			
 			<tr>
 				<td><%=mbean.getName()%></td>
 				<td><%=mbean.getUserid()%></td>
 				<td><%=mbean.getEmail()%></td>
 				<td><%=mbean.getPhone()%></td>
+				<td><button type="submit" name="update" value=<%=mbean.getUserid()%> formaction="/TeamProject/MemberUpdate.do" method="post">수정</button></td>
+				<td><button type="submit" name="delete" value=<%=mbean.getUserid()%>>삭제</button></td>
 			</tr>
+			
 			<%
 				}
 			%>
+			
 		</table>
 		<br> <br>
-		<form action="/TeamProject/memberSearch.do" method="post">
+		
 			<select name="type">
 				<option value="userid"<%=arr[0] %>>ID</option>
 				<option value="name"<%=arr[1] %>>이름</option>
