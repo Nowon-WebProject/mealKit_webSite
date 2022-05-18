@@ -27,7 +27,7 @@ $(document).ready(function() {
 	});
 	
 	//user id 클릭시 아이디 유효성 검증 띄우기
-	$("#userid").one("click", function() {
+	$("#userid").one("focus", function() {
 		var txt_guide = $(".txt_guideId");
 		
 		txt_guide.css("display", "block");
@@ -79,23 +79,44 @@ $(document).ready(function() {
 		return ;
 	});
 	
-	$("#pwd_check").one("click", function() {
-		var txt_guide = $(".txt_guidePassword");
+	$("#pwd_check").one("focus", function() {
+		var txt_guide = $(".txt_guidePasswordCheck");
+		var guideText = $(".passwordCheckGuide");
 		
+		if ($("#pwd").val().length === 0) {
+			guideText.text('비밀번호를 먼저 입력해주세요');
+		}
+		else {
+			guideText.text('비밀번호가 일치하지 않습니다');
+		}
 		txt_guide.css("display", "block");
 	});
 	
 	$("#pwd_check").keyup(function(event) {
 		var key = event.charCode || event.keyCode || 0;
-		var text = $(this);
-		var guideText = $(".passwordGuide");
+		var pwd = $("#pwd");
+		var pwd_check = $(this);
+		var guideText = $(".passwordCheckGuide");
 		
-		if (text.val().length === 0) {
-			guideText.text('비밀번호를 입력해주세요');
+		//암호를 입력을 안하고 암호확인을 할때
+		if ($("#pwd").val().length === 0) {
+			guideText.text('비밀번호를 먼저 입력해주세요');
+			//<br>과 같은 html 이 필요할때 사용
 			//guideText.html('비밀번호를 입력해주세요');
 			return ;
 		}
-		
+		//암호와 암호확인이 같지 않을때
+		else if (pwd.val() != pwd_check.val()) {
+			guideText.text("비밀번호가 일치하지 않습니다");
+			guideText.css("color", "red");
+			$(".passwordCheckGuide:before").css("content", "'\2715'");
+		}
+		//암호와 암호확인이 같을때
+		else {
+			guideText.text("비밀번호가 일치합니다");
+			guideText.css("color", "green");
+			$(".passwordCheckGuide:before").css("content", "'\2713'");
+		}
 		
 	});
 });

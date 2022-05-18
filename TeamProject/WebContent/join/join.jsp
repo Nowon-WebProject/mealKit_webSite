@@ -31,12 +31,10 @@
             background-color:#fd7e14
         }
         
-
-		
     </style>
     <script type="text/javascript" src="/TeamProject/js/libs/jquery-3.6.0.min.js"></script>
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-    <script type="text/javascript" src="/TeamProject/js/member.js?test=48"></script>
+    <script type="text/javascript" src="/TeamProject/js/member.js?test=54"></script>
     <!-- 도로명 주소 검색시 사용하는 daum api -->
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
@@ -79,7 +77,7 @@
 			</tr>
 			<tr>
 				<td>암호</td>
-				<td><input type="password" name="pwd" size="20">*</td>
+				<td><input type="password" id="pwd" name="pwd" size="20">*</td>
 			</tr>
 			<tr height="30">
 				<td width="80">암호 확인</td>
@@ -89,9 +87,9 @@
 				<td/>
 				<td>
 				<!-- 작업해야함 -->
-					<p class="txt_guidePassword" >
-						<span class="passwordGuide">비밀번호를 입력해주세요</span>
-						<input type="hidden" name="passwordValid" size="20">
+					<p class="txt_guidePasswordCheck" >
+						<span class="passwordCheckGuide"></span>
+						<input type="hidden" name="passwordCheckValid" size="20">
 					</p>
 				</td>
 			</tr>
