@@ -63,17 +63,19 @@
   --bs-body-color: #212529;
   --bs-body-bg: #fff;
 }
-
-		.txt_guideId {
+		
+		.txt_guideId, .txt_guidePassword {
         	display: none;
         	height: 33px;
         }
-        .txt_guidePassword {
+      
+        .txt_guidePasswordCheck, .txt_guideBirth {
         	display: none;
         	height: 10px;
         }
         
-        .badId, .badCheckedId, .passwordGuide {
+        .badId, .badCheckedId, .passwordCheckGuide, 
+        .passwordGuide1, .passwordGuide2, .birthGuide {
 /* 		    display: none; */
 		    padding: 10px 0 9px;
 		    font-size: 12px;
@@ -83,7 +85,8 @@
 		    letter-spacing: -.1px;
  		    clear: both;
 		}
- 		.badId:before, .badCheckedId:before, .passwordGuide:before{ 
+ 		.badId:before, .badCheckedId:before, .passwordCheckGuide:before,
+ 		.passwordGuide1:before, .passwordGuide2:before, .birthGuide:before { 
  			/* \2715 : x 아이콘*/
      		content: '\2715'; 
      		display: inline-block; 

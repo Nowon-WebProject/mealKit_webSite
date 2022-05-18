@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>이젠, 집에서 | 회원가입</title>
-<link href="/TeamProject/css/styles.css" rel="stylesheet" />
+<link href="/TeamProject/css/styles.css?test1=2" rel="stylesheet" />
     <title>회원가입 화면</title>
     
     <style>
@@ -34,7 +34,7 @@
     </style>
     <script type="text/javascript" src="/TeamProject/js/libs/jquery-3.6.0.min.js"></script>
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-    <script type="text/javascript" src="/TeamProject/js/member.js?test=54"></script>
+    <script type="text/javascript" src="/TeamProject/js/member.js?test=69"></script>
     <!-- 도로명 주소 검색시 사용하는 daum api -->
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
@@ -54,7 +54,7 @@
 			</tr>
 			<tr>
 				<td>이름</td>
-				<td><input type="text" name="name" size="20">*</td>
+				<td><input type="text" name="name" size="20" maxlength="16">*</td>
 			</tr>
 			<tr>
 				<td>아이디</td>
@@ -77,16 +77,26 @@
 			</tr>
 			<tr>
 				<td>암호</td>
-				<td><input type="password" id="pwd" name="pwd" size="20">*</td>
-			</tr>
-			<tr height="30">
-				<td width="80">암호 확인</td>
-				<td><input type="password" id="pwd_check" name="pwd_check" size="20">*</td>
+				<td><input type="password" id="pwd" name="pwd" size="20" maxlength="16">*</td>
+				<td><input type="hidden" name="passwordValid" size="20"></td>
 			</tr>
 			<tr>
 				<td/>
 				<td>
-				<!-- 작업해야함 -->
+					<p class="txt_guidePassword" >
+						<span class="passwordGuide1"></span> <br>
+						<span class="passwordGuide2"></span>
+						<input type="hidden" name="passwordCheckValid" size="20">
+					</p>
+				</td>
+			</tr>
+			<tr height="30">
+				<td width="80">암호 확인</td>
+				<td><input type="password" id="pwd_check" name="pwd_check" size="20" maxlength="16">*</td>
+			</tr>
+			<tr>
+				<td/>
+				<td>
 					<p class="txt_guidePasswordCheck" >
 						<span class="passwordCheckGuide"></span>
 						<input type="hidden" name="passwordCheckValid" size="20">
@@ -96,7 +106,16 @@
 			<tr>
 				<td>생년월일</td>
 				<td>
-					<input type="text" name="birth" placeholder="8자리입력(예.19951129)" maxlength="8">
+					<input type="text" id="birth" name="birth" placeholder="8자리입력(예.19951129)" maxlength="8">
+				</td>
+			</tr>
+			<tr>
+				<td/>
+				<td>
+					<p class="txt_guideBirth" >
+						<span class="birthGuide"></span>
+						<input type="hidden" name="birthValid" size="20">
+					</p>
 				</td>
 			</tr>
 			<tr>

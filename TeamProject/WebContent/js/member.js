@@ -79,6 +79,94 @@ $(document).ready(function() {
 		return ;
 	});
 	
+	//암호
+	//passwordGuide1 8글자 이상
+	//passwordGuide2 영문 및 숫자 , 특수문자중 2가지 조합
+	$("#pwd").one("focus", function() {
+		var txt_guide = $(".txt_guidePassword");
+		var guideText1 = $(".passwordGuide1");
+		var guideText2 = $(".passwordGuide2");
+		
+		//passwordGuide1, passwordGuide2 초기값 설정
+		guideText1.text("비밀 번호는 8글자 이상이어야 합니다");
+		guideText2.text("비밀 번호는 영문, 숫자, 특수문자 중 2가지 이상을 조합해야합니다");
+		
+		txt_guide.css("display", "inline");
+		
+		return ;
+	});
+	
+	
+	//패스워드 입력
+	//1. 비밀번호가 8글자 이상인지 확인
+	//2. 비밀번호가 영문, 숫자, 특수문자 중 2가지가 이상이 조합되었는지 확인
+	$("#pwd").keyup(function (event){
+		var text = $(this);
+		var guideText1 = $(".passwordGuide1");
+		var guideText2 = $(".passwordGuide2");
+		var engCheck = false;
+		var numCheck = false;
+		var specialCheck = false;
+		//passwordValid (submit 할때 참고하는 hidden 값)를 위한 변수
+		var valid1 = false;
+		var valid2 = false;
+		
+		//1. 비밀번호가 8글자 이상인지 확인
+		if (text.val().length >= 8) {
+			//jquery 를 이용한 단일 속성값 변경
+			guideText1.css("color", "green");
+			//jquery 를 이용한 다수의 속성값 변경
+			$(".passwordGuide1:before").css({"color" : "green", "content" : "\2713"});
+			valid1 = true;
+		}
+		else {
+			guideText1.css("color", "red");
+			$(".passwordGuide1:before").css({"color" : "red", "content" : "\2715"});
+			valid1 = false;
+		}
+		
+		//2. 비밀번호가 영문, 숫자, 특수문자 중 2가지 이상이 조합되었는지 확인
+		//step1. 반복문을 통해 문자열 탐색
+		for (var i = 0; i < text.val().length; i++) {
+			//해당 문자열을 아스키코드로 변환 (text.val()[i] => 이런식으로하면 문자열이 반환된다)
+			var c = text.val().charCodeAt(i);
+			
+			//영문일때
+			if ((c >= 65 && c <= 90) || (c >=  97 && c <= 122)) {
+				engCheck = true;
+			}
+			//숫자일때
+			else if (c >= 48 && c <= 57) {
+				numCheck = true;
+			}
+			//특수 문자
+			//아스키코드: 0x21~0x2F(33~47), 0x3A~0x40(58~64), 0x5B~0x60(91~96), 0x7B~0x7E(123~126)
+			else if (((c >= 33) && (c <= 47)) || ((c >= 58) && (c <= 64)) || 
+					((c >= 91) && (c <= 96)) || ((c >= 123) && (c <= 126))) {
+				specialCheck = true;
+			}
+		}
+		//step2. 2가지 이상 조합되었는지 확인
+		if ((engCheck && numCheck) || (engCheck && specialCheck) || (numCheck && specialCheck)) {
+			guideText2.css("color", "green");
+			$(".passwordGuide2:before").css({"color" : "green", "content" : "\2713"});
+			valid2 = true;
+		}else  {
+			guideText2.css("color", "red");
+			$(".passwordGuide2:before").css({"color" : "red", "content" : "\2715"});
+			valid2 = false;
+		}
+		
+		if (valid1 && valid2) {
+			document.frm.passwordValid.value = true;
+		}
+		else {
+			document.frm.passwordValid.value = false;
+		}
+	});
+	
+	
+	//암호 확인이 처음 포커싱 되었을때
 	$("#pwd_check").one("focus", function() {
 		var txt_guide = $(".txt_guidePasswordCheck");
 		var guideText = $(".passwordCheckGuide");
@@ -92,32 +180,105 @@ $(document).ready(function() {
 		txt_guide.css("display", "block");
 	});
 	
+	//암호확인에서 키가 눌렸을때
 	$("#pwd_check").keyup(function(event) {
 		var key = event.charCode || event.keyCode || 0;
 		var pwd = $("#pwd");
 		var pwd_check = $(this);
 		var guideText = $(".passwordCheckGuide");
+		//passwordCheckValid (submit 할때 참고하는 hidden 값)를 위한 변수
+		var valid = false;
 		
 		//암호를 입력을 안하고 암호확인을 할때
 		if ($("#pwd").val().length === 0) {
 			guideText.text('비밀번호를 먼저 입력해주세요');
 			//<br>과 같은 html 이 필요할때 사용
 			//guideText.html('비밀번호를 입력해주세요');
-			return ;
+			guideText.css("color", "red");
+			$(".passwordCheckGuide:before").css("content", "'\2715'");
+			valid = false;
 		}
 		//암호와 암호확인이 같지 않을때
 		else if (pwd.val() != pwd_check.val()) {
 			guideText.text("비밀번호가 일치하지 않습니다");
 			guideText.css("color", "red");
 			$(".passwordCheckGuide:before").css("content", "'\2715'");
+			valid = false;
 		}
 		//암호와 암호확인이 같을때
 		else {
 			guideText.text("비밀번호가 일치합니다");
 			guideText.css("color", "green");
 			$(".passwordCheckGuide:before").css("content", "'\2713'");
+			valid = true;
 		}
 		
+		//passwordCheckValid 설정
+		if (valid == true) {
+			document.frm.passwordCheckValid.value = true;
+		}
+		else {
+			document.frm.passwordCheckValid.value = false;
+		}
+		
+	});
+	
+	//생년월일
+	$("#birth").one("focus", function() {
+		var txt_guide = $(".txt_guideBirth");
+		
+		$(".birthGuide").text("생년월일을 입력해주세요 (필수입력 X)");
+		txt_guide.css("display", "block");
+	});
+	
+	//1. 숫자가 들어왔는가?
+	//2. 생년월일이 맞는가
+	$("#birth").keyup(function(event) {
+		var text = $(this);
+		var guideText = $(".birthGuide");
+
+		//입력된 생년월일이 8글자가 안된다면
+		if (text.val().length < 8) {
+			guideText.text("유효하지 않은 생년월일 입니다 다시 확인해주세요");
+			guideText.css("color", "red");
+			$(".birthGuide:before").css({"color" : "red", "content" : "2715"});
+			document.frm.passwordValid.value = false;
+			return;
+		}
+		
+		//숫자 확인
+		for (var i = 0; i < text.val().length; i++) {
+			var c = text.val().charCodeAt(i);
+			
+			//숫자가 아니라면
+			if (!(c >= 48 && c <= 57)) {
+				guideText.text("유효하지 않은 생년월일 입니다 다시 확인해주세요");
+				guideText.css("color", "red");
+				$(".birthGuide:before").css({"color" : "red", "content" : "2715"});
+				document.frm.passwordValid.value = false;
+				return ;
+			}
+		}
+		//숫자가 맞다면
+		//생년월일이 유효한가 확인
+		var year = Number(text.val().slice(0, 4));
+		var month = Number(text.val().slice(4, 6));
+		var day = Number(text.val().slice(6, 8));
+		var date = new Date();
+		//미래
+		if (date.getFullYear()-year < 1 || (month < 1 || month > 12) || (day < 1 || day > 31)) {
+			guideText.text("유효하지 않은 생년월일 입니다 다시 확인해주세요");
+			guideText.css("color", "red");
+			$(".birthGuide:before").css({"color" : "red", "content" : "2715"});
+			document.frm.passwordValid.value = false;
+		}
+		else {
+			guideText.text("유효한 생년월일입니다");
+			guideText.css("color", "green");
+			$(".birthGuide:before").css({"color" : "green", "content" : "2713"});
+			document.frm.passwordValid.value = true;
+		}
+
 	});
 });
 

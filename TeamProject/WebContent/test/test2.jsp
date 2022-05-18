@@ -9,6 +9,12 @@
 </head>
 <body>
 <jsp:include page="../ui/nav.jsp"></jsp:include>
+<script type="text/javascript">
+	var year = "20231129";
+	var date = new Date();
+	alert(date.getFullYear()-year.slice(0,4));
+	alert(year.slice(0,4));
+</script>
 <jsp:include page="../ui/footer.jsp"></jsp:include>
 </body>
 </html>
