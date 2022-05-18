@@ -15,24 +15,32 @@
 	overflow: auto;
 }
 
+.info button{
+	overflow: auto;
+	background-color: #ffa600;
+	width: 195px;
+}
 .info table {
-	width: 800px;
+	width: 1000px;
 	height: 300px;
-	border: 1px solid orange;
+	border: 1px solid #000;
 	border-spacing: 0;
+	table-layout: fixed;
 }
 
 .info th {
 	width: 200px;
 	height: 35px;
-	border: 1px solid orange;
-	background: orange;
+	border: 1px solid #000;
+	background: #ffbc40;
+	align: center;
 }
 
 .info td {
 	width: 200px;
 	height: 30px;
-	border: 1px solid orange;
+	border: 1px solid #000;
+	align: center;
 	
 }
 </style>
@@ -53,11 +61,13 @@
 	
 	<div align="center" class="info" >
 	<table class="scrolltable">
-	<tr>
+	<tr class="info">
 				<th>이름</th>
 				<th>아이디</th>
 				<th>이메일</th>
 				<th>전화번호</th>
+				<th>관리</th>
+				<th>버튼</th>
 			</tr>
 			<form action="/TeamProject/memberSearch.do" method="post">
 			<%
