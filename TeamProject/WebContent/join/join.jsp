@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>이젠, 집에서 | 회원가입</title>
-<link href="/TeamProject/css/styles.css?test1=2" rel="stylesheet" />
+<link href="/TeamProject/css/styles.css?test1=5" rel="stylesheet" />
     <title>회원가입 화면</title>
     
     <style>
@@ -34,7 +34,7 @@
     </style>
     <script type="text/javascript" src="/TeamProject/js/libs/jquery-3.6.0.min.js"></script>
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-    <script type="text/javascript" src="/TeamProject/js/member.js?test=69"></script>
+    <script type="text/javascript" src="/TeamProject/js/member.js?test=71"></script>
     <!-- 도로명 주소 검색시 사용하는 daum api -->
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
