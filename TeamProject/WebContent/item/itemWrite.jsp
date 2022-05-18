@@ -9,7 +9,7 @@
 <script type="text/javascript" src="js/item.js"></script>
 </head>
 <body>
-	<div id="wrap" align="center">
+	<div id="wrap" style="width: 400px" align="center">
 		<h1>상품 등록-관리자 페이지</h1>
 		<form action="itemWrite.do" method="post" name="frm">
 			<table>
@@ -31,7 +31,7 @@
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td><textarea cols="80" rows="10" name="item_content"></textarea></td>
+					<td><textarea name="item_content"></textarea></td>
 				</tr>
 				<tr>
 					<th>가격</th>
@@ -43,7 +43,7 @@
 				</tr>
 				<tr>
 					<th>인분</th>
-					<td><input type="text" name="item_total"></td>
+					<td><input type="text" name="item_total">(숫자만 입력하세요)</td>
 				</tr>
 				<tr>
 					<th>조리시간</th>

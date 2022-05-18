@@ -9,11 +9,11 @@
 <link rel="stylesheet" type="text/css" href="./css/shopping.css">
 </head>
 <body>
-	<div id="wrap" align="center">
+	<div id="wrap" style="width: 700px" align="center">
 		<h1>상품 목록-관리자 페이지</h1>
 		<table class="list">
 			<tr>
-				<td colspan="10" style="border: white; text-align: right">
+				<td colspan="11" style="border: white; text-align: right">
 					<a href="itemWrite2.do">상품 등록</a>
 				</td>
 			</tr>
@@ -31,8 +31,17 @@
 				<td>삭제</td>
 			</tr>
 			<c:forEach var="item" items="${itemList}">
-				<tr class="record">
-					<td>${item.item_pictureUrl}</td>
+				<tr>
+					<td>
+						<c:choose>
+							<c:when test="${empty item.item_pictureUrl}">
+								<img id="imgList" src="upload/noimage.gif">
+							</c:when>
+							<c:otherwise>
+								<img id="imgList" src="upload/${item.item_pictureUrl}">
+							</c:otherwise>
+						</c:choose>
+					</td>
 					<td>${item.item_num}</td>
 					<td>${item.item_category}</td>
 					<td>${item.item_name}</td>
@@ -45,6 +54,11 @@
 					<td><a href="itemDelete2.do?item_num=${item.item_num}">상품 삭제</a></td>
 				</tr>
 			</c:forEach>
+			<tr>
+				<td colspan="11" style="border: white; text-align: right">
+					<a href="itemNumReset.do">상품  번호 초기화</a>
+				</td>
+			</tr>
 		</table>
 	</div>
 </body>

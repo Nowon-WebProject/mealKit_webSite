@@ -165,5 +165,21 @@ public class ItemDAO2 {
 			DBManager.close(conn, pstmt);
 		}
 	}
+	
+	public void resetItem_num() {
+		String sql = "alter table item auto_increment=1";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt);
+		}
+	}
 
 }

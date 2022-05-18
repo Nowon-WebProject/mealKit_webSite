@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="./css/shopping.css">
 </head>
 <body>
-	<div id="wrap" align="center">
+	<div id="wrap" style="width: 700px" align="center">
 		<h1>상품 목록-관리자 페이지</h1>
 		<table class="list">
 			<tr>

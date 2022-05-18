@@ -10,58 +10,101 @@
 <script type="text/javascript" src="js/item.js"></script>
 </head>
 <body>
-	<div id="wrap" align="center">
+	<div id="wrap" style="width: 400px" align="center">
 		<h1>상품 수정-관리자 페이지</h1>
-		<form action="itemUpdate2.do" method="post" name="frm">
+		<form action="itemUpdate2.do" method="post" enctype="multipart/form-data" name="frm">
 			<input type="hidden" name="item_num" value="${item.item_num}">
 			<input type="hidden" name="nonmakeImg" value="${item.item_pictureUrl}">
 			<table>
 				<tr>
+					<th>사진</th>
 					<td>
 						<c:choose>
-							<c:when test="${empty item.pictureUrl}">
-								<img src="upload/noimage.gif">
+							<c:when test="${empty item.item_pictureUrl}">
+								<img id="imgUpdate" src="upload/noimage.gif">
 							</c:when>
 							<c:otherwise>
-								<img src="upload/${item.pictureUrl}">
+								<img id="imgUpdate" src="upload/${item.item_pictureUrl}">
 							</c:otherwise>
 						</c:choose>
 					</td>
+				</tr>
+				<tr>
 					<th>카테고리</th>
 					<td>
-						<select name="item_category">
-						<option value="한식">한식</option>
-						<option value="양식">양식</option>
-						<option value="중식">중식</option>
-						<option value="일식">일식</option>
-						<option value="샐러드">샐러드</option>
-						</select>
+						<c:choose>
+							<c:when test="${item.item_category == '한식'}">
+							<select name="item_category">
+								<option value="한식" selected>한식</option>
+								<option value="양식">양식</option>
+								<option value="중식">중식</option>
+								<option value="일식">일식</option>
+								<option value="샐러드">샐러드</option>
+							</select>
+							</c:when>
+							<c:when test="${item.item_category == '양식'}">
+							<select name="item_category">
+								<option value="한식">한식</option>
+								<option value="양식" selected>양식</option>
+								<option value="중식">중식</option>
+								<option value="일식">일식</option>
+								<option value="샐러드">샐러드</option>
+							</select>
+							</c:when>
+							<c:when test="${item.item_category == '중식'}">
+							<select name="item_category">
+								<option value="한식">한식</option>
+								<option value="양식">양식</option>
+								<option value="중식" selected>중식</option>
+								<option value="일식">일식</option>
+								<option value="샐러드">샐러드</option>
+							</select>
+							</c:when>
+							<c:when test="${item.item_category == '일식'}">
+							<select name="item_category">
+								<option value="한식">한식</option>
+								<option value="양식">양식</option>
+								<option value="중식">중식</option>
+								<option value="일식" selected>일식</option>
+								<option value="샐러드">샐러드</option>
+							</select>
+							</c:when>
+							<c:when test="${item.item_category == '샐러드'}">
+							<select name="item_category">
+								<option value="한식">한식</option>
+								<option value="양식">양식</option>
+								<option value="중식">중식</option>
+								<option value="일식">일식</option>
+								<option value="샐러드" selected>샐러드</option>
+							</select>
+							</c:when>
+						</c:choose>
 					</td>
 				</tr>
 				<tr>
 					<th>상품명</th>
-					<td><input type="text" name="item_name" size="80" value="${item.item_name}"></td>
+					<td><input type="text" name="item_name" size="16" value="${item.item_name}"></td>
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td><textarea cols="80" rows="10" name="item_content"></textarea></td>
+					<td><textarea name="item_content">${item.item_content}</textarea></td>
 				</tr>
 				<tr>
 					<th>가격</th>
-					<td><input type="text" name="item_price" value="${item.item_price}">원</td>
+					<td><input type="text" size="4" name="item_price" value="${item.item_price}">원</td>
 					<!-- 문자열로 보내짐 -->
 				</tr>
 				<tr>
 					<th>재고</th>
-					<td><input type="text" name="item_quantity" value="${item.item_quantity}">개</td>
+					<td><input type="text" size="3" name="item_quantity" value="${item.item_quantity}">개</td>
 				</tr>
 				<tr>
 					<th>인분</th>
-					<td><input type="text" name="item_total" value="${item.item_total}"></td>
+					<td><input type="text" size="1" name="item_total" value="${item.item_total}">(숫자만 입력하세요)</td>
 				</tr>
 				<tr>
 					<th>조리시간</th>
-					<td><input type="text" name="item_time" value="${item.item_time}">분</td>
+					<td><input type="text" size="1" name="item_time" value="${item.item_time}">분</td>
 				</tr>
 				<tr>
 					<th>사진</th>

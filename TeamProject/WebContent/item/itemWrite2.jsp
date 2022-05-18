@@ -9,7 +9,7 @@
 <script type="text/javascript" src="js/item.js"></script>
 </head>
 <body>
-	<div id="wrap" align="center">
+	<div id="wrap" style="width: 400px" align="center">
 		<h1>상품 등록-관리자 페이지</h1>
 		<form action="itemWrite2.do" method="post" enctype="multipart/form-data" name="frm">
 			<table>
@@ -27,27 +27,27 @@
 				</tr>
 				<tr>
 					<th>상품명</th>
-					<td><input type="text" name="item_name" size="80"></td>
+					<td><input type="text" name="item_name" size="16"></td>
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td><textarea cols="80" rows="10" name="item_content"></textarea></td>
+					<td><textarea name="item_content"></textarea></td>
 				</tr>
 				<tr>
 					<th>가격</th>
-					<td><input type="text" name="item_price">원</td>
+					<td><input type="text" size="4" name="item_price">원</td>
 				</tr>
 				<tr>
 					<th>재고</th>
-					<td><input type="text" name="item_quantity">개</td>
+					<td><input type="text" size="3" name="item_quantity">개</td>
 				</tr>
 				<tr>
 					<th>인분</th>
-					<td><input type="text" name="item_total"></td>
+					<td><input type="text" size="1" name="item_total">(숫자만 입력하세요)</td>
 				</tr>
 				<tr>
 					<th>조리시간</th>
-					<td><input type="text" name="item_time">분</td>
+					<td><input type="text" size="1" name="item_time">분</td>
 				</tr>
 				<tr>
 					<th>사진</th>
