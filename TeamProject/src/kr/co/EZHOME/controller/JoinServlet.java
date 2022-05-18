@@ -63,7 +63,7 @@ public class JoinServlet extends HttpServlet {
 		String roadAddr = request.getParameter("roadAddr");
 		String addr3 = request.getParameter("addr3");
 		
-		String addr = addr1 + " " + roadAddr + " " + addr3;
+		String addr = "("+addr1 + ") " + roadAddr + ", " + addr3;
 		
 		UserDTO udto=new UserDTO(name, userid, pwd, birth, email, phone, null, addr, null, 0, Integer.parseInt(admin));
 

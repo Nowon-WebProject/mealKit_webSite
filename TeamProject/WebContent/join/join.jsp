@@ -131,11 +131,11 @@
 			<tr>
 				<td>주소</td>
 				<td>
-					<input type="text" id="sample4_postcode" name="addr1" placeholder="우편번호">
+					<input type="text" id="sample4_postcode" name="addr1" placeholder="우편번호" readonly>
 					<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-					<input type="text" id="sample4_roadAddress" name="roadAddr" placeholder="도로명주소" size="60" ><br>
+					<input type="text" id="sample4_roadAddress" name="roadAddr" placeholder="도로명주소" size="60" readonly><br>
 					<input type="hidden" id="sample4_jibunAddress" name="jibunAddr" placeholder="지번주소"  size="60">
-					<span id="guide" style="color:#999;display:none"></span>
+<!-- 					<span id="guide" style="color:#999;display:none"></span> -->
 					<input type="text" id="sample4_detailAddress" name="addr3" placeholder="상세주소"  size="60"><br>
 					<input type="hidden" id="sample4_extraAddress" name="cham" placeholder="참고항목"  size="60">
 					<input type="hidden" id="sample4_engAddress" name="engAddr" placeholder="영문주소"  size="60" >
