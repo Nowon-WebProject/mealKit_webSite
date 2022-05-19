@@ -45,6 +45,11 @@
 					<td><a href="itemDelete.do?item_num=${item.item_num}">상품 삭제</a></td>
 				</tr>
 			</c:forEach>
+			<tr>
+				<td colspan="11" style="border: white; text-align: right">
+					<a href="itemNumReset.do">상품  번호 초기화(미완)</a>
+				</td>
+			</tr>
 		</table>
 	</div>
 </body>

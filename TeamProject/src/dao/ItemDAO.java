@@ -132,7 +132,7 @@ public class ItemDAO {
 			pstmt.setString(3, iVo.getItem_content());
 			pstmt.setInt(4, iVo.getItem_price());
 			pstmt.setInt(5, iVo.getItem_quantity());
-			pstmt.setString(6, new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
+			pstmt.setString(6, new SimpleDateFormat("yy/MM/dd").format(new Date()));
 			pstmt.setString(7, iVo.getItem_total());
 			pstmt.setString(8, iVo.getItem_time());
 			pstmt.setInt(9, iVo.getItem_num());

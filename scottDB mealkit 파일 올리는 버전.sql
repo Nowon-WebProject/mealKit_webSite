@@ -15,7 +15,27 @@ create table item(
 create sequence item_seq start with 1 increment by 1;
 
 -- drop table item;
+-- drop sequence item_seq;
 
 select * from item;
 
 select * from user_sequences;
+
+
+
+
+set serveroutput on;
+
+DECLARE
+NUM1 NUMBER :=1;
+
+BEGIN
+    LOOP
+    DBMS_OUTPUT.PUT_LINE(NUM1); --출력
+    insert into item values(item_seq.nextval, '양식', '으', '하하', 5, 1, sysdate, '2', '2', null);
+    NUM1 := NUM1+1; --NUM = NUM +1
+    EXIT WHEN NUM1 >100; --NUM1이 10보다 크면 LOOP종료
+    END LOOP;
+END;
+
+commit;

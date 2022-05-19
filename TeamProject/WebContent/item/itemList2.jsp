@@ -1,3 +1,6 @@
+<%@page import="dao.ItemDAO2"%>
+<%@page import="dto.ItemVO2"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -9,6 +12,29 @@
 <link rel="stylesheet" type="text/css" href="./css/shopping.css">
 </head>
 <body>
+	<%
+			int pageSize = 10;
+		
+			String pageNum = request.getParameter("pageNum");	
+
+			if (pageNum == null)
+				pageNum = "1";
+			
+			int count = 0;
+			int number = 0;
+			
+			int currentPage = Integer.parseInt(pageNum);
+			
+			ItemDAO2 iDao2 = ItemDAO2.getInstance();
+			count = iDao2.getAllCount();
+			
+			int startRow = (currentPage - 1) * pageSize + 1;
+			int endRow = (currentPage * pageSize);
+			
+			List<ItemVO2> vec =  iDao2.selectAllItems();
+		
+			number = count - (currentPage - 1) * pageSize;
+	%>
 	<div id="wrap" style="width: 700px" align="center">
 		<h1>상품 목록-관리자 페이지</h1>
 		<table class="list">
@@ -56,10 +82,43 @@
 			</c:forEach>
 			<tr>
 				<td colspan="11" style="border: white; text-align: right">
-					<a href="itemNumReset.do">상품  번호 초기화</a>
+					<a href="itemNumReset.do">상품  번호 초기화(미완)</a>
 				</td>
 			</tr>
 		</table>
+		<br><br>
+		<%
+			int pageCount = count / pageSize + (count % pageSize == 0? 0:1);
+			int startPage = 1;
+			
+			if (currentPage % 10 != 0) {
+				startPage = (currentPage / 10) * 10 + 1;
+			} else {
+				startPage = (currentPage / 10 - 1) * 10 + 1;
+			}
+			
+			int pageBlock = 10;
+			int endPage = startPage + pageBlock - 1;
+			
+			if(endPage > pageCount)
+				endPage = pageCount;
+					
+			if (startPage > 10) {
+		%>
+		<a href="itemList2.jsp?pageNum=<%=startPage - 10 %>">[이전]</a>
+		<%
+			}
+			for (int i = startPage; i <= endPage; i++) {
+		%>
+		<a href="itemList2.jsp?pageNum=<%=i %>">[<%=i %>]</a>
+		<%
+			}
+			if (endPage < pageCount) {
+		%>
+		<a href="itemList2.jsp?pageNum=<%=startPage + 10 %>">[다음]</a>
+		<%
+			}
+		%>
 	</div>
 </body>
 </html>

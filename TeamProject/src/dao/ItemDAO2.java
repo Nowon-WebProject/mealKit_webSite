@@ -135,7 +135,7 @@ public class ItemDAO2 {
 			pstmt.setString(3, iVo2.getItem_content());
 			pstmt.setInt(4, iVo2.getItem_price());
 			pstmt.setInt(5, iVo2.getItem_quantity());
-			pstmt.setString(6, new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
+			pstmt.setString(6, new SimpleDateFormat("yy/MM/dd").format(new Date()));
 			pstmt.setString(7, iVo2.getItem_total());
 			pstmt.setString(8, iVo2.getItem_time());
 			pstmt.setString(9, iVo2.getItem_pictureUrl());
@@ -180,6 +180,29 @@ public class ItemDAO2 {
 		} finally {
 			DBManager.close(conn, pstmt);
 		}
+	}
+	
+	public int getAllCount() {
+		String sql = "select count(*) from item";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int count = 0;
+
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if (rs.next())
+				count = rs.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+
+		return count;
 	}
 
 }
