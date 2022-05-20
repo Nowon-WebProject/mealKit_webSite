@@ -13,27 +13,39 @@
 </head>
 <body>
 	<%
-			int pageSize = 10;
-		
-			String pageNum = request.getParameter("pageNum");	
+				// 화면에 보여질 총 게시글 개수
+				int pageSize = 10;
+			
+				// 누른 페이지
+				String pageNum = request.getParameter("pageNum");	
+				
+				// 처음엔 1페이지
+				if (pageNum == null)
+					pageNum = "1";
 
-			if (pageNum == null)
-				pageNum = "1";
-			
-			int count = 0;
-			int number = 0;
-			
-			int currentPage = Integer.parseInt(pageNum);
-			
-			ItemDAO2 iDao2 = ItemDAO2.getInstance();
-			count = iDao2.getAllCount();
-			
-			int startRow = (currentPage - 1) * pageSize + 1;
-			int endRow = (currentPage * pageSize);
-			
-			List<ItemVO2> vec =  iDao2.selectAllItems();
-		
-			number = count - (currentPage - 1) * pageSize;
+				// 현재 페이지 (누른 페이지 또는 1페이지)
+				int currentPage = Integer.parseInt(pageNum);
+				
+				// 전체 글 개수
+				int count = 0;
+				// 페이지 숫자 세기
+				int number = 0;
+				
+				ItemDAO2 iDao2 = ItemDAO2.getInstance();
+				count = iDao2.getAllCount();
+				
+				// 지금 페이지에 보여질 시작 번호와 끝 번호
+				// ex.
+				// 1p 2p 3p 4p
+				// 1  11 21 31 ...
+				// 10 20 30 40 ...
+				int startRow = (currentPage - 1) * pageSize + 1;
+				int endRow = (currentPage * pageSize);
+	
+				List<ItemVO2> list = iDao2.selectAllItems(startRow, endRow);
+									
+				number = count - (currentPage - 1) * pageSize;
+				// 페이지에 표시할 번호 지정 (??? 뭔지 아직 모름)
 	%>
 	<div id="wrap" style="width: 700px" align="center">
 		<h1>상품 목록-관리자 페이지</h1>
@@ -56,7 +68,7 @@
 				<td>수정</td>
 				<td>삭제</td>
 			</tr>
-			<c:forEach var="item" items="${itemList}">
+			<c:forEach var="item" items="<%=list %>">
 				<tr>
 					<td>
 						<c:choose>
@@ -88,34 +100,41 @@
 		</table>
 		<br><br>
 		<%
+			// 전체 페이지 개수 구하기
+			// count: 전체 글 개수, pageSize: 화면에 보여질 총 게시글 개수
 			int pageCount = count / pageSize + (count % pageSize == 0? 0:1);
+		
 			int startPage = 1;
-			
-			if (currentPage % 10 != 0) {
-				startPage = (currentPage / 10) * 10 + 1;
-			} else {
-				startPage = (currentPage / 10 - 1) * 10 + 1;
+
+			// 시작 페이지 구하기
+			// currentPage: 현재 페이지
+			if (currentPage % pageSize != 0) {
+				startPage = (currentPage / pageSize) * pageSize + 1;
+			} else {		
+				startPage = (currentPage / pageSize - 1) * pageSize + 1;
 			}
 			
-			int pageBlock = 10;
+			// 끝 페이지 구하기
+			int pageBlock = pageSize;
 			int endPage = startPage + pageBlock - 1;
 			
 			if(endPage > pageCount)
 				endPage = pageCount;
 					
-			if (startPage > 10) {
+			// 아래는 페이지 표시 과정
+			if (startPage > pageSize) {
 		%>
-		<a href="itemList2.jsp?pageNum=<%=startPage - 10 %>">[이전]</a>
+		<a href="itemList2.do?pageNum=<%=startPage - pageSize %>">[이전]</a>
 		<%
 			}
 			for (int i = startPage; i <= endPage; i++) {
 		%>
-		<a href="itemList2.jsp?pageNum=<%=i %>">[<%=i %>]</a>
+		<a href="itemList2.do?pageNum=<%=i %>">[<%=i %>]</a>
 		<%
 			}
 			if (endPage < pageCount) {
 		%>
-		<a href="itemList2.jsp?pageNum=<%=startPage + 10 %>">[다음]</a>
+		<a href="itemList2.do?pageNum=<%=startPage + pageSize %>">[다음]</a>
 		<%
 			}
 		%>

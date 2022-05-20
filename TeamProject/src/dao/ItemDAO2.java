@@ -7,8 +7,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
 import dto.ItemVO2;
+import model.BoardBean;
 import util.DBManager;
 
 public class ItemDAO2 {
@@ -23,9 +25,9 @@ public class ItemDAO2 {
 		
 		return instance;
 	}
-
-	public List<ItemVO2> selectAllItems() {
-		String sql = "select * from item order by item_num desc";
+	
+	public List<ItemVO2> selectAllItems(int start, int end) {
+		String sql = "select * from(select A.*, Rownum Rnum from(select * from item order by item_num desc)A)" + "where Rnum >= ? and Rnum <= ?";
 		List<ItemVO2> list = new ArrayList<ItemVO2>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -34,6 +36,8 @@ public class ItemDAO2 {
 		try {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -57,6 +61,7 @@ public class ItemDAO2 {
 
 		return list;
 	}
+		
 
 	public void insertItem(ItemVO2 iVo2) {
 		String sql = "insert into item values(item_seq.nextval, ?, ?, ?, ?, ?, sysdate, ?, ?, ?)";

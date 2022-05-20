@@ -37,9 +37,6 @@ public class ItemListServlet2 extends HttpServlet {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 
-		ItemDAO2 iDao2 = ItemDAO2.getInstance();
-		List<ItemVO2> itemList = iDao2.selectAllItems();
-		request.setAttribute("itemList", itemList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("item/itemList2.jsp");
 		dispatcher.forward(request, response);
 	}
