@@ -14,7 +14,12 @@
 <body>
 	<%
 				// 화면에 보여질 총 게시글 개수
-				int pageSize = 10;
+				int pageSize = 0;
+				String ps = request.getParameter("pageSize");
+				if (ps == null)
+					pageSize = 10;
+				else
+					pageSize = Integer.parseInt(ps);
 			
 				// 누른 페이지
 				String pageNum = request.getParameter("pageNum");	
@@ -43,9 +48,6 @@
 				int endRow = (currentPage * pageSize);
 	
 				List<ItemVO2> list = iDao2.selectAllItems(startRow, endRow);
-									
-				number = count - (currentPage - 1) * pageSize;
-				// 페이지에 표시할 번호 지정 (??? 뭔지 아직 모름)
 	%>
 	<div id="wrap" style="width: 700px" align="center">
 		<h1>상품 목록-관리자 페이지</h1>
@@ -108,36 +110,46 @@
 
 			// 시작 페이지 구하기
 			// currentPage: 현재 페이지
-			if (currentPage % pageSize != 0) {
-				startPage = (currentPage / pageSize) * pageSize + 1;
+			if (currentPage % 10 != 0) {
+				startPage = (currentPage / 10) * 10 + 1;
 			} else {		
-				startPage = (currentPage / pageSize - 1) * pageSize + 1;
+				startPage = (currentPage / 10 - 1) * 10 + 1;
 			}
 			
 			// 끝 페이지 구하기
-			int pageBlock = pageSize;
+			int pageBlock = 10;
 			int endPage = startPage + pageBlock - 1;
 			
 			if(endPage > pageCount)
 				endPage = pageCount;
 					
 			// 아래는 페이지 표시 과정
-			if (startPage > pageSize) {
+			if (startPage > 10) {
 		%>
-		<a href="itemList2.do?pageNum=<%=startPage - pageSize %>">[이전]</a>
+		<a href="itemList2.do?pageNum=<%=startPage - 10 %>&pageSize=<%=pageSize%>">[이전]</a>
 		<%
 			}
 			for (int i = startPage; i <= endPage; i++) {
 		%>
-		<a href="itemList2.do?pageNum=<%=i %>">[<%=i %>]</a>
+		<a href="itemList2.do?pageNum=<%=i %>&pageSize=<%=pageSize%>">[<%=i %>]</a>
 		<%
 			}
 			if (endPage < pageCount) {
 		%>
-		<a href="itemList2.do?pageNum=<%=startPage + pageSize %>">[다음]</a>
+		<a href="itemList2.do?pageNum=<%=startPage + 10 %>&pageSize=<%=pageSize%>">[다음]</a>
 		<%
 			}
 		%>
+		<br><br>
+		<form action="itemList2.do">
+			<select name="pageSize">
+				<option value="5">5</option>
+				<option value="10">10</option>
+				<option value="15">15</option>
+				<option value="20">20</option>
+			</select>
+			<button type="submit">페이지씩 보기</button>
+		</form>
 	</div>
 </body>
 </html>
