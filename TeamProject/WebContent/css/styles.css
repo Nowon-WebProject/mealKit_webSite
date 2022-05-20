@@ -74,8 +74,8 @@
         	height: 10px;
         }
         
-        .badId, .badCheckedId, .passwordCheckGuide, 
-        .passwordGuide1, .passwordGuide2, .birthGuide {
+        .badId, .badCheckedId, .badPasswordGuide1, .badPasswordGuide2,
+        .badPasswordCheckGuide, .badBirthGuide {
 /* 		    display: none; */
 		    padding: 10px 0 9px;
 		    font-size: 12px;
@@ -85,8 +85,8 @@
 		    letter-spacing: -.1px;
  		    clear: both;
 		}
- 		.badId:before, .badCheckedId:before, .passwordCheckGuide:before,
- 		.passwordGuide1:before, .passwordGuide2:before, .birthGuide:before { 
+ 		.badId:before, .badCheckedId:before, .badPasswordCheckGuide:before,
+ 		.badPasswordGuide1:before, .badPasswordGuide2:before, .badBirthGuide:before { 
  			/* \2715 : x 아이콘*/
      		content: '\2715'; 
      		display: inline-block; 
@@ -95,10 +95,12 @@
      		vertical-align: 0; 
  		} 
  		
- 		.goodId, .goodCheckedId{
+ 		.goodId, .goodCheckedId, .goodPasswordGuide1, .goodPasswordGuide2,
+ 		.goodPasswordCheckGuide, .goodBirthGuide
+ 		{
 /* 		    display: none; */
 			/* \2713 : 체크아이콘 */
-			content: '\2713';
+/* 			content: '\2713'; */
 		    padding: 10px 0 9px;
 		    font-size: 12px;
 		    color: green;
@@ -108,7 +110,9 @@
  		    clear: both;
 		}
  		
- 		.goodId:before, .goodCheckedId:before{
+ 		.goodId:before, .goodCheckedId:before, .goodPasswordGuide1:before,
+ 		.goodPasswordGuide2:before, .goodPasswordCheckGuide:before, .goodBirthGuide:before
+ 		{
     		content: '\2713';
     		display: inline-block;
     		padding: 0 4px 0 2px;

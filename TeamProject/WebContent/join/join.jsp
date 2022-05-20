@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>이젠, 집에서 | 회원가입</title>
-<link href="/TeamProject/css/styles.css?test1=2" rel="stylesheet" />
+<link href="/TeamProject/css/styles.css?test1=5" rel="stylesheet" />
     <title>회원가입 화면</title>
     
     <style>
@@ -34,7 +34,7 @@
     </style>
     <script type="text/javascript" src="/TeamProject/js/libs/jquery-3.6.0.min.js"></script>
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-    <script type="text/javascript" src="/TeamProject/js/member.js?test=69"></script>
+    <script type="text/javascript" src="/TeamProject/js/member.js?test=75"></script>
     <!-- 도로명 주소 검색시 사용하는 daum api -->
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
@@ -84,8 +84,8 @@
 				<td/>
 				<td>
 					<p class="txt_guidePassword" >
-						<span class="passwordGuide1"></span> <br>
-						<span class="passwordGuide2"></span>
+						<span class="badPasswordGuide1">비밀 번호는 8글자 이상이어야 합니다</span> <br>
+						<span class="badPasswordGuide2">비밀 번호는 영문, 숫자, 특수문자 중 2가지 이상을 조합해야합니다</span>
 						<input type="hidden" name="passwordCheckValid" size="20">
 					</p>
 				</td>
@@ -98,7 +98,7 @@
 				<td/>
 				<td>
 					<p class="txt_guidePasswordCheck" >
-						<span class="passwordCheckGuide"></span>
+						<span class="badPasswordCheckGuide"></span>
 						<input type="hidden" name="passwordCheckValid" size="20">
 					</p>
 				</td>
@@ -113,7 +113,7 @@
 				<td/>
 				<td>
 					<p class="txt_guideBirth" >
-						<span class="birthGuide"></span>
+						<span class="badBirthGuide"></span>
 						<input type="hidden" name="birthValid" size="20">
 					</p>
 				</td>
