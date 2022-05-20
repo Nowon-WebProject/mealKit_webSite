@@ -141,15 +141,53 @@
 			}
 		%>
 		<br><br>
-		<form action="itemList2.do">
-			<select name="pageSize">
-				<option value="5">5</option>
-				<option value="10">10</option>
-				<option value="15">15</option>
-				<option value="20">20</option>
-			</select>
-			<button type="submit">페이지씩 보기</button>
-		</form>
+		<!-- EL로 변수 가리키는 문법 알아내기 -->
+		<c:choose>
+			<c:when test="${pageSize == 5}">
+				<form action="itemList2.do">
+				<select name="pageSize">
+					<option value="5" selected>5</option>
+					<option value="10">10</option>
+					<option value="15">15</option>
+					<option value="20">20</option>
+				</select>
+				<button type="submit">페이지씩 보기</button>
+				</form>
+			</c:when>
+			<c:when test="${pageSize == 10}">
+				<form action="itemList2.do">
+				<select name="pageSize">
+					<option value="5">5</option>
+					<option value="10" selected>10</option>
+					<option value="15">15</option>
+					<option value="20">20</option>
+				</select>
+				<button type="submit">페이지씩 보기</button>
+				</form>
+			</c:when>
+			<c:when test="${pageSize == 15}">
+				<form action="itemList2.do">
+				<select name="pageSize">
+					<option value="5">5</option>
+					<option value="10">10</option>
+					<option value="15" selected>15</option>
+					<option value="20">20</option>
+				</select>
+				<button type="submit">페이지씩 보기</button>
+				</form>
+			</c:when>
+			<c:when test="${pageSize == 20}">
+				<form action="itemList2.do">
+				<select name="pageSize">
+					<option value="5">5</option>
+					<option value="10">10</option>
+					<option value="15">15</option>
+					<option value="20" selected>20</option>
+				</select>
+				<button type="submit">페이지씩 보기</button>
+				</form>
+			</c:when>
+		</c:choose>
 	</div>
 </body>
 </html>
