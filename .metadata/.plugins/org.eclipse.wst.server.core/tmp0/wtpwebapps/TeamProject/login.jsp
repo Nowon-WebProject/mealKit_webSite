@@ -36,6 +36,7 @@ li {
 	height: 100%;
 	display: table-cell;
 	vertical-align: middle;
+	padding:150px
 }
 
 .login-container {
@@ -94,15 +95,15 @@ li {
 </head>
 <body>
 <jsp:include page="nav.jsp"></jsp:include>
-	<div class="table" align="center">
+	<div class="table" align="center" height="50%">
 		<div class="table-cell">
 			<form action="login.do" method="post" name="frm">
 				<div class="login-container">
 					<h3 class="login--title">로그인</h3>
 					<div align="left"><label class=form-input--title for="userid">아이디</label></div>
-					<input type="text" id="pwd" name="userid" class="form-input">
+					<input type="text" id="userid" name="userid" class="form-input">
 					<div align="left"><label class=form-input--title for="pwd">비밀번호</label></div>
-					<input type="password" id="userid" name="pwd" class="form-input">
+					<input type="password" id="pwd" name="pwd" class="form-input">
 					<div style="color:red"><Strong>${message}</Strong></div>
 					<input type="submit" class="form-btn" value="로그인" id="login">
 					<input type="button" class="form-btn" value="회원가입" id="signup" onclick="location.href='terms.jsp'">

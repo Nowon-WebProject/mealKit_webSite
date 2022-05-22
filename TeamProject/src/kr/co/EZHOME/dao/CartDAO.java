@@ -116,7 +116,6 @@ public class CartDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userid);
 			rs = pstmt.executeQuery();
-
 			while (rs.next()) {
 				cartCnt = rs.getInt(1);
 				System.out.println(userid+"님의 장바구니 갯수"+cartCnt);
@@ -239,6 +238,72 @@ public class CartDAO {
 			pstmt.setInt(2, cart_seq);
 			pstmt.executeUpdate();
 			System.out.println("장바구니 번호"+cart_seq+"번 수량"+item_cnt+"으로 변경 완료");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		
+	}
+	
+	public int cartCheck(String item_name, String userid) {
+		int cartCheckResult = 0;
+		String sql = "select count(item_name) from carttbl where item_name=? and userid=?";
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, item_name);
+			pstmt.setString(2, userid);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				cartCheckResult = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return cartCheckResult;
+	}
+	
+	public void cartAdd(int item_cnt, String item_name, String userid) {
+		String sql="update carttbl set item_cnt=item_cnt+? where item_name=? and userid=?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, item_cnt);
+			pstmt.setString(2, item_name);
+			pstmt.setString(3, userid);
+			pstmt.executeUpdate();
+			System.out.println(userid+"님의 "+item_name+"의 수량 "+item_cnt+"개 추가 완료");
 
 		} catch (Exception e) {
 			e.printStackTrace();

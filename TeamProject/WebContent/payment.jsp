@@ -8,7 +8,7 @@
     String userid = request.getParameter("userid");
     String deli_name = request.getParameter("deli_name");
     String deli_phone = request.getParameter("deli_phone");
-    String deli_addr = request.getParameter("deli_postcode")+" "+ request.getParameter("deli_addr1") +", "+ request.getParameter("deli_addr2");
+    String deli_addr = "("+request.getParameter("deli_postcode")+") "+ request.getParameter("deli_addr1") +", "+ request.getParameter("deli_addr2");
     String deli_postcode = request.getParameter("deli_postcode");
     String deli_msg = request.getParameter("deli_msg");
     String deli_pwd = request.getParameter("deli_pwd");
@@ -56,7 +56,9 @@
 사용할 적립금:<%=usePoint%><br>
 최종 구매금액 :<%=amount%>
     <script>
-    $(function(){
+               var deli_pwd_encode = encodeURIComponent('<%=deli_pwd%>');
+               location.href='http://localhost:8080/TeamProject/purchaseok.do?userid=<%=userid%>&item_name=<%=item_name%>&total_price=<%=amount%>&deli_name=<%=deli_name%>&deli_addr=<%=deli_addr%>&deli_phone=<%=deli_phone%>&deli_msg=<%=deli_msg%>&deli_pwd='+deli_pwd_encode+'&deli_status=<%=deli_status%>&usePoint=<%=usePoint%>&point=<%=point%>&deli_postcode=<%=deli_postcode%>';
+        <%-- $(function(){
         var IMP = window.IMP; // 생략가능
         IMP.init('imp79971809'); // "가맹점 식별코드"
         var msg;
@@ -84,7 +86,7 @@
                 })
                 //성공시 이동할 페이지
                var deli_pwd_encode = encodeURIComponent('<%=deli_pwd%>');
-               location.href='http://localhost:8080/TeamProject/purchaseok.do?userid=<%=userid%>&item_name=<%=item_name%>&total_price=<%=amount%>&deli_name=<%=deli_name%>&deli_addr=<%=deli_addr%>&deli_phone=<%=deli_phone%>&deli_msg=<%=deli_msg%>&deli_pwd='+deli_pwd_encode+'&deli_status=<%=deli_status%>&usePoint=<%=usePoint%>&point=<%=point%>';
+               location.href='http://localhost:8080/TeamProject/purchaseok.do?userid=<%=userid%>&item_name=<%=item_name%>&total_price=<%=amount%>&deli_name=<%=deli_name%>&deli_addr=<%=deli_addr%>&deli_phone=<%=deli_phone%>&deli_msg=<%=deli_msg%>&deli_pwd='+deli_pwd_encode+'&deli_status=<%=deli_status%>&usePoint=<%=usePoint%>&point=<%=point%>&deli_postcode=<%=deli_postcode%>';
                
             } else {
                 msg = '결제에 실패하였습니다. 장바구니로 돌아갑니다.';
@@ -95,7 +97,7 @@
             }
         });
         
-    });
+    }); --%>
     </script>
   
 <jsp:include page="footer.jsp"></jsp:include>

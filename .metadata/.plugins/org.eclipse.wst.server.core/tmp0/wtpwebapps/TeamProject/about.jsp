@@ -12,6 +12,13 @@
 <br><br>
 <div align="center"><img alt="사이트 소개 이미지" src="images/about/about.jpg"></div>
 <br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

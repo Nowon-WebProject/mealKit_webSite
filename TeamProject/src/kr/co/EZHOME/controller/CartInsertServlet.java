@@ -62,14 +62,21 @@ public class CartInsertServlet extends HttpServlet {
 		
 
 		CartDAO cdao = CartDAO.getInstance();
-		cdao.insertCart(cdto);
+		int cartCheckResult = cdao.cartCheck(item_name, userid);
+		if (cartCheckResult == 0) {
+			cdao.insertCart(cdto);
+		}else {
+			cdao.cartAdd(Integer.parseInt(item_cnt), item_name, userid);
+		}
 		
 		
 		session.setAttribute("cartcnt",cdao.cartCnt(userid));
 		
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-		dispatcher.forward(request, response);
+		response.sendRedirect("cartlist.do");
+		/*
+		 * RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+		 * dispatcher.forward(request, response);
+		 */
 	}
 
 }

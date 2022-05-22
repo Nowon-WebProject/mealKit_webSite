@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.co.EZHOME.dao.AddrDAO;
 import kr.co.EZHOME.dao.CartDAO;
 import kr.co.EZHOME.dao.UserDAO;
 import kr.co.EZHOME.dto.CartDTO;
@@ -53,6 +54,7 @@ public class LoginServlet extends HttpServlet {
 
 		UserDAO udao = UserDAO.getInstance();
 		CartDAO cdao = CartDAO.getInstance();
+		AddrDAO adao = AddrDAO.getInstance();
 		int result = udao.userCheck(userid, pwd);
 		if (result == 1) {
 			UserDTO udto = udao.getMember(userid);
@@ -70,6 +72,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("point", udto.getPoint());
 			
 			session.setAttribute("cartcnt", cdao.cartCnt(userid));
+			session.setAttribute("addrcnt", adao.addrCnt(userid));
 			
 			
 			

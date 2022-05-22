@@ -8,10 +8,29 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.cart table {
+	border: 1px solid orange;
+	text-align: center;
+	width: 100%;
+}
+
+.cart th {
+	background-color: orange;
+	border: 1px solid orange;
+}
+
+.cart td {
+	border: 1px solid orange;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="nav.jsp"></jsp:include>
-	
+	<div class="cart">
+		<div style="width: 60%; margin-left: auto; margin-right: auto;">
+		<hr>
+		<h2><i class="bi-cart-check-fill"></i> 장바구니 담기 테스트</h2>
 	<form action="cartinsert.do" method="post">
 	<table>
 		<tr>
@@ -32,7 +51,7 @@
 		</tr>
 		<tr>
 			<td>
-				<input type="submit" value="확인">
+				<input type="submit" value="확인" onclick="cartAlert()">
 				<input type="reset" value="취소">
 			</td>
 		</tr>

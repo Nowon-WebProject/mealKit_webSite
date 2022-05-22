@@ -8,31 +8,35 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-
-html, body {
-    height: 100%;
-}
-.info table{
-border:1px solid orange;
-width:80%;
-text-align:center;
-
+.info table {
+	border: 1px solid orange;
+	text-align: center;
+	width: 100%;
 }
 
-.info  th{
-background-color:orange;
-border:1px solid orange;
+.info th {
+	background-color: orange;
+	border: 1px solid orange;
 }
-.info  td{
-border:1px solid orange;
+
+.info td {
+	border: 1px solid orange;
 }
 </style>
 </head>
 <body>
 <jsp:include page="nav.jsp"></jsp:include>
-	<div align="center" class="info">
+	<div class="info">
+	<div style="width: 60%; margin-left: auto; margin-right: auto;">
+	<%
+	 String check = (request.getAttribute("plist").toString());
+	if(!check.equals("[]")){
+		
+	%>
+<br>
+	<hr>
 	<h2>나의 주문 내역</h2>
-		<table width="1000">
+		<table>
 			<tr>
 				<th colspan="2">주문일자</th>
 				<th>상품명</th> <!-- ~외 ~건 -->
@@ -64,6 +68,22 @@ border:1px solid orange;
 			</c:forEach>
 		</table>
 	</div>
+	</div>
+	<%}else{ %>
+	<div align="center">
+<div style="font-size:200px;color:orange"><i class="bi-file-earmark-x-fill"></i></div>
+			<div style="font-size:30px;color:gray">결제 내역이 없습니다.</div>
+	<%
+		}
+	%>
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

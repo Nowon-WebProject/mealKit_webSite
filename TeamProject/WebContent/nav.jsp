@@ -26,6 +26,7 @@
 	String addr = null;
 	int admin = 0;
 	int cartcnt = 0;
+	int addrcnt = 0;
 	int point = 0;
 	
 	if(session.getAttribute("name") != null){
@@ -36,6 +37,7 @@
 		phone = (String) session.getAttribute("phone");
 		admin = (int) session.getAttribute("admin");
 		cartcnt = (int) session.getAttribute("cartcnt");
+		addrcnt = (int) session.getAttribute("addrcnt");
 		addr = (String) session.getAttribute("addr");
 		point = (int) session.getAttribute("point");
 	}

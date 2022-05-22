@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.co.EZHOME.dao.AddrDAO;
 import kr.co.EZHOME.dao.CartDAO;
+import kr.co.EZHOME.dto.AddrDTO;
 import kr.co.EZHOME.dto.CartDTO;
 import kr.co.EZHOME.dto.UserDTO;
 
@@ -53,6 +55,12 @@ public class PurchaseServlet extends HttpServlet {
 		ArrayList<CartDTO> clist=cdao.selectCartProduct(userid);
 		request.setAttribute("clist", clist);
 		session.setAttribute("cartcnt", cdao.cartCnt(userid));
+		
+		AddrDAO adao=AddrDAO.getInstance();
+		ArrayList<AddrDTO> alist=adao.selectAddrList(userid);
+		request.setAttribute("alist", alist);
+		session.setAttribute("addrcnt", adao.addrCnt(userid));
+		
 		
 		RequestDispatcher dispatcher=request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);

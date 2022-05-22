@@ -11,67 +11,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.cart table{
-border:1px solid orange;
-width:1000px;
-text-align:center;
-
-}
-
-.cart th{
-background-color:orange;
-border:1px solid orange;
-}
-.cart td{
-border:1px solid orange;
-}
-
-/* CSS RESET */
-html, body {
-	height: 100%;
-}
-
-* {
-	padding: 0;
-	margin: 0;
-}
-
-a {
-	text-decoration: none;
-}
-
-li {
-	list-style: none;
-}
-
-.full-bg {
-	height: 100%;
-}
-
-.table {
-	height: 100%;
-	display: table;
-	margin: 0 auto;
-}
-
-.table-cell {
-	height: 100%;
-	display: table-cell;
-	vertical-align: middle;
-}
-
-.login-container {
-	width: 1000px;
-	background-color: #fff;
-	padding: 70px 20px;
-	box-sizing: border-box;
-	
-}
-
-.login--title {
-	width: 100%;
+.cart table {
+	border: 1px solid orange;
 	text-align: center;
-	font-size: 50px;
+	width: 100%;
+}
+
+.cart th {
+	background-color: orange;
+	border: 1px solid orange;
+}
+
+.cart td {
+	border: 1px solid orange;
 }
 
 .form-btn {
@@ -84,7 +36,7 @@ li {
 	box-sizing: border-box;
 	margin: 5px 0;
 	cursor: pointer;
-	border:0;
+	border: 0;
 }
 
 .form-btn:hover {
@@ -95,82 +47,87 @@ li {
 
 </head>
 <body>
-
-
 	<jsp:include page="nav.jsp"></jsp:include>
-
+	<div class="cart">
+		<div style="width: 60%; margin-left: auto; margin-right: auto;">
 	<%
 		if ((int) session.getAttribute("cartcnt") != 0) {
 	%>
-	<div align="center"  class="cart">
-
-		<div class="login-container">
-		<h2>장바구니</h2>
-		<table border="1" bordercolor="orange">
-			<tr style="text-align:center">
-				<th style="width:75px"><!-- 이미지 --></th>
-				<th>상품정보</th>
-				<th>판매금액</th>
-				<th>수량</th>
-				<th>합 금액</th>
-				<th></th>
-			</tr>
-			<c:set var="result" value="0" />
-			<c:forEach var="cart" items="${clist}">
-				<tr>
-					<td><img alt="이미지" src="images/product/1.jpg" width="75px" height="75px"></td>
-					<td>${cart.item_name}</td>
-					<td><fmt:formatNumber value="${cart.item_price}"
-							pattern="#,##0" />원</td>
-					<td>
-					<form action="cartcntmodify.do" method="post">
-					<input type="hidden" name="cart_seq" value="${cart.cart_seq}">
-					<input type="number" min="1" max="10" name="item_cnt" size="2" value="${cart.item_cnt}">
-					
-					<input type="submit" value="변경">
-					</form>
-					</td>
-					
-					<td>
-					<fmt:formatNumber value="${cart.item_price*cart.item_cnt}"
-							pattern="#,##0" />원
-					</td>
-					
-					<c:set var="result"
-						value="${result+(cart.item_price*cart.item_cnt)}" />
-					<td>
-					<form action="cartdelete.do" method="post">
-					<input type="hidden" name="cart_seq" value="${cart.cart_seq}">
-					<input type="submit" value="삭제">
-					</form>
-					</td>
+			<hr>
+			<h2><i class="bi-cart-check-fill"></i> 장바구니</h2>
+			<div align="right">
+				<span style="color: black"><strong>01 장바구니 <i class="bi-caret-right-fill"></i></strong></span> 
+				<span style="color: gray">02 주문서작성/결제 <i class="bi-caret-right"></i></span> 
+				<span style="color: gray"> 03 주문완료 </span>
+			</div>
+			<table>
+				<tr style="text-align: center">
+					<th style="width: 75px">
+						<!-- 이미지  -->
+					</th>
+					<th>상품정보</th>
+					<th>판매금액</th>
+					<th>수량</th>
+					<th>합 금액</th>
+					<th></th>
 				</tr>
-			</c:forEach>
-		</table>
-		<div>
-			<Strong><fmt:formatNumber value="${result}" pattern="#,##0" /></Strong>원 입니다.
-					<form action="cartdeleteall.do" method="post">
+				<c:set var="result" value="0" />
+				<c:forEach var="cart" items="${clist}">
+					<tr>
+						<td><img alt="이미지" src="images/product/1.jpg" width="75px" height="75px"></td>
+						<td>${cart.item_name}</td>
+						<td><fmt:formatNumber value="${cart.item_price}" pattern="#,##0" />원</td>
+						<td>
+							<form action="cartcntmodify.do" method="post">
+								<input type="hidden" name="cart_seq" value="${cart.cart_seq}">
+								<input type="number" min="1" max="10" name="item_cnt" size="2" value="${cart.item_cnt}">
+								<input type="submit" value="변경">
+							</form>
+						</td>
+						<td><fmt:formatNumber value="${cart.item_price*cart.item_cnt}" pattern="#,##0" />원</td>
+						<c:set var="result" value="${result+(cart.item_price*cart.item_cnt)}" />
+						<td>
+							<form action="cartdelete.do" method="post">
+								<input type="hidden" name="cart_seq" value="${cart.cart_seq}">
+								<input type="submit" value="삭제">
+							</form>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+			<br>
+			<div align="center">
+				<form action="cartdeleteall.do" method="post" align="right">
 					<input type="hidden" name="userid" value="<%=session.getAttribute("userid")%>">
 					<input type="submit" value="전체 상품 삭제">
-					</form></div>
-					<form action="purchase.do" method="post">
+				</form>
+				<Strong><fmt:formatNumber value="${result}" pattern="#,##0" /></Strong>원 입니다.
+				<form action="purchase.do" method="post">
 					<input type="hidden" name="userid" value="<%=session.getAttribute("userid")%>">
 					<input type="submit" class="form-btn" value="구매하기">
-					</form>
-						</div>
+				</form>
+				<hr>
+			</div>
+		</div>
 	</div>
-	
-
-					
-	
 	<%
+	
 		} else {
 	%>
-	<div>장바구니가 비었습니다.</div>
+		<div align="center">
+			<div style="font-size:200px;color:orange"><i class="bi-cart-x-fill"></i></div>
+			<div style="font-size:30px;color:gray">장바구니가 비어있습니다.</div>
 	<%
 		}
 	%>
-
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

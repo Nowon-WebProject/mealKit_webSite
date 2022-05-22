@@ -42,6 +42,7 @@ public class CartCntModify extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		
+		// 세션 내 장바구니의 상태를 업데이트하기 위해 만듦
 		int item_cnt = Integer.parseInt(request.getParameter("item_cnt"));
 		int cart_seq =  Integer.parseInt(request.getParameter("cart_seq"));
 		

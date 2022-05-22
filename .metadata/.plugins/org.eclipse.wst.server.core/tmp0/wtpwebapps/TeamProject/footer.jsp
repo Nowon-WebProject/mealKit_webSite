@@ -6,39 +6,27 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style tyle="text/css">
-html, body {
-	margin: 0;
-	padding: 0;
-	height: 100%;
-}
-
-#wrapper {
+html {
 	position: relative;
 	min-height: 100%;
+	
 }
 
-#header {
-	height: 70px;
-	background: #ccc;
-}
-
-#container {
-	padding: 20px;
-}
-
-#footer {
+footer {
 	position: absolute;
+	left: 0;
 	bottom: 0;
 	width: 100%;
+	padding: 50px;
+	text-align: center;
+	color: white;
+	background-color: #fd7e14;
 }
 </style>
 </head>
 <body>
-	<footer class="py-5" style="background-color: #fd7e14">
-		<div>
-			<p class="m-0 text-center text-white">Copyright &copy; EZEN 3조
-				이승열, 김선우, 박경준, 성원철, 신예빈</p>
-		</div>
+	<footer>
+		<p>Copyright &copy; EZEN 3조 이승열, 김선우, 박경준, 성원철, 신예빈</p>
 	</footer>
 </body>
 </html>

@@ -112,4 +112,6 @@ public class PurchaseDAO {
 		}
 		return plist;
 	}
+
+	
 }

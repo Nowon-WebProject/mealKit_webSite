@@ -9,13 +9,6 @@
     <title>회원가입 화면</title>
     
     <style>
-        #wrap{
-            width:530px;
-            margin-left:auto; 
-            margin-right:auto;
-            /* text-align:center; */
-        }
-        
         table{
             border:3px solid #fd7e14
         }
@@ -33,12 +26,9 @@
 <body>
 <jsp:include page="nav.jsp"></jsp:include>
 <!-- 왼쪽, 오른쪽 바깥여백을 auto로 주면 중앙정렬된다.  -->
-    <div align="center">
-        <br><br>
+    <div align="center" style="padding:150px">
         <b><font size="6" color="gray">회원가입</font></b>
         <br><br><br>
-    </div>
-    <div id="wrap">
 <form action="join.do" method="post" name="frm">
 	<table>
 		<tr>
@@ -100,7 +90,7 @@
 		</tr>
 	</table>
 </form>
-</div>
+    </div>
 
 <jsp:include page="footer.jsp"></jsp:include>
 </body>
