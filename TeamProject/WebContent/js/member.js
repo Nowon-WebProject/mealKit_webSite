@@ -322,11 +322,21 @@ function idCheck(){
 	window.open(url,"_blank_1","toolbar=no,menubar=no,"+"scrollbars=yes,resizable=no,width=450,height=200");
 }
 
+function phoneCheck(){
+	var url="/TeamProject/SendMessage.do?phone="+document.frm.phone.value;
+	window.open(url,"_blank_1","toolbar=no,menubar=no,"+"scrollbars=yes,resizable=no,width=450,height=200");
+}
+
 function idok(userid){
 	opener.frm.userid.value=document.frm.userid.value;
 	opener.frm.reid.value=document.frm.userid.value;
 	//중복확인 되었을때 guide txt 도 초록색으로 변경
 	opener.$(".badCheckedId").attr("class", "goodCheckedId");
+	self.close();
+}
+
+function phoneok(){
+	//opener.frm.reid.value=document.frm.userid.value;
 	self.close();
 }
 

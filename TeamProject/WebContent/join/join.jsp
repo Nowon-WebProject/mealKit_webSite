@@ -34,7 +34,7 @@
     </style>
     <script type="text/javascript" src="/TeamProject/js/libs/jquery-3.6.0.min.js"></script>
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-    <script type="text/javascript" src="/TeamProject/js/member.js?test=75"></script>
+    <script type="text/javascript" src="/TeamProject/js/member.js?test=76"></script>
     <!-- 도로명 주소 검색시 사용하는 daum api -->
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
@@ -126,6 +126,7 @@
 				<td>전화번호</td>
 				<td>
 					<input type='tel' class="phone" name='phone' maxlength="13"/>
+					<input type="button" value="전화번호 인증" onclick="phoneCheck()">
 				</td>
 			</tr>
 			<tr>
@@ -135,7 +136,7 @@
 					<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 					<input type="text" id="sample4_roadAddress" name="roadAddr" placeholder="도로명주소" size="60" readonly><br>
 					<input type="hidden" id="sample4_jibunAddress" name="jibunAddr" placeholder="지번주소"  size="60">
-<!-- 					<span id="guide" style="color:#999;display:none"></span> -->
+					<span id="guide" style="color:#999;display:none"></span>
 					<input type="text" id="sample4_detailAddress" name="addr3" placeholder="상세주소"  size="60"><br>
 					<input type="hidden" id="sample4_extraAddress" name="cham" placeholder="참고항목"  size="60">
 					<input type="hidden" id="sample4_engAddress" name="engAddr" placeholder="영문주소"  size="60" >
