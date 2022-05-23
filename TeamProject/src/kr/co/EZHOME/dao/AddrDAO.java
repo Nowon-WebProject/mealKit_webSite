@@ -110,10 +110,11 @@ public class AddrDAO {
 		return addrList;
 	}
 	
-	public int addrCheck(String deli_postcode, String userid) {
+	public int addrCheck(String deli_postcode, String deli_name, String userid) {
 		deli_postcode = "%"+deli_postcode+"%";
-		int cartCheckResult = 0;
-		String sql = "select count(deli_addr) from addrtbl where deli_addr like ? and userid=?";
+		deli_name = "%"+deli_name+"%";
+		int addrCheckResult = 0;
+		String sql = "select count(*) from addrtbl where (deli_addr like ? and deli_name like ?) and userid=?";
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -123,10 +124,11 @@ public class AddrDAO {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, deli_postcode);
-			pstmt.setString(2, userid);
+			pstmt.setString(2, deli_name);
+			pstmt.setString(3, userid);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				cartCheckResult = rs.getInt(1);
+				addrCheckResult = rs.getInt(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -143,7 +145,7 @@ public class AddrDAO {
 			}
 		}
 
-		return cartCheckResult;
+		return addrCheckResult;
 	}
 
 	public void deleteAddr(int deli_addr_seq) {

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="kr.co.EZHOME.dto.UserDTO"/>
+<fullyQualifiedTypeName name="kr.co.EZHOME.dto.MyAddrDTO"/>
+<fullyQualifiedTypeName name="kr.co.EZHOME.dao.MyAddrDAO"/>
 </qualifiedTypeNameHistroy>

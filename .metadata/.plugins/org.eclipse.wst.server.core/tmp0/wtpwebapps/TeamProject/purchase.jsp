@@ -17,7 +17,7 @@ String addr2 = addr.substring(addr.lastIndexOf(",")+2);
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-    <script type="text/javascript" src="js/member.js"></script>
+<script type="text/javascript" src="js/member.js"></script>
 <script type="text/javascript">
 
 
@@ -30,10 +30,16 @@ function setDisplay(){
         $('#divId').show();
     }
 }
-
+function modalDisplay1(){
+        $('#recent').hide();
+        $('#manage').show();
+}
+function modalDisplay2(){
+        $('#manage').hide();
+        $('#recent').show();
+}
 
 $(document).ready(function(){
-	        $('#deli_addr').hide();
 	  $("input:radio[name=addrCheck]").click(function(){
 	    if($("input[name=addrCheck]:checked").val() == "0"){
 			$("input:text[name=deli_name]").val("<%=session.getAttribute("name")%>");
@@ -52,7 +58,6 @@ $(document).ready(function(){
 		  const target = document.getElementById('daumPostCode');
 		  target.disabled = true;
 		  
-	        $('#deli_addr').hide();
 			
 	    } else if($("input[name=addrCheck]:checked").val() == "1"){
 			$("input:text[name=deli_name]").val("");
@@ -70,25 +75,6 @@ $(document).ready(function(){
 		  const target = document.getElementById('daumPostCode');
 		  target.disabled = false;
 		  
-	        $('#deli_addr').hide();
-		  
-	    } else if($("input[name=addrCheck]:checked").val() == "2"){
-			$("input:text[name=deli_name]").val("");
-			$("input:text[name=deli_name]").attr("readonly",true);	      
-			$("input:text[name=deli_postcode]").val("");
-			$("input:text[name=deli_postcode]").attr("readonly",true);	      
-			$("input:text[name=deli_addr1]").val("");
-			$("input:text[name=deli_addr1]").attr("readonly",true);	      
-			$("input:text[name=deli_addr2]").val("");
-			$("input:text[name=deli_addr2]").attr("readonly",true);	      
-			$("input:text[name=deli_phone]").val("");
-			$("input:text[name=deli_phone]").attr("readonly",true);	 
-			$("input:text[name=deli_msg]").val("");
-			$("input:text[name=deli_pwd]").val("");
-		  const target = document.getElementById('daumPostCode');
-		  target.disabled = true;
-		  
-	        $('#deli_addr').show();
 	    }
 	  });
 	});
@@ -142,11 +128,10 @@ function allPoint() {
 		$("#usePoint").val(b);
 		$( '#usePointResult' ).text( b.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') );
  		$( '#message' ).text( message );
+ 		
 	});
 }
 function selectAddr(i){
-	
-	var i2 = i.toString();
 	if(i == 0){
 		var addr = "${alist[0].deli_addr}";
 		var postcode = addr.substr(1,5);
@@ -223,10 +208,110 @@ function selectAddr(i){
 		$("input:text[name=deli_msg]").val("${alist[4].deli_msg}");
 		$("input:text[name=deli_pwd]").val("${alist[4].deli_pwd}");
 	}
+	modal.classList.toggle('show');
+	body.style.overflow = 'auto'
 }
 
-
-
+function selectMyAddr(i){
+	if(i == 0){
+	var name = manage.document.getElementById('name_0').value;
+	$("input:text[name=deli_name]").val(name);
+	var addr = manage.document.getElementById('addr_0').value;
+	var postcode = addr.substr(1,5);
+	var startIndex1 = addr.indexOf(")")+2;
+	var endIndex1 = addr.indexOf(",");	
+	var addr1 = addr.substring(startIndex1, endIndex1);
+	var startIndex2 = addr.indexOf(",")+2;
+	var addr2 = addr.substring(startIndex2);
+	var phone = manage.document.getElementById('phone_0').value;
+	var msg = manage.document.getElementById('msg_0').value;
+	var pwd = manage.document.getElementById('pwd_0').value;
+	$("input:text[name=deli_postcode]").val(postcode);
+	$("input:text[name=deli_addr1]").val(addr1);
+	$("input:text[name=deli_addr2]").val(addr2);
+	$("input:text[name=deli_phone]").val(phone);
+	$("input:text[name=deli_msg]").val(msg);
+	$("input:text[name=deli_pwd]").val(pwd);
+	} else if(i == 1){
+	var name = manage.document.getElementById('name_1').value;
+	$("input:text[name=deli_name]").val(name);
+	var addr = manage.document.getElementById('addr_1').value;
+	var postcode = addr.substr(1,5);
+	var startIndex1 = addr.indexOf(")")+2;
+	var endIndex1 = addr.indexOf(",");	
+	var addr1 = addr.substring(startIndex1, endIndex1);
+	var startIndex2 = addr.indexOf(",")+2;
+	var addr2 = addr.substring(startIndex2);
+	var phone = manage.document.getElementById('phone_1').value;
+	var msg = manage.document.getElementById('msg_1').value;
+	var pwd = manage.document.getElementById('pwd_1').value;
+	$("input:text[name=deli_postcode]").val(postcode);
+	$("input:text[name=deli_addr1]").val(addr1);
+	$("input:text[name=deli_addr2]").val(addr2);
+	$("input:text[name=deli_phone]").val(phone);
+	$("input:text[name=deli_msg]").val(msg);
+	$("input:text[name=deli_pwd]").val(pwd);
+	} else if(i == 2){
+	var name = manage.document.getElementById('name_2').value;
+	$("input:text[name=deli_name]").val(name);
+	var addr = manage.document.getElementById('addr_2').value;
+	var postcode = addr.substr(1,5);
+	var startIndex1 = addr.indexOf(")")+2;
+	var endIndex1 = addr.indexOf(",");	
+	var addr1 = addr.substring(startIndex1, endIndex1);
+	var startIndex2 = addr.indexOf(",")+2;
+	var addr2 = addr.substring(startIndex2);
+	var phone = manage.document.getElementById('phone_2').value;
+	var msg = manage.document.getElementById('msg_2').value;
+	var pwd = manage.document.getElementById('pwd_2').value;
+	$("input:text[name=deli_postcode]").val(postcode);
+	$("input:text[name=deli_addr1]").val(addr1);
+	$("input:text[name=deli_addr2]").val(addr2);
+	$("input:text[name=deli_phone]").val(phone);
+	$("input:text[name=deli_msg]").val(msg);
+	$("input:text[name=deli_pwd]").val(pwd);
+	} else if(i == 3){
+		var name = manage.document.getElementById('name_3').value;
+		$("input:text[name=deli_name]").val(name);
+		var addr = manage.document.getElementById('addr_3').value;
+		var postcode = addr.substr(1,5);
+		var startIndex1 = addr.indexOf(")")+2;
+		var endIndex1 = addr.indexOf(",");	
+		var addr1 = addr.substring(startIndex1, endIndex1);
+		var startIndex2 = addr.indexOf(",")+2;
+		var addr2 = addr.substring(startIndex2);
+		var phone = manage.document.getElementById('phone_3').value;
+		var msg = manage.document.getElementById('msg_3').value;
+		var pwd = manage.document.getElementById('pwd_3').value;
+		$("input:text[name=deli_postcode]").val(postcode);
+		$("input:text[name=deli_addr1]").val(addr1);
+		$("input:text[name=deli_addr2]").val(addr2);
+		$("input:text[name=deli_phone]").val(phone);
+		$("input:text[name=deli_msg]").val(msg);
+		$("input:text[name=deli_pwd]").val(pwd);
+	} else if(i == 4){
+		var name = manage.document.getElementById('name_4').value;
+		$("input:text[name=deli_name]").val(name);
+		var addr = manage.document.getElementById('addr_4').value;
+		var postcode = addr.substr(1,5);
+		var startIndex1 = addr.indexOf(")")+2;
+		var endIndex1 = addr.indexOf(",");	
+		var addr1 = addr.substring(startIndex1, endIndex1);
+		var startIndex2 = addr.indexOf(",")+2;
+		var addr2 = addr.substring(startIndex2);
+		var phone = manage.document.getElementById('phone_4').value;
+		var msg = manage.document.getElementById('msg_4').value;
+		var pwd = manage.document.getElementById('pwd_4').value;
+		$("input:text[name=deli_postcode]").val(postcode);
+		$("input:text[name=deli_addr1]").val(addr1);
+		$("input:text[name=deli_addr2]").val(addr2);
+		$("input:text[name=deli_phone]").val(phone);
+		$("input:text[name=deli_msg]").val(msg);
+		$("input:text[name=deli_pwd]").val(pwd);
+	}
+	modal.classList.toggle('show');
+	body.style.overflow = 'auto'
+}
 </script>
 <style>
 /* number값 화살표 없애기 */
@@ -262,7 +347,7 @@ border:1px solid orange;
 }
 #deli_addr td{
 border:1px solid orange;
-}
+} 
 /* CSS RESET */
 
 
@@ -320,6 +405,34 @@ li {
 .form-btn:hover {
 	background-color: #FF9900;
 	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal.show {
+	display: block;
+}
+
+.modal_body {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 600px;
+	height: 800px;
+	padding: 40px;
+	text-align: center;
+	background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+	transform: translateX(-50%) translateY(-50%);
 }
 </style>
 </head>
@@ -385,36 +498,90 @@ li {
 						<table>
 							<tr>
 								<th>배송지 확인</th>
-								<td>주문자정보와 동일<input type="radio" name="addrCheck" value="0" checked>
-									직접입력<input type="radio" name="addrCheck"	value="1">
-									최근 배송지<input type="radio" name="addrCheck"	value="2">
-									<div id="deli_addr" width="600" height="800">
-									<%if ((int) session.getAttribute("addrcnt") != 0){  %>
-										<table border="1" bordercolor="orange">
-											<tr style="text-align: center">
-												<th>받으실 분</th>
-												<th>정보</th>
-												<th></th>
-											</tr>
-											<c:forEach var="addr" items="${alist}" begin="0" end="5" step="1" varStatus="i"> 
-											<tr>
-												<td>${addr.deli_name}</td>
-												<td>주소 : ${addr.deli_addr}<br>
-													전화번호 :	${addr.deli_phone}<br>
-													배송메세지 : ${addr.deli_msg}<br>
-													공동현관 비밀번호 : ${addr.deli_pwd}
-												</td>
-												<td>
-													<button type="button" onclick="selectAddr('${i.count-1}')">선택</button>
-												</td>
-												</tr>
-											</c:forEach>
-										</table>
-										최근 배송지는 5개까지만 저장됩니다.
-									<%}else{ %>
-									최근 배송지가 없습니다
-									<%} %>
-									</div></td>
+								<td>주문자정보와 동일<input type="radio" id="addrCheck1" name="addrCheck" value="0" checked>
+									직접입력<input type="radio" id="addrCheck2" name="addrCheck"	value="1">
+
+									
+									<button type="button" class="btn-open-popup">배송지 변경</button>
+									<div class="modal">
+											<div class="modal_body">
+									<input type="button" name="modal" id="modal1" onclick="modalDisplay1()" value="나의 배송지">
+									<input type="button" name="modal" id="modal2" onclick="modalDisplay2()" value="최근 배송지">
+											<div id="manage">
+											<br>
+												<iframe id="frame" name="manage" src="addrmanage.do" frameborder="0" scrolling="no"
+													width="500" height="700"></iframe>
+											</div>
+											<div id="recent" style="display:none">
+											<br>
+												최근 배송지
+												<hr>
+												<!-- 최근 배송지  -->
+												<%
+													if ((int) session.getAttribute("addrcnt") != 0) {
+												%>
+												<table width="100%">
+													<c:forEach var="addr" items="${alist}" begin="0" end="4"
+														step="1" varStatus="i">
+														<tr align="left">
+															<td ><i style="font-size: 20px; color: orange"
+																class="bi-geo-alt-fill"></i> ${addr.deli_name}</td>
+														</tr>
+														<tr>
+															<td align="left" width="85%">${addr.deli_addr}</td>
+															<td width="15%">
+																<button type="button"
+																	onclick="selectAddr('${i.index}')">선택</button>
+															</td>
+														</tr>
+														<tr>
+															<td>　</td>
+														</tr>
+													</c:forEach>
+												</table>
+												<hr> 최근 배송지는 5개까지 저장됩니다.
+												<%
+													} else {
+												%>
+														<div align="center">
+															<i style="font-size:200px;color:orange" class="bi-geo-alt-fill"></i>
+															<div style="font-size:30px;color:gray">최근 배송지가 없습니다.</div>
+														</div>
+												<%
+													}
+												%>
+
+												<hr>
+											</div>
+										</div>
+									</div>
+										<script>
+									const body = document.querySelector('body');
+									const modal = document.querySelector('.modal');
+									const btnOpenPopup = document.querySelector('.btn-open-popup');
+
+									btnOpenPopup.addEventListener('click', () => {
+										
+									/* 버튼 클릭시 라디오 버튼 체크 해제 */
+									  document.getElementById('addrCheck1').checked = false
+									  document.getElementById('addrCheck2').checked = false
+									
+									  modal.classList.toggle('show');
+									  if (modal.classList.contains('show')) {
+									    body.style.overflow = 'hidden';
+									  }
+									});
+
+									modal.addEventListener('click', (event) => {
+									  if (event.target === modal) {
+									    modal.classList.toggle('show');
+
+									    if (!modal.classList.contains('show')) {
+									      body.style.overflow = 'auto';
+									    }
+									  }
+									});
+									</script></td>
 							</tr>
 							<tr>
 								<th>받으실 분</th>
@@ -490,9 +657,9 @@ li {
 					<input type="hidden" name="deli_status" value="결제 완료">
 					<input type="hidden" name="point" value="${point}">
 					<input type="submit" id="submit" class="form-btn" value="결제">
-					
 				</div>
 			</div>
+
 		</form>
 	</div>	
 	<br>
@@ -503,7 +670,8 @@ li {
 <br>
 <br>
 	<jsp:include page="footer.jsp"></jsp:include>
-	
+
+
 </body>
 </html>
 

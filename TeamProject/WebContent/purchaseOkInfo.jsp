@@ -71,8 +71,8 @@
 	</div>
 	<%}else{ %>
 	<div align="center">
-<div style="font-size:200px;color:orange"><i class="bi-file-earmark-x-fill"></i></div>
-			<div style="font-size:30px;color:gray">결제 내역이 없습니다.</div>
+	<i style="font-size:200px;color:orange" class="bi-file-earmark-x-fill"></i>
+	<div style="font-size:30px;color:gray">결제 내역이 없습니다.</div>
 	<%
 		}
 	%>

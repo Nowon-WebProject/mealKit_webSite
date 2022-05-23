@@ -95,7 +95,7 @@ public class PurchaseOkServlet extends HttpServlet {
 		
 
 		
-		int addrCheckResult = adao.addrCheck(deli_postcode, userid);
+		int addrCheckResult = adao.addrCheck(deli_postcode, deli_name, userid);
 		
 		int oldAddrSeq = adao.oldAddrFind(userid);
 		

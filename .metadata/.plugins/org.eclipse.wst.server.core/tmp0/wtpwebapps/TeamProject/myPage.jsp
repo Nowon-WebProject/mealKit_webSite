@@ -15,7 +15,6 @@
 	<%= session.getAttribute("name")%>님 안녕하세요<br><br>
 	 	<button onclick="location.href='purchaseoklist.do'">주문정보 확인</button><br><br>
 	<button onclick="location.href='cartTest.jsp'">장바구니에 제품 넣기 테스트</button><br><br>
-	<button onclick="location.href='addrlist.do?&userid=<%= session.getAttribute("userid")%>'">배송지 확인 삭제</button><br>
 	</div>
 <jsp:include page="footer.jsp"></jsp:include>
 </body>

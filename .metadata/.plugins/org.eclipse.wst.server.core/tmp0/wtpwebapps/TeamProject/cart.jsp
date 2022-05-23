@@ -115,7 +115,7 @@
 		} else {
 	%>
 		<div align="center">
-			<div style="font-size:200px;color:orange"><i class="bi-cart-x-fill"></i></div>
+			<i style="font-size:200px;color:orange" class="bi-cart-x-fill"></i>
 			<div style="font-size:30px;color:gray">장바구니가 비어있습니다.</div>
 	<%
 		}
