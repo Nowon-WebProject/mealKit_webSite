@@ -13,20 +13,20 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import dao.ItemDAO2;
-import dto.ItemVO2;
+import dao.ItemDAO3;
+import dto.ItemVO3;
 
 /**
- * Servlet implementation class itemWriteServlet
+ * Servlet implementation class ProductUpdateServlet
  */
-@WebServlet("/itemWrite2.do")
-public class ItemWriteServlet2 extends HttpServlet {
+@WebServlet("/itemUpdate3.do")
+public class ItemUpdateServlet3 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ItemWriteServlet2() {
+	public ItemUpdateServlet3() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -40,7 +40,13 @@ public class ItemWriteServlet2 extends HttpServlet {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("item/itemWrite2.jsp");
+		String item_num = request.getParameter("item_num");
+
+		ItemDAO3 iDao3 = ItemDAO3.getInstance();
+		ItemVO3 iVo3 = iDao3.selectItemByItem_num(item_num);
+
+		request.setAttribute("item", iVo3);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("item/itemUpdate3.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -52,17 +58,15 @@ public class ItemWriteServlet2 extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// doGet(request, response);
-		
+
 		request.setCharacterEncoding("utf-8");
 		ServletContext context = getServletContext();
 		String path = context.getRealPath("upload");
 		String encType = "utf-8";
 		int sizeLimit = 20 * 1024 * 1024;
 
-		MultipartRequest multi = new MultipartRequest(request, path, sizeLimit,
-				encType, new DefaultFileRenamePolicy());
+		MultipartRequest multi = new MultipartRequest(request, path, sizeLimit, encType, new DefaultFileRenamePolicy());
 
-		String item_pictureUrl = multi.getFilesystemName("item_pictureUrl");
 		String item_category = multi.getParameter("item_category");
 		String item_name = multi.getParameter("item_name");
 		String item_content = multi.getParameter("item_content");
@@ -70,22 +74,34 @@ public class ItemWriteServlet2 extends HttpServlet {
 		String item_quantity = multi.getParameter("item_quantity");
 		String item_total = multi.getParameter("item_total");
 		String item_time = multi.getParameter("item_time");
+		String item_pictureUrl1 = multi.getFilesystemName("item_pictureUrl1");
+		String item_pictureUrl2 = multi.getFilesystemName("item_pictureUrl2");
+		String item_num = multi.getParameter("item_num");
 
-		ItemVO2 iVo2 = new ItemVO2();
-		iVo2.setItem_pictureUrl(item_pictureUrl);
-		iVo2.setItem_category(item_category);
-		iVo2.setItem_name(item_name);
-		iVo2.setItem_content(item_content);
-		iVo2.setItem_price(Integer.parseInt(item_price));
-		iVo2.setItem_quantity(Integer.parseInt(item_quantity));
-		iVo2.setItem_total(item_total);
-		iVo2.setItem_time(item_time);
-
+		if (item_pictureUrl1 == null) {
+			item_pictureUrl1 = multi.getParameter("nonmakeImg1");
+		}
 		
-		ItemDAO2 iDao2 = ItemDAO2.getInstance();
-		iDao2.insertItem(iVo2);
+		if (item_pictureUrl2 == null) {
+			item_pictureUrl2 = multi.getParameter("nonmakeImg2");
+		}
 
-		response.sendRedirect("itemList2.do");
+		ItemVO3 iVo3 = new ItemVO3();
+		iVo3.setItem_category(item_category);
+		iVo3.setItem_name(item_name);
+		iVo3.setItem_content(item_content);
+		iVo3.setItem_price(Integer.parseInt(item_price));
+		iVo3.setItem_quantity(Integer.parseInt(item_quantity));
+		iVo3.setItem_total(item_total);
+		iVo3.setItem_time(item_time);
+		iVo3.setItem_pictureUrl1(item_pictureUrl1);
+		iVo3.setItem_pictureUrl2(item_pictureUrl2);
+		iVo3.setItem_num(Integer.parseInt(item_num));
+
+		ItemDAO3 iDao3 = ItemDAO3.getInstance();
+		iDao3.updateItem(iVo3);
+
+		response.sendRedirect("itemList3.do");
 	}
 
 }

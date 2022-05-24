@@ -8,25 +8,25 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import dto.ItemVO2;
+import dto.ItemVO3;
 import util.DBManager;
 
-public class ItemDAO2 {
+public class ItemDAO3 {
 	
-	private ItemDAO2() {
+	private ItemDAO3() {
 
 	}
 
-	private static ItemDAO2 instance = new ItemDAO2();
+	private static ItemDAO3 instance = new ItemDAO3();
 
-	public static ItemDAO2 getInstance() {
+	public static ItemDAO3 getInstance() {
 		
 		return instance;
 	}
 	
-	public List<ItemVO2> selectAllItems(int start, int end) {
+	public List<ItemVO3> selectAllItems(int start, int end) {
 		String sql = "select * from(select A.*, Rownum Rnum from(select * from item order by item_num desc)A)" + "where Rnum >= ? and Rnum <= ?";
-		List<ItemVO2> list = new ArrayList<ItemVO2>();
+		List<ItemVO3> list = new ArrayList<ItemVO3>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -39,17 +39,17 @@ public class ItemDAO2 {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ItemVO2 iVo2 = new ItemVO2();
-				iVo2.setItem_num(rs.getInt("item_num"));
-				iVo2.setItem_category(rs.getString("item_category"));
-				iVo2.setItem_name(rs.getString("item_name"));
-				iVo2.setItem_price(rs.getInt("item_price"));
-				iVo2.setItem_quantity(rs.getInt("item_quantity"));
-				iVo2.setItem_date(rs.getString("item_date"));
-				iVo2.setItem_total(rs.getString("item_total"));
-				iVo2.setItem_time(rs.getString("item_time"));
-				iVo2.setItem_pictureUrl(rs.getString("item_pictureUrl"));
-				list.add(iVo2);
+				ItemVO3 iVo3 = new ItemVO3();
+				iVo3.setItem_pictureUrl1(rs.getString("item_pictureUrl1"));
+				iVo3.setItem_num(rs.getInt("item_num"));
+				iVo3.setItem_category(rs.getString("item_category"));
+				iVo3.setItem_name(rs.getString("item_name"));
+				iVo3.setItem_price(rs.getInt("item_price"));
+				iVo3.setItem_quantity(rs.getInt("item_quantity"));
+				iVo3.setItem_date(rs.getString("item_date"));
+				iVo3.setItem_total(rs.getString("item_total"));
+				iVo3.setItem_time(rs.getString("item_time"));
+				list.add(iVo3);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -61,22 +61,23 @@ public class ItemDAO2 {
 	}
 		
 
-	public void insertItem(ItemVO2 iVo2) {
-		String sql = "insert into item values(?, item_seq.nextval, ?, ?, ?, ?, ?, sysdate, ?, ?)";
+	public void insertItem(ItemVO3 iVo3) {
+		String sql = "insert into item values(?, ?, item_seq.nextval, ?, ?, ?, ?, ?, sysdate, ?, ?)";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, iVo2.getItem_pictureUrl());
-			pstmt.setString(2, iVo2.getItem_category());
-			pstmt.setString(3, iVo2.getItem_name());
-			pstmt.setString(4, iVo2.getItem_content());
-			pstmt.setInt(5, iVo2.getItem_price());
-			pstmt.setInt(6, iVo2.getItem_quantity());
-			pstmt.setString(7, iVo2.getItem_total());
-			pstmt.setString(8, iVo2.getItem_time());
+			pstmt.setString(1, iVo3.getItem_pictureUrl1());
+			pstmt.setString(2, iVo3.getItem_pictureUrl2());
+			pstmt.setString(3, iVo3.getItem_category());
+			pstmt.setString(4, iVo3.getItem_name());
+			pstmt.setString(5, iVo3.getItem_content());
+			pstmt.setInt(6, iVo3.getItem_price());
+			pstmt.setInt(7, iVo3.getItem_quantity());
+			pstmt.setString(8, iVo3.getItem_total());
+			pstmt.setString(9, iVo3.getItem_time());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,9 +86,9 @@ public class ItemDAO2 {
 		}
 	}
 
-	public ItemVO2 selectItemByItem_num(String item_num) {
+	public ItemVO3 selectItemByItem_num(String item_num) {
 		String sql = "select * from item where item_num=?";
-		ItemVO2 iVo2 = null;
+		ItemVO3 iVo3 = null;
 
 		try {
 			Connection conn = null;
@@ -101,17 +102,18 @@ public class ItemDAO2 {
 				rs = pstmt.executeQuery();
 
 				if (rs.next()) {
-					iVo2 = new ItemVO2();
-					iVo2.setItem_pictureUrl(rs.getString(1));
-					iVo2.setItem_num(rs.getInt(2));
-					iVo2.setItem_category(rs.getString(3));
-					iVo2.setItem_name(rs.getString(4));
-					iVo2.setItem_content(rs.getString(5));
-					iVo2.setItem_price(rs.getInt(6));
-					iVo2.setItem_quantity(rs.getInt(7));
-					iVo2.setItem_date(rs.getString(8));
-					iVo2.setItem_total(rs.getString(9));
-					iVo2.setItem_time(rs.getString(10));
+					iVo3 = new ItemVO3();
+					iVo3.setItem_pictureUrl1(rs.getString(1));
+					iVo3.setItem_pictureUrl2(rs.getString(2));
+					iVo3.setItem_num(rs.getInt(3));
+					iVo3.setItem_category(rs.getString(4));
+					iVo3.setItem_name(rs.getString(5));
+					iVo3.setItem_content(rs.getString(6));
+					iVo3.setItem_price(rs.getInt(7));
+					iVo3.setItem_quantity(rs.getInt(8));
+					iVo3.setItem_date(rs.getString(9));
+					iVo3.setItem_total(rs.getString(10));
+					iVo3.setItem_time(rs.getString(11));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -122,27 +124,28 @@ public class ItemDAO2 {
 			e.printStackTrace();
 		}
 
-		return iVo2;
+		return iVo3;
 	}
 
-	public void updateItem(ItemVO2 iVo2) {
-		String sql = "update item set item_pictureUrl=?, item_category=?, item_name=?, item_content=?, item_price=?, item_quantity=?, item_date=?, item_total=?, item_time=? where item_num=?";
+	public void updateItem(ItemVO3 iVo3) {
+		String sql = "update item set item_pictureUrl1=?, item_pictureUrl2=?, item_category=?, item_name=?, item_content=?, item_price=?, item_quantity=?, item_date=?, item_total=?, item_time=? where item_num=?";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, iVo2.getItem_pictureUrl());
-			pstmt.setString(2, iVo2.getItem_category());
-			pstmt.setString(3, iVo2.getItem_name());
-			pstmt.setString(4, iVo2.getItem_content());
-			pstmt.setInt(5, iVo2.getItem_price());
-			pstmt.setInt(6, iVo2.getItem_quantity());
-			pstmt.setString(7, new SimpleDateFormat("yy/MM/dd").format(new Date()));
-			pstmt.setString(8, iVo2.getItem_total());
-			pstmt.setString(9, iVo2.getItem_time());
-			pstmt.setInt(10, iVo2.getItem_num());
+			pstmt.setString(1, iVo3.getItem_pictureUrl1());
+			pstmt.setString(2, iVo3.getItem_pictureUrl2());
+			pstmt.setString(3, iVo3.getItem_category());
+			pstmt.setString(4, iVo3.getItem_name());
+			pstmt.setString(5, iVo3.getItem_content());
+			pstmt.setInt(6, iVo3.getItem_price());
+			pstmt.setInt(7, iVo3.getItem_quantity());
+			pstmt.setString(8, new SimpleDateFormat("yy/MM/dd").format(new Date()));
+			pstmt.setString(9, iVo3.getItem_total());
+			pstmt.setString(10, iVo3.getItem_time());
+			pstmt.setInt(11, iVo3.getItem_num());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

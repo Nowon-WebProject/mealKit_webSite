@@ -7,29 +7,41 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="css/shopping.css">
+<%-- 
 <script type="text/javascript">
 	if (Request("deleteAll") == true) {
 		if (confirm("정말 모든 상품들을 삭제하시겠습니까?")) {
-			ItemDAO2 iDao2 = ItemDAO2.getInstance();
-			iDao2.deleteAllItems();
-			location.href("itemList2.do");
+			ItemDAO3 iDao3 = ItemDAO3.getInstance();
+			iDao3.deleteAllItems();
+			location.href("itemList3.do");
 		}
 	}
 </script>
+--%>
 </head>
 <body>
 	<div id="wrap" style="width: 700px" align="center">
 		<h1>상품 삭제-관리자 페이지</h1>
-		<form action="itemDelete2.do" method="post" name="frm">
+		<form action="itemDelete3.do" method="post" name="frm">
 			<table>
 				<tr>
 					<td>
 						<c:choose>
-							<c:when test="${empty item.item_pictureUrl}">
+							<c:when test="${empty item.item_pictureUrl1}">
 								<img src="upload/noimage.gif">
 							</c:when>
 							<c:otherwise>
-								<img src="upload/${item.item_pictureUrl}">
+								<img src="upload/${item.item_pictureUrl1}">
+							</c:otherwise>
+						</c:choose>
+					</td>
+					<td>
+						<c:choose>
+							<c:when test="${empty item.item_pictureUrl2}">
+								<img src="upload/noimage.gif">
+							</c:when>
+							<c:otherwise>
+								<img src="upload/${item.item_pictureUrl2}">
 							</c:otherwise>
 						</c:choose>
 					</td>
@@ -61,7 +73,7 @@
 			</table><br>
 			<input type="hidden" name="item_num" value="${item.item_num}">
 			<input type="submit" value="삭제">
-			<input type="button" value="목록" onclick="location.href='itemList2.do'">
+			<input type="button" value="목록" onclick="location.href='itemList3.do'">
 		</form>
 	</div>
 </body>

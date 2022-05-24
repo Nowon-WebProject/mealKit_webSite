@@ -9,20 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.ItemDAO2;
-import dto.ItemVO2;
-
 /**
- * Servlet implementation class itemDeleteServlet
+ * Servlet implementation class ProductListServlet
  */
-@WebServlet("/itemDelete2.do")
-public class ItemDeleteServlet2 extends HttpServlet {
+@WebServlet("/itemList3.do")
+public class ItemListServlet3 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ItemDeleteServlet2() {
+	public ItemListServlet3() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -36,15 +33,7 @@ public class ItemDeleteServlet2 extends HttpServlet {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 
-		String item_num = request.getParameter("item_num");
-		if (item_num == null)
-			request.setAttribute("deleteAll", true);
-		
-		ItemDAO2 iDao2 = ItemDAO2.getInstance();
-		ItemVO2 iVo2 = iDao2.selectItemByItem_num(item_num);
-		request.setAttribute("item", iVo2);
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("item/itemDelete2.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("item/itemList3.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -55,13 +44,7 @@ public class ItemDeleteServlet2 extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// doGet(request, response);
-
-		String item_num = request.getParameter("item_num");
-
-		ItemDAO2 iDao2 = ItemDAO2.getInstance();
-		iDao2.deleteItem(item_num);
-		response.sendRedirect("itemList2.do");
+		doGet(request, response);
 	}
 
 }

@@ -1,5 +1,5 @@
-<%@page import="dao.ItemDAO2"%>
-<%@page import="dto.ItemVO2"%>
+<%@page import="dao.ItemDAO3"%>
+<%@page import="dto.ItemVO3"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -36,8 +36,8 @@
 				// 페이지 숫자 세기
 				int number = 0;
 				
-				ItemDAO2 iDao2 = ItemDAO2.getInstance();
-				count = iDao2.getAllCount();
+				ItemDAO3 iDao3 = ItemDAO3.getInstance();
+				count = iDao3.getAllCount();
 				
 				// 지금 페이지에 보여질 시작 번호와 끝 번호
 				// ex.
@@ -47,18 +47,18 @@
 				int startRow = (currentPage - 1) * pageSize + 1;
 				int endRow = (currentPage * pageSize);
 	
-				List<ItemVO2> list = iDao2.selectAllItems(startRow, endRow);
+				List<ItemVO3> list = iDao3.selectAllItems(startRow, endRow);
 	%>
 	<div id="wrap" style="width: 700px" align="center">
 		<h1>상품 목록-관리자 페이지</h1>
 		<table class="list">
 			<tr>
 				<td colspan="11" style="border: white; text-align: right">
-					<a href="itemWrite2.do">상품 등록</a>
+					<a href="itemWrite3.do">상품 등록</a>
 				</td>
 			</tr>
 			<tr>
-				<td>사진</td>
+				<td>대표 사진</td>
 				<td>상품 번호</td>
 				<td>카테고리</td>
 				<td>상품명</td>
@@ -74,11 +74,11 @@
 				<tr>
 					<td>
 						<c:choose>
-							<c:when test="${empty item.item_pictureUrl}">
+							<c:when test="${empty item.item_pictureUrl1}">
 								<img id="imgList" src="upload/noimage.gif">
 							</c:when>
 							<c:otherwise>
-								<img id="imgList" src="upload/${item.item_pictureUrl}">
+								<img id="imgList" src="upload/${item.item_pictureUrl1}">
 							</c:otherwise>
 						</c:choose>
 					</td>
@@ -90,8 +90,8 @@
 					<td>${item.item_date}</td>
 					<td>${item.item_total}</td>
 					<td>${item.item_time}</td>
-					<td><a href="itemUpdate2.do?item_num=${item.item_num}">상품 수정</a></td>
-					<td><a href="itemDelete2.do?item_num=${item.item_num}">상품 삭제</a></td>
+					<td><a href="itemUpdate3.do?item_num=${item.item_num}">상품 수정</a></td>
+					<td><a href="itemDelete3.do?item_num=${item.item_num}">상품 삭제</a></td>
 				</tr>
 			</c:forEach>
 			<tr>
@@ -99,11 +99,13 @@
 					<a href="itemNumReset.do">상품 번호 초기화(미완)</a>
 				</td>
 			</tr>
+			<%-- 
 			<tr>
 				<td colspan="11" style="border: white; text-align: right">
-					<a href="itemDelete2.do">모든 상품 삭제</a>
+					<a href="itemDelete3.do">모든 상품 삭제</a>
 				</td>
 			</tr>
+			--%>
 		</table>
 		<br><br>
 		<%
@@ -131,17 +133,17 @@
 			// 아래는 페이지 표시 과정
 			if (startPage > 10) {
 		%>
-		<a href="itemList2.do?pageNum=<%=startPage - 10 %>&pageSize=<%=pageSize%>">[이전]</a>
+		<a href="itemList3.do?pageNum=<%=startPage - 10 %>&pageSize=<%=pageSize%>">[이전]</a>
 		<%
 			}
 			for (int i = startPage; i <= endPage; i++) {
 		%>
-		<a href="itemList2.do?pageNum=<%=i %>&pageSize=<%=pageSize%>">[<%=i %>]</a>
+		<a href="itemList3.do?pageNum=<%=i %>&pageSize=<%=pageSize%>">[<%=i %>]</a>
 		<%
 			}
 			if (endPage < pageCount) {
 		%>
-		<a href="itemList2.do?pageNum=<%=startPage + 10 %>&pageSize=<%=pageSize%>">[다음]</a>
+		<a href="itemList3.do?pageNum=<%=startPage + 10 %>&pageSize=<%=pageSize%>">[다음]</a>
 		<%
 			}
 		%>
@@ -149,7 +151,7 @@
 		<c:set var="pageSize" value="<%=pageSize %>"></c:set>
 		<c:choose>
 			<c:when test="${pageSize == 5}">
-				<form action="itemList2.do">
+				<form action="itemList3.do">
 				<select name="pageSize">
 					<option value="5" selected>5</option>
 					<option value="10">10</option>
@@ -160,7 +162,7 @@
 				</form>
 			</c:when>
 			<c:when test="${pageSize == 10}">
-				<form action="itemList2.do">
+				<form action="itemList3.do">
 				<select name="pageSize">
 					<option value="5">5</option>
 					<option value="10" selected>10</option>
@@ -171,7 +173,7 @@
 				</form>
 			</c:when> 
 			<c:when test="${pageSize == 15}">
-				<form action="itemList2.do">
+				<form action="itemList3.do">
 				<select name="pageSize">
 					<option value="5">5</option>
 					<option value="10">10</option>
@@ -182,7 +184,7 @@
 				</form>
 			</c:when>
 			<c:when test="${pageSize == 20}">
-				<form action="itemList2.do">
+				<form action="itemList3.do">
 				<select name="pageSize">
 					<option value="5">5</option>
 					<option value="10">10</option>

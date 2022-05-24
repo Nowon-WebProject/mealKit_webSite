@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="../itemList2.do">관리자 페이지로 이동하시겠습니까?</a>
+	<a href="../itemList3.do">관리자 페이지로 이동하시겠습니까?</a>
 </body>
 </html>

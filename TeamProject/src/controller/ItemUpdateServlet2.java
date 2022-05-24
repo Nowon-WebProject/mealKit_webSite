@@ -68,6 +68,7 @@ public class ItemUpdateServlet2 extends HttpServlet {
 		MultipartRequest multi = new MultipartRequest(request, path, sizeLimit,
 				encType, new DefaultFileRenamePolicy());
 		
+		String item_pictureUrl = multi.getFilesystemName("item_pictureUrl");
 		String item_category = multi.getParameter("item_category");
 		String item_name = multi.getParameter("item_name");
 		String item_content = multi.getParameter("item_content");
@@ -75,7 +76,6 @@ public class ItemUpdateServlet2 extends HttpServlet {
 		String item_quantity = multi.getParameter("item_quantity");
 		String item_total = multi.getParameter("item_total");
 		String item_time = multi.getParameter("item_time");
-		String item_pictureUrl = multi.getFilesystemName("item_pictureUrl");
 		String item_num = multi.getParameter("item_num");
 		
 		if (item_pictureUrl == null) {
@@ -83,6 +83,7 @@ public class ItemUpdateServlet2 extends HttpServlet {
 		}
 		
 		ItemVO2 iVo2 = new ItemVO2();
+		iVo2.setItem_pictureUrl(item_pictureUrl);
 		iVo2.setItem_category(item_category);
 		iVo2.setItem_name(item_name);
 		iVo2.setItem_content(item_content);
@@ -90,7 +91,6 @@ public class ItemUpdateServlet2 extends HttpServlet {
 		iVo2.setItem_quantity(Integer.parseInt(item_quantity));
 		iVo2.setItem_total(item_total);
 		iVo2.setItem_time(item_time);
-		iVo2.setItem_pictureUrl(item_pictureUrl);
 		iVo2.setItem_num(Integer.parseInt(item_num));
 
 		ItemDAO2 iDao2 = ItemDAO2.getInstance();

@@ -1,7 +1,8 @@
 package dto;
 
-public class ItemVO2 {
-	private String item_pictureUrl;
+public class ItemVO3 {
+	private String item_pictureUrl1;
+	private String item_pictureUrl2;
 	private Integer item_num;
 	private String item_category;
 	private String item_name;
@@ -12,14 +13,22 @@ public class ItemVO2 {
 	private String item_total;
 	private String item_time;
 
-	public String getItem_pictureUrl() {
-		return item_pictureUrl;
+	public String getItem_pictureUrl1() {
+		return item_pictureUrl1;
 	}
 
-	public void setItem_pictureUrl(String item_pictureUrl) {
-		this.item_pictureUrl = item_pictureUrl;
+	public void setItem_pictureUrl1(String item_pictureUrl1) {
+		this.item_pictureUrl1 = item_pictureUrl1;
 	}
-	
+
+	public String getItem_pictureUrl2() {
+		return item_pictureUrl2;
+	}
+
+	public void setItem_pictureUrl2(String item_pictureUrl2) {
+		this.item_pictureUrl2 = item_pictureUrl2;
+	}
+
 	public Integer getItem_num() {
 		return item_num;
 	}
