@@ -72,7 +72,7 @@ public class UserDAO {
 					user.setRegistDate(null);
 				}
 				else {
-					user.setRegistDate(rs.getDate("birth").toString());
+					user.setRegistDate(rs.getDate("RegistDate").toString());
 				}
 			}
 			else {
