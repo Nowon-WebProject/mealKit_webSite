@@ -1,6 +1,7 @@
 package kr.co.EZHOME.domain;
 
 import java.util.HashMap;
+import java.util.Random;
 
 import org.json.simple.JSONObject;
 
@@ -9,10 +10,8 @@ import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 public class SendMessage {
-        /*
-         * 서버에서 받은 API_KEY, API_SECRET를 입력해주세요.
-         */
-        
+       
+        //메시지 보내기
         public void sendMessage(String phone) {
         	//api key 받아오기
         	CoolSMSKey coolSMSKey = CoolSMSKey.getInstance();
@@ -20,6 +19,7 @@ public class SendMessage {
         	String api_key = coolSMSKey.getApiKey();
             String api_secret = coolSMSKey.getApiSecret();
             Message coolsms = new Message(api_key, api_secret);
+            String certificationNumber = MakeCertificationNumber();
             String[] phoneSplit = phone.split("-");
             phone = phoneSplit[0] + phoneSplit[1] + phoneSplit[2];
             // 4 params(to, from, type, text) are mandatory. must be filled
@@ -27,15 +27,28 @@ public class SendMessage {
             params.put("to", "01039333062");
             params.put("from", phone);
             params.put("type", "SMS");
-            params.put("text", "[112233] 이젠, 집에서 인증번호를 입력해주세요.");
+            params.put("text", "[" + certificationNumber + "] 이젠, 집에서 인증번호를 입력해주세요.");
             params.put("app_version", "test app 1.2"); // application name and version
 
             try {
-              JSONObject obj = (JSONObject) coolsms.send(params);
-              System.out.println(obj.toString());
+            	JSONObject obj = (JSONObject) coolsms.send(params);
+            	System.out.println(obj.toString());
             } catch (CoolsmsException e) {
-              System.out.println(e.getMessage());
-              System.out.println(e.getCode());
+            	System.out.println(e.getMessage());
+            	System.out.println(e.getCode());
             }
           }
+        
+        //6자리 인증번호 난수 만들기
+        public String MakeCertificationNumber() {
+        	Random rand = new Random();
+        	String numStr = ""; //난수 저장될 변수
+        	
+        	//0~9 난수 만들기 6번 반복
+        	for (int i = 0; i < 6; i++) {
+        		numStr += Integer.toString(rand.nextInt(10));
+        	}
+        	
+        	return numStr; 
+        }
 }
