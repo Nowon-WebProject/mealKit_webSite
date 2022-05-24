@@ -335,10 +335,7 @@ function idok(userid){
 	self.close();
 }
 
-function phoneok(){
-	//opener.frm.reid.value=document.frm.userid.value;
-	self.close();
-}
+
 
 function joinCheck(){
 	if(document.frm.name.value.length == 0){

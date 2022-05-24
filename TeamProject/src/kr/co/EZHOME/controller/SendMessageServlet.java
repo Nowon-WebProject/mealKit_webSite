@@ -32,10 +32,11 @@ public class SendMessageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		String certificationNumber;
 		
 		SendMessage send = new SendMessage();
-		send.sendMessage(request.getParameter("phone"));
-		
+		certificationNumber = send.sendMessage(request.getParameter("phone"));
+		request.setAttribute("certificationNumber", certificationNumber);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/join/phoneCheck.jsp");
 		dispatcher.forward(request, response);
 	}

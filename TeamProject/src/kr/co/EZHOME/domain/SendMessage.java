@@ -12,31 +12,33 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 public class SendMessage {
        
         //메시지 보내기
-        public void sendMessage(String phone) {
+        public String sendMessage(String phone) {
         	//api key 받아오기
-        	CoolSMSKey coolSMSKey = CoolSMSKey.getInstance();
-        	
-        	String api_key = coolSMSKey.getApiKey();
-            String api_secret = coolSMSKey.getApiSecret();
-            Message coolsms = new Message(api_key, api_secret);
+//        	CoolSMSKey coolSMSKey = CoolSMSKey.getInstance();
+//        	
+//        	String api_key = coolSMSKey.getApiKey();
+//            String api_secret = coolSMSKey.getApiSecret();
+//            Message coolsms = new Message(api_key, api_secret);
             String certificationNumber = MakeCertificationNumber();
-            String[] phoneSplit = phone.split("-");
-            phone = phoneSplit[0] + phoneSplit[1] + phoneSplit[2];
-            // 4 params(to, from, type, text) are mandatory. must be filled
-            HashMap<String, String> params = new HashMap<String, String>();
-            params.put("to", "01039333062");
-            params.put("from", phone);
-            params.put("type", "SMS");
-            params.put("text", "[" + certificationNumber + "] 이젠, 집에서 인증번호를 입력해주세요.");
-            params.put("app_version", "test app 1.2"); // application name and version
-
-            try {
-            	JSONObject obj = (JSONObject) coolsms.send(params);
-            	System.out.println(obj.toString());
-            } catch (CoolsmsException e) {
-            	System.out.println(e.getMessage());
-            	System.out.println(e.getCode());
-            }
+            
+//            String[] phoneSplit = phone.split("-");
+//            phone = phoneSplit[0] + phoneSplit[1] + phoneSplit[2];
+//            // 4 params(to, from, type, text) are mandatory. must be filled
+//            HashMap<String, String> params = new HashMap<String, String>();
+//            params.put("to", "01039333062");
+//            params.put("from", phone);
+//            params.put("type", "SMS");
+//            params.put("text", "[" + certificationNumber + "] 이젠, 집에서 인증번호를 입력해주세요.");
+//            params.put("app_version", "test app 1.2"); // application name and version
+//
+//            try {
+//            	JSONObject obj = (JSONObject) coolsms.send(params);
+//            	System.out.println(obj.toString());
+//            } catch (CoolsmsException e) {
+//            	System.out.println(e.getMessage());
+//            	System.out.println(e.getCode());
+//            }
+            return certificationNumber;
           }
         
         //6자리 인증번호 난수 만들기
