@@ -9,14 +9,16 @@ import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 public class SendMessage {
- 
         /*
          * 서버에서 받은 API_KEY, API_SECRET를 입력해주세요.
          */
         
         public void sendMessage(String phone) {
-        	String api_key = "";
-            String api_secret = "";
+        	//api key 받아오기
+        	CoolSMSKey coolSMSKey = CoolSMSKey.getInstance();
+        	
+        	String api_key = coolSMSKey.getApiKey();
+            String api_secret = coolSMSKey.getApiSecret();
             Message coolsms = new Message(api_key, api_secret);
             String[] phoneSplit = phone.split("-");
             phone = phoneSplit[0] + phoneSplit[1] + phoneSplit[2];

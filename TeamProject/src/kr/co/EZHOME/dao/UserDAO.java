@@ -37,6 +37,29 @@ public class UserDAO {
 		return conn;
 	}
 	
+	public String[] getCoolSMS() {
+		String sql="select * from smsapikey";
+		String[] api = new String[2];
+		
+		Connection conn= null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				api[0] = rs.getString("apikey");
+				api[1] = rs.getString("apisecret");
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return api;
+	}
+	
 	public User findUser (String userid) throws Exception {
 		String sql="select * from usertbl where userid=?";
 		User user = new User();
