@@ -141,7 +141,7 @@
 			}
 		%>
 		<br><br>
-		<!-- EL로 변수 가리키는 문법 알아내기 -->
+		<c:set var="pageSize" value="<%=pageSize %>"></c:set>
 		<c:choose>
 			<c:when test="${pageSize == 5}">
 				<form action="itemList2.do">
@@ -164,7 +164,7 @@
 				</select>
 				<button type="submit">페이지씩 보기</button>
 				</form>
-			</c:when>
+			</c:when> 
 			<c:when test="${pageSize == 15}">
 				<form action="itemList2.do">
 				<select name="pageSize">

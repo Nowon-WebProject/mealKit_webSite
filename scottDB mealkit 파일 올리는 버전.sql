@@ -23,7 +23,7 @@ select * from user_sequences;
 
 
 
-
+-- 행 100개 넣기 과정 (보기 - DBMS 출력 - 여기의 + 버튼 클릭 - scott 계정 접속
 set serveroutput on;
 
 DECLARE
@@ -31,10 +31,10 @@ NUM1 NUMBER :=1;
 
 BEGIN
     LOOP
-    DBMS_OUTPUT.PUT_LINE(NUM1); --출력
+    DBMS_OUTPUT.PUT_LINE(NUM1); -- 출력
     insert into item values(item_seq.nextval, '양식', '으', '하하', 5, 1, sysdate, '2', '2', null);
-    NUM1 := NUM1+1; --NUM = NUM +1
-    EXIT WHEN NUM1 >100; --NUM1이 10보다 크면 LOOP종료
+    NUM1 := NUM1+1; -- NUM = NUM +1
+    EXIT WHEN NUM1 >100; -- NUM1이 100보다 크면 LOOP 종료
     END LOOP;
 END;
 
