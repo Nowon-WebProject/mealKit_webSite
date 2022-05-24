@@ -24,6 +24,7 @@
 		<br>
 		 <form action="/TeamProject/memberSearch.do" method="post"> 
 		<input type="submit" value="회원관리">
+		<input type="submit" formaction="/TeamProject/bbsList.do" value="공지사항관리">
 		 </form>
 	</div>
 	<br>

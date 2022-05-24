@@ -1,6 +1,7 @@
 package kr.co.EZHOME.controller;
 
 import java.io.IOException;
+import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,20 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.co.EZHOME.dao.UserDAO;
-import kr.co.EZHOME.domain.User;
+import kr.co.EZHOME.dao.BbsDAO;
+import kr.co.EZHOME.dto.BbsDTO;
 
 /**
- * Servlet implementation class memberOnepickServlet
+ * Servlet implementation class bbsListServlet
  */
-@WebServlet("/memberOnepick.do")
-public class memberOnepickServlet extends HttpServlet {
+@WebServlet("/bbsList.do")
+public class bbsListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public memberOnepickServlet() {
+    public bbsListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,40 +42,14 @@ public class memberOnepickServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		String userid=request.getParameter("update");
-		UserDAO udao=UserDAO.getInstance();
-		User bean=new User();
-		String[] arr= {"","",""};
+		BbsDAO bdao=BbsDAO.getInstance();
+		Vector<BbsDTO> vec=new Vector<BbsDTO>();
 		
+		vec=bdao.bbsList();
 		
-		try {
-			bean=udao.findUser(userid);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		request.setAttribute("vec", vec);
 		
-		String addr=bean.getAddr();
-		int count=0;
-		int count1=0;
-		
-		for(int i=0;i<addr.length();i++) {
-			if(addr.charAt(i) == ')') { count=i;}
-			if(addr.charAt(i) == ',') { count1=i;}}
-		
-		for(int i=1;i<=count-1;i++) {
-			arr[0]+=addr.charAt(i);
-		}
-		for(int i=count+2;i<count1;i++) {
-			arr[1]+=addr.charAt(i);
-		}
-		for(int i=count1+2;i<addr.length();i++) {
-			arr[2]+=addr.charAt(i);
-		}
-		
-		request.setAttribute("arr", arr);
-		request.setAttribute("bean", bean);
-		
-		RequestDispatcher dispatcher=request.getRequestDispatcher("/managePage/memberUpdate.jsp");
+		RequestDispatcher dispatcher=request.getRequestDispatcher("/managePage/bbsList.jsp");
 		dispatcher.forward(request, response);
 		
 	}

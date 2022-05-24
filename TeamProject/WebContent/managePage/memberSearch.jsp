@@ -34,6 +34,9 @@
 	border: 1px solid orange;
 	white-space: nowrap;
 }
+.cart tbody tr:nth-child(2n+1){
+    background-color: 	#F8AD7B;
+}
 </style>
 
 </head>

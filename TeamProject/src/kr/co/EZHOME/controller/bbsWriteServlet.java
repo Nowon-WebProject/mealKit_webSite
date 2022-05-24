@@ -8,21 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import kr.co.EZHOME.dao.UserDAO;
-import kr.co.EZHOME.domain.User;
+import kr.co.EZHOME.dao.BbsDAO;
+import kr.co.EZHOME.dto.BbsDTO;
 
 /**
- * Servlet implementation class memberOnepickServlet
+ * Servlet implementation class bbsWriteServlet
  */
-@WebServlet("/memberOnepick.do")
-public class memberOnepickServlet extends HttpServlet {
+@WebServlet("/bbsWrite.do")
+public class bbsWriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public memberOnepickServlet() {
+    public bbsWriteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,42 +42,25 @@ public class memberOnepickServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		String userid=request.getParameter("update");
-		UserDAO udao=UserDAO.getInstance();
-		User bean=new User();
-		String[] arr= {"","",""};
 		
+		String bbstitle=request.getParameter("bbstitle");
+		String bbscontent=request.getParameter("bbscontent");
+		//HttpSession session = request.getSession();
+		//String userid=(String)session.getAttribute("userid");
+		String userid="테스트";
+		BbsDTO bdto=new BbsDTO();
+		BbsDAO bdao=BbsDAO.getInstance();
+
+		bdto.setUserid(userid);
+		bdto.setBbstitle(bbstitle);
+		bdto.setBbscontent(bbscontent);
 		
-		try {
-			bean=udao.findUser(userid);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		int result=bdao.bbsWrite(bdto);
+		System.out.print(result);
 		
-		String addr=bean.getAddr();
-		int count=0;
-		int count1=0;
-		
-		for(int i=0;i<addr.length();i++) {
-			if(addr.charAt(i) == ')') { count=i;}
-			if(addr.charAt(i) == ',') { count1=i;}}
-		
-		for(int i=1;i<=count-1;i++) {
-			arr[0]+=addr.charAt(i);
-		}
-		for(int i=count+2;i<count1;i++) {
-			arr[1]+=addr.charAt(i);
-		}
-		for(int i=count1+2;i<addr.length();i++) {
-			arr[2]+=addr.charAt(i);
-		}
-		
-		request.setAttribute("arr", arr);
-		request.setAttribute("bean", bean);
-		
-		RequestDispatcher dispatcher=request.getRequestDispatcher("/managePage/memberUpdate.jsp");
+		RequestDispatcher dispatcher=request.getRequestDispatcher("bbsList.do");
 		dispatcher.forward(request, response);
-		
+
 	}
 
 }
