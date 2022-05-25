@@ -49,7 +49,7 @@
 	
 				List<ItemVO3> list = iDao3.selectAllItems(startRow, endRow);
 	%>
-	<div id="wrap" style="width: 700px" align="center">
+	<div id="wrap" style="width: 800px" align="center">
 		<h1>상품 목록-관리자 페이지</h1>
 		<table class="list">
 			<tr>
