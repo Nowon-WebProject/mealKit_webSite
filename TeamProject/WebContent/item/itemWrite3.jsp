@@ -51,7 +51,7 @@
 				</tr>
 				<tr>
 					<th>메인 등장 여부</th>
-					<td><input type="text" size="1" name="item_main">(등장 안 하면 0, 하면 1 입력)</td>
+					<td><input type="text" size="1" name="item_main">(안 하면 0, 하면 1 입력)</td>
 				</tr>
 				<tr>
 					<th>판매량</th>
