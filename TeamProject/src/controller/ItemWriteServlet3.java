@@ -69,6 +69,8 @@ public class ItemWriteServlet3 extends HttpServlet {
 		String item_quantity = multi.getParameter("item_quantity");
 		String item_total = multi.getParameter("item_total");
 		String item_time = multi.getParameter("item_time");
+		char item_main = multi.getParameter("item_main").charAt(0);
+		String item_sales = multi.getParameter("item_sales");
 		String item_pictureUrl1 = multi.getFilesystemName("item_pictureUrl1");
 		String item_pictureUrl2 = multi.getFilesystemName("item_pictureUrl2");
 
@@ -80,6 +82,9 @@ public class ItemWriteServlet3 extends HttpServlet {
 		iVo3.setItem_quantity(Integer.parseInt(item_quantity));
 		iVo3.setItem_total(item_total);
 		iVo3.setItem_time(item_time);
+		iVo3.setItem_main(item_main);
+		iVo3.setItem_sales(item_sales);
+		
 		iVo3.setItem_pictureUrl1(item_pictureUrl1);
 		iVo3.setItem_pictureUrl2(item_pictureUrl2);
 		

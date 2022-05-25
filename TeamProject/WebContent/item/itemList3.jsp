@@ -41,7 +41,7 @@
 				
 				// 지금 페이지에 보여질 시작 번호와 끝 번호
 				// ex.
-				// 1p 2p 3p 4p
+				// p1 p2 p3 p4
 				// 1  11 21 31 ...
 				// 10 20 30 40 ...
 				int startRow = (currentPage - 1) * pageSize + 1;
@@ -53,7 +53,7 @@
 		<h1>상품 목록-관리자 페이지</h1>
 		<table class="list">
 			<tr>
-				<td colspan="11" style="border: white; text-align: right">
+				<td colspan="13" style="border: white; text-align: right">
 					<a href="itemWrite3.do">상품 등록</a>
 				</td>
 			</tr>
@@ -67,6 +67,8 @@
 				<td>날짜</td>
 				<td>인분</td>
 				<td>조리 시간</td>
+				<td>메인</td>
+				<td>판매량</td>
 				<td>수정</td>
 				<td>삭제</td>
 			</tr>
@@ -90,18 +92,20 @@
 					<td>${item.item_date}</td>
 					<td>${item.item_total}</td>
 					<td>${item.item_time}</td>
+					<td>${item.item_main}</td>
+					<td>${item.item_sales}</td>
 					<td><a href="itemUpdate3.do?item_num=${item.item_num}">상품 수정</a></td>
 					<td><a href="itemDelete3.do?item_num=${item.item_num}">상품 삭제</a></td>
 				</tr>
 			</c:forEach>
 			<tr>
-				<td colspan="11" style="border: white; text-align: right">
+				<td colspan="13" style="border: white; text-align: right">
 					<a href="itemNumReset.do">상품 번호 초기화(미완)</a>
 				</td>
 			</tr>
 			<%-- 
 			<tr>
-				<td colspan="11" style="border: white; text-align: right">
+				<td colspan="13" style="border: white; text-align: right">
 					<a href="itemDelete3.do">모든 상품 삭제</a>
 				</td>
 			</tr>

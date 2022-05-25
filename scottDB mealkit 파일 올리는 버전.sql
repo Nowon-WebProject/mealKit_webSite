@@ -30,13 +30,15 @@ create table item(
     item_pictureUrl2 varchar2(50), -- 사진2
     item_num number, -- 상품 번호
     item_category varchar2(20), -- 카테고리
-    item_name varchar2(20), -- 상품명
+    item_name varchar2(100), -- 상품명
     item_content varchar2(255), -- 내용
     item_price number, -- 가격
     item_quantity number, -- 재고
     item_date varchar2(50), -- 등록한 날짜
     item_total varchar2(50), -- 인분
     item_time varchar2(50), -- 조리 시간
+    item_main char(1), -- 메인 등장 여부
+    item_sales varchar2(50), -- 판매량
     primary key(item_num)
 );
 

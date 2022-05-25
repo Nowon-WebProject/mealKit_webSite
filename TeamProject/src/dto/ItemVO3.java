@@ -12,6 +12,8 @@ public class ItemVO3 {
 	private String item_date;
 	private String item_total;
 	private String item_time;
+	private char item_main;
+	private String item_sales;
 
 	public String getItem_pictureUrl1() {
 		return item_pictureUrl1;
@@ -99,6 +101,22 @@ public class ItemVO3 {
 
 	public void setItem_time(String item_time) {
 		this.item_time = item_time;
+	}
+
+	public char getItem_main() {
+		return item_main;
+	}
+
+	public void setItem_main(char item_main) {
+		this.item_main = item_main;
+	}
+
+	public String getItem_sales() {
+		return item_sales;
+	}
+
+	public void setItem_sales(String item_sales) {
+		this.item_sales = item_sales;
 	}
 
 }

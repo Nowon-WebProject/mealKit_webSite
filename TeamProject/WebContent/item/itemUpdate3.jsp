@@ -121,6 +121,14 @@
 					<td><input type="text" size="1" name="item_time" value="${item.item_time}">분</td>
 				</tr>
 				<tr>
+					<th>메인 등장 여부</th>
+					<td><input type="text" size="1" name="item_main" value="${item.item_main}">(등장 안 하면 0, 하면 1 입력)</td>
+				</tr>
+				<tr>
+					<th>판매량</th>
+					<td><input type="text" size="1" name="item_sales" value="${item.item_sales}">개</td>
+				</tr>
+				<tr>
 					<th>대표 사진</th>
 					<td>
 						<input type="file" name="item_pictureUrl1"><br>
