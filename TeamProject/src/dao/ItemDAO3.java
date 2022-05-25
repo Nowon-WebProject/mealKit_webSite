@@ -181,13 +181,19 @@ public class ItemDAO3 {
 	}
 
 	public void deleteAllItems() {
-		String sql = "delete from item";
+		String sql1 = "delete from item";
+		String sql2 = "drop sequence item_seq";
+		String sql3 = "create sequence item_seq start with 1 increment by 1";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
 		try {
 			conn = DBManager.getConnection();
-			pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.executeUpdate();
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.executeUpdate();
+			pstmt = conn.prepareStatement(sql3);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

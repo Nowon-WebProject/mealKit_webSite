@@ -57,6 +57,8 @@ insert into item values(null, null, item_seq.nextval, '샐러드', '참깨샐러
 
 -- drop table item;
 -- drop sequence item_seq;
+-- create sequence item_seq start with 1 increment by 1;
+
 
 select * from item;
 
@@ -73,8 +75,10 @@ NUM1 NUMBER :=1;
 BEGIN
     LOOP
     DBMS_OUTPUT.PUT_LINE(NUM1); -- 출력
-    insert into item values(null, null, item_seq.nextval, '양식', '으', '하하', 5, 1, sysdate, '2', '2');
+    insert into item values(null, null, item_seq.nextval, '한식', '불고기볶음', '맛있는 불고기? 뭘 봐',
+                        13000, 100, sysdate, '1', '10', '0', '50');
     NUM1 := NUM1+1; -- NUM = NUM +1
     EXIT WHEN NUM1 >100; -- NUM1이 100보다 크면 LOOP 종료
     END LOOP;
 END;
+
