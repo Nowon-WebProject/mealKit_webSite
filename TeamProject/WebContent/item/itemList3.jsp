@@ -103,13 +103,11 @@
 					<a href="itemNumReset.do">상품 번호 초기화(미완)</a>
 				</td>
 			</tr>
-			<%-- 
 			<tr>
 				<td colspan="13" style="border: white; text-align: right">
-					<a href="itemDelete3.do">모든 상품 삭제</a>
+					<a href="./item/deleteAll.jsp">모든 상품 삭제</a>
 				</td>
 			</tr>
-			--%>
 		</table>
 		<br><br>
 		<%

@@ -7,17 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="css/shopping.css">
-<%-- 
-<script type="text/javascript">
-	if (Request("deleteAll") == true) {
-		if (confirm("정말 모든 상품들을 삭제하시겠습니까?")) {
-			ItemDAO3 iDao3 = ItemDAO3.getInstance();
-			iDao3.deleteAllItems();
-			location.href("itemList3.do");
-		}
-	}
-</script>
---%>
 </head>
 <body>
 	<div id="wrap" style="width: 700px" align="center">

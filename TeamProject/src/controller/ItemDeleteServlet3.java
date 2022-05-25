@@ -36,17 +36,20 @@ public class ItemDeleteServlet3 extends HttpServlet {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 
+		String str = "item/itemDelete3.jsp";
 		String item_num = request.getParameter("item_num");
-		/*
-		if (item_num == null)
-			request.setAttribute("deleteAll", true);
-		*/
-		
+
 		ItemDAO3 iDao3 = ItemDAO3.getInstance();
+
+		if (item_num == null) {
+			iDao3.deleteAllItems();
+			str = "item/itemList3.jsp";
+		}
+
 		ItemVO3 iVo3 = iDao3.selectItemByItem_num(item_num);
 		request.setAttribute("item", iVo3);
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("item/itemDelete3.jsp");
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher(str);
 		dispatcher.forward(request, response);
 	}
 

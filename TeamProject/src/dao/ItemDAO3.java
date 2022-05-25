@@ -179,8 +179,7 @@ public class ItemDAO3 {
 			DBManager.close(conn, pstmt);
 		}
 	}
-	
-	/*
+
 	public void deleteAllItems() {
 		String sql = "delete from item";
 		Connection conn = null;
@@ -197,6 +196,7 @@ public class ItemDAO3 {
 		}
 	}
 	
+	/*
 	public void resetItem_num() {
 		String sql = "alter table item auto_increment=1";
 		Connection conn = null;
