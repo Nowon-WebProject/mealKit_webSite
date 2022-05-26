@@ -34,7 +34,7 @@
     </style>
     <script type="text/javascript" src="/TeamProject/js/libs/jquery-3.6.0.min.js"></script>
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-    <script type="text/javascript" src="/TeamProject/js/member.js?test=77"></script>
+    <script type="text/javascript" src="/TeamProject/js/member.js?test=88"></script>
     <!-- 도로명 주소 검색시 사용하는 daum api -->
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
@@ -126,7 +126,7 @@
 				<td>전화번호</td>
 				<td>
 					<input type='tel' class="phone" name='phone' maxlength="13"/>
-					<input type="button" value="전화번호 인증" onclick="phoneCheck()">
+					<input type="button" value="전화번호 인증" onclick="return phoneCheck()">
 				</td>
 			</tr>
 			<tr>

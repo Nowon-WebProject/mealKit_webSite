@@ -36,8 +36,8 @@ public class JoinServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		RequestDispatcher dispatcher=request.getRequestDispatcher("join.jsp");
-		dispatcher.forward(request, response);
+		//RequestDispatcher dispatcher=request.getRequestDispatcher("join.jsp");
+		//dispatcher.forward(request, response);
 	}
 
 	/**

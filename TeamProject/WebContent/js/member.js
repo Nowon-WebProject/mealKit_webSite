@@ -22,7 +22,7 @@ $(document).ready(function() {
 			}
 		}
 		// 8: 벡스페이스, 9: tab , 46 : . , 48 ~ 57 : 숫자  96~105: 숫자 (탠키리스 아닌 키보드의 숫자패드)
-		// 눌린값 리턴
+		// 눌린값 리턴 (false가 리턴될경우 눌린 key가 적용되지 않는다)
 		return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
 	});
 	
@@ -323,8 +323,32 @@ function idCheck(){
 }
 
 function phoneCheck(){
-	var url="/TeamProject/SendMessage.do?phone="+document.frm.phone.value;
-	window.open(url,"_blank_1","toolbar=no,menubar=no,"+"scrollbars=yes,resizable=no,width=450,height=200");
+	//정규 표현식
+	const regExp = /[^0-9\-]/g;
+	var phone = document.frm.phone.value
+	
+	if (phone.length < 13) {
+		alert("전화번호 13자리를 다시 확인해주세요")
+		
+		return false;
+	}
+	
+	//0~9,a~z, A~Z
+	if (!(phone.match(regExp) == null)) {
+		alert("잘못된 문자가 들어가 있습니다. 전화번호를 다시 확인해주세요");
+		
+		return false;
+	}
+	
+	var popupX = (window.screen.width / 2) - (400 / 2);
+	// 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+
+	var popupY= (window.screen.height / 2) - (500);
+	// 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
+	
+	//first 를 통해 인증번호 첫 발송인것을 알려줌
+	var url="/TeamProject/SendMessage.do?phone="+document.frm.phone.value+"&first=true";
+	window.open(url,"_blank_1","toolbar=no,menubar=no,"+"scrollbars=yes,resizable=no,width=330,height=300, left="+ popupX + ", top= "+ popupY);
 }
 
 function idok(userid){
