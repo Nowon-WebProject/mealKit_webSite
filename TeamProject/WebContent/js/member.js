@@ -82,7 +82,7 @@ function joinCheck(){
 	return true;
 }
 
-
+// 주소
 function sample4_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -139,12 +139,13 @@ function sample4_execDaumPostcode() {
 
 }
 
+// 내가 선택한 이메일 select option값 넣기
 function email_check() {
     if (document.frm.eMailForm.options[document.frm.eMailForm.selectedIndex].value == "선택하세요") {
         document.frm.eMailSite.readOnly = true;
         document.frm.eMailSite.value = "";
     }
-    if (document.frm.eMailForm.options[document.frm.eMailForm.selectedIndex].id == "9") {
+    if (document.frm.eMailForm.options[document.frm.eMailForm.selectedIndex].id == "직접입력") {
         document.frm.eMailSite.readOnly = false;
         document.frm.eMailSite.value = "";
         document.frm.eMailSite.focus();
@@ -155,49 +156,87 @@ function email_check() {
     }
 }
 
-
+// 수정 체크
 function check() {
-   if (document.frm.pw.value == "") {
+	if(document.frm.name.value==""){
+		alert("이름을 입력해주세요.");
+		document.frm.pwd.focus();
+		return false;
+	}if (document.frm.pwd.value == "") {
         alert("비밀번호를 입력해주세요.");
-        document.frm.pw.focus();
+        document.frm.pwd.focus();
         return false;
-    } else if (document.frm.check_pw.value == "") {
+    }if (document.frm.pwd_check.value == "") {
         alert("비밀번호 확인란을 입력해주세요.");
-        document.frm.check_pw.focus();
+        document.frm.pwd_check.focus();
         return false;
-    } else if (document.frm.pw.value != document.frm.check_pw.value) {
+    }if (document.frm.pwd.value != document.frm.pwd_check.value) {
         alert("입력된 비밀번호가 비밀번호 확인란에 입력된 비밀번호와 다릅니다.");
-        document.frm.check_pw.focus();
+        document.frm.pwd_check.focus();
         return false;
-    } else if (document.frm.email.value == "") {
+    }if (document.frm.email.value == "") {
         alert("이메일을 입력해주세요.");
-        document.frm.eMail.focus();
+        document.frm.email.focus();
         return false;
-    } else if (document.frm.emailSite.value == "") {
-        alert("이메일사이트를 입력해주세요.");
-        document.frm.eMailSite.focus();
+    } if (document.frm.eMailForm.option.getElementById("직접입력").value=="" || document.frm.eMailForm.option.value=="") {	
+       alert("이메일사이트를 입력해주세요.");
+       document.frm.eMailForm.focus();
+       	return false;
+    }if(document.frm.eMailSite.value="선택하세요"){
+    	alert("이메일 사이트를 선택해주세요.")
+    	document.frm.eMailSite.focus();
+    	return false;
+	}if (document.frm.phone.value == "") {
+        alert("핸드폰번호를 입력해주세요.");
+        document.frm.phone.focus();
         return false;
-    } else if (document.frm.addr.value == "") {
+    }if (document.frm.addr.value == "") {
         alert("우편번호를 입력해주세요.");
         document.frm.addr.focus();
         return false;
-    } else if (document.frm.deli.value == "") {
+    }if (document.frm.addr1.value == "") {
         alert("주소를 입력해주세요.");
-        document.frm.deli.focus();
+        document.frm.addr1.focus();
         return false;
-    } else if (document.frm.addrdeli.value == "") {
+    }if (document.frm.addr2.value == "") {
         alert("상세주소를 입력해주세요.");
-        document.frm.addrdeli.focus();
-        return false;
-    } else if (document.frm.phone.value == "") {
-        alert("핸드폰번호를 입력해주세요.");
-        document.frm.phone.focus();
+        document.frm.addr2.focus();
         return false;
     } else {
         return true;
     }
  
 }
+
+/*
+function em_submit() {
+      var text = document.getElementByEmail('text').value;
+      var frmEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z]);
+      if (frmEmail.test(text) === true) {
+
+    	  	return true;
+	      }
+      }
+ */
+      
+// 핸드폰 - 자동기능
+function mobile_keyup(obj){
+    let mobile_len=obj.value.length;
+    console.log(mobile_len)
+    if(event.keyCode==8){
+        obj.value=obj.value.slice(0,mobile_len); 
+        return 0; 
+    }else if (mobile_len==3 || mobile_len==8){
+        obj.value += '-';
+    }
+}
+
+/*var pattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+var pattern = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
+var pattern = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]+$/;
+var pattern = new RegExp(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]+$/);
+return pattern.test(obj.value);
+return (obj.value.match(pattern) != null);*/
 
 
 

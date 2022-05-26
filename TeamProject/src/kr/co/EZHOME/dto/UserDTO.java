@@ -35,8 +35,6 @@ public class UserDTO {
 		this.pwd = pwd;
 		this.birth = birth;
 		this.email = email;
-		//this.emailSite=emailSite;
-		//this.emailForm=emailForm;
 		this.phone = phone;
 		this.registDate = registDate;
 		this.addr = addr;
@@ -44,8 +42,6 @@ public class UserDTO {
 		this.point = point;
 		this.admin = admin;
 	}
-	
-	
 	
 	
 	public String getName() {
@@ -87,22 +83,6 @@ public class UserDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	//public String getEmailSite() {
-	//	return emailSite;
-	//}
-
-	//public void setEmailSite(String emailSite) {
-	//	this.emailSite = emailSite;
-	//}
-
-	//public String getEmailForm() {
-	//	return emailForm;
-	//}
-
-	//public void setEmailForm(String emailForm) {
-	//	this.emailForm = emailForm;
-	//}
 
 	public String getPhone() {
 		return phone;

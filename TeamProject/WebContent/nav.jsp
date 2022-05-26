@@ -29,7 +29,7 @@
 	if(session.getAttribute("name") != null){
 		name = (String) session.getAttribute("name");
 		id = (String) session.getAttribute("id");
-		pw = (String) session.getAttribute("pw");
+		pw = (String) session.getAttribute("pwd");
 		email = (String) session.getAttribute("email");
 		phone = (String) session.getAttribute("phone");
 		admin = (int) session.getAttribute("admin");

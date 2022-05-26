@@ -208,7 +208,7 @@ public class UserDAO {
 	
 	public int updateMember(UserDTO udto) {
 		int result=-1;
-		String sql="update usertbl set pwd=?,email=?,phone=?,Addr=? where userid=?";
+		String sql="update usertbl set name=?,pwd=?,email=?,phone=?,Addr=? where userid=?";
 		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -217,11 +217,12 @@ public class UserDAO {
 			conn=getConnection();
 			pstmt=conn.prepareStatement(sql);
 			
-			pstmt.setString(1,udto.getPwd());
-			pstmt.setString(2,udto.getEmail());
-			pstmt.setString(3,udto.getPhone());
-			pstmt.setString(4,udto.getAddr());
-			pstmt.setString(5,udto.getUserid());
+			pstmt.setString(1, udto.getName());
+			pstmt.setString(2,udto.getPwd());
+			pstmt.setString(3,udto.getEmail());
+			pstmt.setString(4,udto.getPhone());
+			pstmt.setString(5,udto.getAddr());
+			pstmt.setString(6,udto.getUserid());
 			
 			result=pstmt.executeUpdate();
 			

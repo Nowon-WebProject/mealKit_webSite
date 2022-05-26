@@ -44,7 +44,7 @@ public class ModifyServlet extends HttpServlet {
 
 		request.setAttribute("udto", udto);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("modify.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("modifyOK.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -58,33 +58,25 @@ public class ModifyServlet extends HttpServlet {
 		// doGet(request, response);
 		
 		request.setCharacterEncoding("UTF-8");
-		
 		String userid = request.getParameter("userid");
 		String pwd = request.getParameter("pwd");
-		String email=request.getParameter("email")+"@"+request.getParameter("eMailSite");
+ 		String email=request.getParameter("email")+"@"+request.getParameter("eMailSite");
 		String addr= "("+request.getParameter("addr")+") "+ request.getParameter("addr1") +", "+ request.getParameter("addr2");
-		UserDAO udao = UserDAO.getInstance();
-		int result = udao.userCheck(userid, pwd);
+		String name=request.getParameter("name");
+		String phone=request.getParameter("phone");
 		
-			
-		//String eMailSite = request.getParameter("eMailSite");
-		//String eMailForm = request.getParameter("eMailForm");
-		//String test = "직접입력";
-		//	if (test.equals(request.getParameter("emailForm"))) {
-		//		String email = "@" + eMailSite;
-		//	} else {
-		//		String email = "@" + eMailForm;
-		//	}
-			
-			
-			UserDTO udto = udao.getMember(userid);
-			udto.setPwd(request.getParameter("pwd"));
-			udto.setEmail(email);
-			udto.setPhone(request.getParameter("phone"));
-			udto.setAddr(addr);
-			
-			
-			
+		UserDAO udao = UserDAO.getInstance();
+	
+		UserDTO udto=new UserDTO();
+		udto.setUserid(userid);
+		 udto.setName(name);
+		 udto.setPwd(pwd); 
+		 udto.setEmail(email);
+		 udto.setPhone(phone); 
+		 udto.setAddr(addr);
+		 
+		int result=udao.updateMember(udto);
+
 			HttpSession session = request.getSession();
 			
 			session.setAttribute("loginUser", udto);
@@ -102,7 +94,6 @@ public class ModifyServlet extends HttpServlet {
 			session.setAttribute("result", result);
 			
 			
-			result=udao.updateMember(udto);
 			
 		/*
 		 * if (result == 1) { System.out.println("회원정보수정 성공");
