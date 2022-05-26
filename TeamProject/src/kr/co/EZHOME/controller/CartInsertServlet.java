@@ -36,6 +36,8 @@ public class CartInsertServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		
 	}
 
 	/**
@@ -48,7 +50,10 @@ public class CartInsertServlet extends HttpServlet {
 		//doGet(request, response);
 		HttpSession session=request.getSession();
 		request.setCharacterEncoding("utf-8");
+		String item_quantity = request.getParameter("item_quantity");
+		String item_num = request.getParameter("item_num");
 		String userid = (String) session.getAttribute("userid");
+		String item_pictureUrl1 = request.getParameter("item_pictureUrl1");
 		String item_name = request.getParameter("item_name");
 		String item_price = request.getParameter("item_price");
 		String item_cnt = request.getParameter("item_cnt");
@@ -56,6 +61,9 @@ public class CartInsertServlet extends HttpServlet {
 
 		CartDTO cdto = new CartDTO();
 		cdto.setUserid(userid);
+		cdto.setItem_quantity(Integer.parseInt(item_quantity));
+		cdto.setItem_num(Integer.parseInt(item_num));
+		cdto.setItem_pictureUrl1(item_pictureUrl1);
 		cdto.setItem_name(item_name);
 		cdto.setItem_price(item_price);
 		cdto.setItem_cnt(Integer.parseInt(item_cnt));
@@ -69,10 +77,10 @@ public class CartInsertServlet extends HttpServlet {
 			cdao.cartAdd(Integer.parseInt(item_cnt), item_name, userid);
 		}
 		
-		
 		session.setAttribute("cartcnt",cdao.cartCnt(userid));
 		
-		response.sendRedirect("cartlist.do");
+		response.sendRedirect(request.getHeader("Referer"));
+		/* response.sendRedirect("cartlist.do"); */
 		/*
 		 * RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		 * dispatcher.forward(request, response);

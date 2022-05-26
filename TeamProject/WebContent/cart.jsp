@@ -10,6 +10,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+$(document).ready(
+		function() {
+			var message = "${message}";
+			if(message.length > 28 ){
+				alert(message);
+			}
+		});
+</script>
 <style type="text/css">
 .cart table {
 	border: 1px solid orange;
@@ -74,13 +84,17 @@
 				<c:set var="result" value="0" />
 				<c:forEach var="cart" items="${clist}">
 					<tr>
-						<td><img alt="이미지" src="images/product/1.jpg" width="75px" height="75px"></td>
+						<td>
+						<a href="itemabout.do?item_num=${cart.item_num}">
+						<img alt="이미지" src="${cart.item_pictureUrl1}" width="75px" height="75px">
+						</a>
+						</td>
 						<td>${cart.item_name}</td>
 						<td><fmt:formatNumber value="${cart.item_price}" pattern="#,##0" />원</td>
 						<td>
 							<form action="cartcntmodify.do" method="post">
 								<input type="hidden" name="cart_seq" value="${cart.cart_seq}">
-								<input type="number" min="1" max="10" name="item_cnt" size="2" value="${cart.item_cnt}">
+								<input type="number" min="1" max="${cart.item_quantity}" name="item_cnt" size="2" value="${cart.item_cnt}">
 								<input type="submit" value="변경">
 							</form>
 						</td>
@@ -104,9 +118,10 @@
 				<Strong><fmt:formatNumber value="${result}" pattern="#,##0" /></Strong>원 입니다.
 				<form action="purchase.do" method="post">
 					<input type="hidden" name="userid" value="<%=session.getAttribute("userid")%>">
-					<input type="submit" class="form-btn" value="구매하기">
+					<input type="submit" class="form-btn" value="구매하기" onclick="check()">
 				</form>
 				<hr>
+				${message}
 			</div>
 		</div>
 	</div>

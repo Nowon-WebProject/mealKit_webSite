@@ -14,6 +14,10 @@
 input{
 border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px
 }
+
+button{
+border: 0;
+}
 </style>
 	
 </head>

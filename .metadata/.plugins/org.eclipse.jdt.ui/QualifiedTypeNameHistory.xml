@@ -3,4 +3,7 @@
 <fullyQualifiedTypeName name="kr.co.EZHOME.dto.UserDTO"/>
 <fullyQualifiedTypeName name="kr.co.EZHOME.dto.MyAddrDTO"/>
 <fullyQualifiedTypeName name="kr.co.EZHOME.dao.MyAddrDAO"/>
+<fullyQualifiedTypeName name="kr.co.EZHOME.dao.ItemDAO"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
 </qualifiedTypeNameHistroy>

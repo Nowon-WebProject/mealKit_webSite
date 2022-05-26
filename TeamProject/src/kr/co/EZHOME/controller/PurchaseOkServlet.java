@@ -2,6 +2,7 @@ package kr.co.EZHOME.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import kr.co.EZHOME.dao.AddrDAO;
 import kr.co.EZHOME.dao.CartDAO;
+import kr.co.EZHOME.dao.ItemDAO;
 import kr.co.EZHOME.dao.PurchaseDAO;
 import kr.co.EZHOME.dao.UserDAO;
 import kr.co.EZHOME.dto.AddrDTO;
@@ -26,36 +28,38 @@ import kr.co.EZHOME.dto.UserDTO;
 @WebServlet("/purchaseok.do")
 public class PurchaseOkServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PurchaseOkServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+	public PurchaseOkServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setCharacterEncoding("utf-8");
 
 		String userid = request.getParameter("userid");
 		String item_name = request.getParameter("item_name");
-		int total_price = Integer.parseInt(request.getParameter("total_price")); // 배송비, 적립금 포함 
+		int total_price = Integer.parseInt(request.getParameter("total_price")); // 배송비, 적립금 포함
 		String deli_name = request.getParameter("deli_name");
 		String deli_addr = request.getParameter("deli_addr");
 		String deli_phone = request.getParameter("deli_phone");
 		String deli_msg = request.getParameter("deli_msg");
 		String deli_pwd = request.getParameter("deli_pwd");
 		String deli_status = request.getParameter("deli_status");
-		int usePoint =  Integer.parseInt(request.getParameter("usePoint"));
-		int point =  Integer.parseInt(request.getParameter("point"));
-		
+		int usePoint = Integer.parseInt(request.getParameter("usePoint"));
+		int point = Integer.parseInt(request.getParameter("point"));
+
 		String deli_postcode = request.getParameter("deli_postcode");
-		
+
 		PurchaseDTO pdto = new PurchaseDTO();
 		pdto.setUserid(userid);
 		pdto.setItem_name(item_name);
@@ -67,22 +71,19 @@ public class PurchaseOkServlet extends HttpServlet {
 		pdto.setDeli_pwd(deli_pwd);
 		pdto.setDeli_status(deli_status);
 		pdto.setUsePoint(usePoint);
-		
+
 		PurchaseDAO pdao = PurchaseDAO.getInstance();
 		pdao.insertPurchase(pdto);
-		
-		CartDAO cdao = CartDAO.getInstance();
-		cdao.deleteAllCart(userid);
-		
+
 		UserDTO udto = new UserDTO();
 		udto.setUserid(userid);
 		udto.setPoint(point);
 		UserDAO udao = UserDAO.getInstance();
-		udao.minusPoint(usePoint ,userid);
+		udao.minusPoint(usePoint, userid);
 		udao.addPoint(point, userid);
-		
+
 		AddrDAO adao = AddrDAO.getInstance();
-		
+
 		AddrDTO adto = new AddrDTO();
 		adto.setUserid(userid);
 		adto.setDeli_name(deli_name);
@@ -91,45 +92,88 @@ public class PurchaseOkServlet extends HttpServlet {
 		adto.setDeli_msg(deli_msg);
 		adto.setDeli_pwd(deli_pwd);
 
+		ItemDAO idao = ItemDAO.getInstance();
+		String item_num = request.getParameter("item_num");
+		String item_cnt = request.getParameter("item_cnt");
+		String[] item_num1 = item_num.split(",");
+		String[] item_cnt1 = item_cnt.split(",");
 		
-		
+		CartDAO cdao = CartDAO.getInstance();
+		int cnt = cdao.cartCnt(userid);
+		for (int i = 0; i < cnt; i++) {
+			int item_num_ok = 0;
+			int item_cnt_ok = 0;
+			
+			// start부터 end-1위치까지 자름.
+			if(cnt==1) {
+			String iok = item_num1[i].substring(1, item_num1[i].length()-1);
+			String cok = item_cnt1[i].substring(1, item_cnt1[i].length()-1);
+			System.out.println(iok);
+			System.out.println(cok);
+			item_num_ok = Integer.parseInt(iok);
+			item_cnt_ok = Integer.parseInt(cok);
+			}else {
+				if(i==cnt-1) {
+				String iok = item_num1[i].substring(1, item_num1[i].length()-1);
+				String cok = item_cnt1[i].substring(1, item_cnt1[i].length()-1);
+				System.out.println(iok);
+				System.out.println(cok);
+				item_num_ok = Integer.parseInt(iok);
+				item_cnt_ok = Integer.parseInt(cok);
+				}else {
+				String iok = item_num1[i].substring(1, item_num1[i].length());
+				String cok = item_cnt1[i].substring(1, item_cnt1[i].length());
+				System.out.println(iok);
+				System.out.println(cok);
+				item_num_ok = Integer.parseInt(iok);
+				item_cnt_ok = Integer.parseInt(cok);
+				}
+			}
 
-		
+			idao.itemSales(item_cnt_ok, item_num_ok);
+			idao.itemQuantity(item_cnt_ok, item_num_ok);
+
+		}
+
+		cdao.deleteAllCart(userid);
 		int addrCheckResult = adao.addrCheck(deli_postcode, deli_name, userid);
-		
+
 		int oldAddrSeq = adao.oldAddrFind(userid);
-		
+
 		if (addrCheckResult == 0) {
 			adao.insertAddr(adto);
 
-		}else {
+		} else {
 			System.out.println("이미 저장된 주소이므로 저장되지 않습니다.");
 		}
-		
+
 		int addrCnt = adao.addrCnt(userid);
-		
+
 		if (addrCnt > 5) {
 			adao.deleteAddr(oldAddrSeq);
 			System.out.println("저장된 배송지가 5개가 넘어 오래된 배송지를 삭제합니다.");
 
 		}
-		
-		HttpSession session=request.getSession();
-		session.setAttribute("cartcnt",cdao.cartCnt(userid));
-		session.setAttribute("addrcnt",adao.addrCnt(userid));
+
+		HttpSession session = request.getSession();
+		session.setAttribute("cartcnt", cdao.cartCnt(userid));
+		session.setAttribute("addrcnt", adao.addrCnt(userid));
 		session.setAttribute("point", udao.nowPoint(userid));
-		
+
 		response.sendRedirect("purchaseOk.jsp");
-		//RequestDispatcher dispatcher = request.getRequestDispatcher("purchaseOk.jsp");
-		//dispatcher.forward(request, response);
+		// RequestDispatcher dispatcher =
+		// request.getRequestDispatcher("purchaseOk.jsp");
+		// dispatcher.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//doGet(request, response);
+		// doGet(request, response);
 
 	}
 

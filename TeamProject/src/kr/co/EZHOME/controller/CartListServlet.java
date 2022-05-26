@@ -42,11 +42,28 @@ public class CartListServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String userid = (String) session.getAttribute("userid");
 		
+		
 		CartDAO cdao=CartDAO.getInstance();
 		ArrayList<CartDTO> clist=cdao.selectCartProduct(userid);
 		request.setAttribute("clist", clist);
 		
+		System.out.println(clist.size());	
+		String message = "";
+		for(int i=0; i<clist.size();i++) {
+			int quantity = clist.get(i).getItem_quantity();
+			int cnt = clist.get(i).getItem_cnt();
+			int num = clist.get(i).getItem_num();
+			if(quantity < cnt) {
+				cdao.cartItemCntModify(quantity, num);
+				clist=cdao.selectCartProduct(userid);
+				request.setAttribute("clist", clist);
+				message += clist.get(i).getItem_name()+",";
+				}
+			
+		}
+
 		
+		request.setAttribute("message", ("["+message+"] 상품이 재고량 보다 많아 최대치로 조정합니다."));
 		session.setAttribute("cartcnt", cdao.cartCnt(userid));
 		
 		

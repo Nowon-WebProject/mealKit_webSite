@@ -34,7 +34,7 @@ public class CartDAO {
 	}
 
 	public ArrayList<CartDTO> selectCartProduct(String userid) {
-		String sql = "select cart_seq, item_price, item_name, item_cnt from carttbl where userid=? order by cart_seq asc";
+		String sql = "select * from carttbl where userid=? order by cart_seq asc";
 		ArrayList<CartDTO> itemList = new ArrayList<CartDTO>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -48,10 +48,13 @@ public class CartDAO {
 
 			while (rs.next()) {
 				CartDTO cdto = new CartDTO();
+				cdto.setItem_num(rs.getInt("item_num"));
+				cdto.setItem_pictureUrl1(rs.getString("item_pictureUrl1"));
 				cdto.setCart_seq(rs.getInt("cart_seq"));
 				cdto.setItem_name(rs.getString("item_name"));
 				cdto.setItem_price(rs.getString("item_price"));
 				cdto.setItem_cnt(rs.getInt("item_cnt"));
+				cdto.setItem_quantity(rs.getInt("item_quantity"));
 				itemList.add(cdto);
 
 			}
@@ -139,7 +142,7 @@ public class CartDAO {
 	}
 
 	public void insertCart(CartDTO cdto) {
-		String sql = "insert into carttbl values(cart_seq.nextVal,?,?,?,?)";
+		String sql = "insert into carttbl values(?,?,cart_seq.nextVal,?,?,?,?,?)";
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -147,10 +150,13 @@ public class CartDAO {
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, cdto.getUserid());
-			pstmt.setString(2, cdto.getItem_name());
-			pstmt.setString(3, cdto.getItem_price());
-			pstmt.setInt(4, cdto.getItem_cnt());
+			pstmt.setInt(1, cdto.getItem_num());
+			pstmt.setString(2, cdto.getItem_pictureUrl1());
+			pstmt.setString(3, cdto.getUserid());
+			pstmt.setString(4, cdto.getItem_name());
+			pstmt.setString(5, cdto.getItem_price());
+			pstmt.setInt(6, cdto.getItem_cnt());
+			pstmt.setInt(7, cdto.getItem_quantity());
 
 			pstmt.executeUpdate();
 			
@@ -304,6 +310,35 @@ public class CartDAO {
 			pstmt.setString(3, userid);
 			pstmt.executeUpdate();
 			System.out.println(userid+"님의 "+item_name+"의 수량 "+item_cnt+"개 추가 완료");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		
+	}
+	
+	public void cartItemCntModify(int item_quantity, int item_num) {
+		String sql="update carttbl set item_cnt=? where item_num=?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, item_quantity);
+			pstmt.setInt(2, item_num);
+			pstmt.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();

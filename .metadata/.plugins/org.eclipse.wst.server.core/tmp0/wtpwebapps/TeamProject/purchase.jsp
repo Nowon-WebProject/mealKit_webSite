@@ -320,6 +320,9 @@ input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+button{
+border: 0;
+}
 
 .cart table{
 border:1px solid orange;
@@ -439,6 +442,7 @@ li {
 <body>
 	<jsp:include page="nav.jsp"></jsp:include>
 		<div style="width:60%;margin-left: auto; margin-right: auto;">
+		<form action="payment.jsp" method="post" name="frm" id="frm">
 	
 		<div class="cart">
 		<hr>
@@ -460,18 +464,19 @@ li {
 				<c:set var="result" value="0" />
 				<c:forEach var="cart" items="${clist}">
 					<tr>
-						<td><img alt="이미지" src="images/product/1.jpg" width="75px" height="75px"></td>
+						<td><img alt="이미지" src="${cart.item_pictureUrl1}" width="75px" height="75px"></td>
 						<td>${cart.item_name}</td>
 						<td><fmt:formatNumber value="${cart.item_price}" pattern="#,##0" />원</td>
 						<td>${cart.item_cnt}</td>
 						<td><fmt:formatNumber value="${cart.item_price*cart.item_cnt}" />원</td>
 					</tr>
 					<c:set var="result" value="${result+(cart.item_price*cart.item_cnt)}" />
+					<input type="hidden" name="item_cnt[]" value="${cart.item_cnt}">
+					<input type="hidden" name="item_num[]" value="${cart.item_num}">
 				</c:forEach>
 			</table>
 <!-- 주문자 정보  -->
 		</div>
-		<form action="payment.jsp" method="post" name="frm" id="frm">
 			<div align="center">
 				<div class="login-container">
 					<div align="left">
@@ -651,6 +656,7 @@ li {
 					</div>
 					<br>
 					<input type="checkbox" required>(필수) 구매하실 상품의 결제정보를 확인하였으며, 구매진행에 동의합니다.
+
 					<input type="hidden" name="item_name" value="${clist[0].item_name}">
 					<input type="hidden" name="userid" value="<%=session.getAttribute("userid")%>">
 					<input type="hidden" name="total_price" value="${result+3000}">

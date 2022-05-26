@@ -1,3 +1,4 @@
+<%@page import="java.util.Arrays"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
@@ -14,6 +15,9 @@
     String deli_pwd = request.getParameter("deli_pwd");
     String deli_status = request.getParameter("deli_status");
     
+    
+    String[] item_num = request.getParameterValues("item_num[]");
+    String[] item_cnt = request.getParameterValues("item_cnt[]");
     
     int total_price = Integer.parseInt(request.getParameter("total_price"));
     int usePoint =  Integer.parseInt(request.getParameter("usePoint"));
@@ -56,9 +60,11 @@
 사용할 적립금:<%=usePoint%><br>
 최종 구매금액 :<%=amount%>
     <script>
+            var item_num_encode = encodeURIComponent('<%=Arrays.toString(item_num)%>');
+               var item_cnt_encode = encodeURIComponent('<%=Arrays.toString(item_cnt)%>');
                var deli_pwd_encode = encodeURIComponent('<%=deli_pwd%>');
-               location.href='http://localhost:8080/TeamProject/purchaseok.do?userid=<%=userid%>&item_name=<%=item_name%>&total_price=<%=amount%>&deli_name=<%=deli_name%>&deli_addr=<%=deli_addr%>&deli_phone=<%=deli_phone%>&deli_msg=<%=deli_msg%>&deli_pwd='+deli_pwd_encode+'&deli_status=<%=deli_status%>&usePoint=<%=usePoint%>&point=<%=point%>&deli_postcode=<%=deli_postcode%>';
-        <%-- $(function(){
+               location.href='http://localhost:8080/TeamProject/purchaseok.do?userid=<%=userid%>&item_name=<%=item_name%>&total_price=<%=amount%>&deli_name=<%=deli_name%>&deli_addr=<%=deli_addr%>&deli_phone=<%=deli_phone%>&deli_msg=<%=deli_msg%>&deli_pwd='+deli_pwd_encode+'&deli_status=<%=deli_status%>&usePoint=<%=usePoint%>&point=<%=point%>&deli_postcode=<%=deli_postcode%>&item_num='+item_num_encode+'&item_cnt='+item_cnt_encode+'';
+      <%-- $(function(){
         var IMP = window.IMP; // 생략가능
         IMP.init('imp79971809'); // "가맹점 식별코드"
         var msg;

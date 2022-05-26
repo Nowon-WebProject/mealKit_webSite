@@ -1,14 +1,33 @@
 package kr.co.EZHOME.dto;
 
 public class CartDTO {
+	private int item_num;
+	private String item_pictureUrl1;
 	private int cart_seq;
 	private String userid;
 	private String item_name;
 	private String item_price;
 	private int item_cnt;
+	private int item_quantity;
 
 	public CartDTO() {
 
+	}
+
+	public int getItem_num() {
+		return item_num;
+	}
+
+	public void setItem_num(int item_num) {
+		this.item_num = item_num;
+	}
+
+	public String getItem_pictureUrl1() {
+		return item_pictureUrl1;
+	}
+
+	public void setItem_pictureUrl1(String item_pictureUrl1) {
+		this.item_pictureUrl1 = item_pictureUrl1;
 	}
 
 	public int getCart_seq() {
@@ -49,6 +68,14 @@ public class CartDTO {
 
 	public void setItem_cnt(int item_cnt) {
 		this.item_cnt = item_cnt;
+	}
+
+	public int getItem_quantity() {
+		return item_quantity;
+	}
+
+	public void setItem_quantity(int item_quantity) {
+		this.item_quantity = item_quantity;
 	}
 
 }
