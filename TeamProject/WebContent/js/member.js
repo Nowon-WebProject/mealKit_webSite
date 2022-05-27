@@ -1,5 +1,6 @@
 //반응형 jquery 문
 $(document).ready(function() {
+	
 	//전화번호 -자동입력
 	$(".phone").keydown(function(event) {
 		//event.charCode : 눌린 키보드의 char 값
@@ -156,6 +157,11 @@ $(document).ready(function() {
 		if (pwd.val() != pwd_check.val()) {
 			$(".goodPasswordCheckGuide").attr("class", "badPasswordCheckGuide");
 			$(".badPasswordCheckGuide").text("비밀번호가 일치하지 않습니다");
+			passwordCheckvalid = false;
+		}
+		else if (pwd_check.val().length == 0) {
+			$(".goodPasswordCheckGuide").attr("class", "badPasswordCheckGuide");
+			$(".badPasswordCheckGuide").text("비밀번호를 먼저 입력해주세요 ");
 			passwordCheckvalid = false;
 		}
 		//암호와 암호확인이 같을때

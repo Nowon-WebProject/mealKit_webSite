@@ -188,7 +188,7 @@ $(document).ready(function() {
 					<a href=# id="addDelay">시간연장</a>
 					<!-- 실제 발급된 인증번호를 저장하는 hidden 타입의 input -->	
 					<input type="hidden" id="certificationNumber" value="${certificationNumber}">
-					<input type="hidden" name="phone" value="${phone }">		
+					<input type="hidden" name="phone" value="${param.phone }">		
 				</td>
 
 			</tr>
