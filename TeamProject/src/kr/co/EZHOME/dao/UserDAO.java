@@ -37,6 +37,37 @@ public class UserDAO {
 		return conn;
 	}
 	
+	
+	//해당 핸드폰 번호를 가진 유저가 있는지 확인하기
+	public DataStatus checkPhoneUser(String phone) {
+		DataStatus result = DataStatus.Invalid_InputValue;
+		String sql = "select userid from usertbl where phone=?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, phone);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				result = DataStatus.Exist;
+			}
+			else {
+				result = DataStatus.Not_Exist;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	
+	//메시지 전송할 때 필요한 apikey, apiscret 가져오기
 	public String[] getCoolSMS() {
 		String sql="select * from smsapikey";
 		String[] api = new String[2];
@@ -60,6 +91,7 @@ public class UserDAO {
 		return api;
 	}
 	
+	//유저정보 가져오기
 	public User findUser (String userid) throws Exception {
 		String sql="select * from usertbl where userid=?";
 		User user = new User();

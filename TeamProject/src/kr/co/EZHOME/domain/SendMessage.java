@@ -19,7 +19,7 @@ public class SendMessage {
 //        	String api_key = coolSMSKey.getApiKey();
 //            String api_secret = coolSMSKey.getApiSecret();
 //            Message coolsms = new Message(api_key, api_secret);
-        	
+//        	
             String certificationNumber = MakeCertificationNumber();
             
 //            String[] phoneSplit = phone.split("-");

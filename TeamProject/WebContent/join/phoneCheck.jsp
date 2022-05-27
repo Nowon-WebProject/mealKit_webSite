@@ -71,20 +71,7 @@ $(document).ready(function() {
 			isRunning = true;
 		}
 
-// 		$("#btn_check").click(function() {
-// 			var inputText = $("#inputCertificationNumber").val();
-// 			var certificationNumber = $("#certificationNumber").val();
-// 			var status = $("#certificationStatus");
 
-// 			if (certificationNumber === inputText) {
-// 				alert("인증에 성공하셨습니다");
-// 				status.val("true");
-// 			} else {
-// 				alert("인증에 실패하셨습니다");
-// 				status.val("false");
-// 			}
-
-// 		});
 
 		$("#reSend").click(function() {
 			//jstl 을 이용하면 js 에서도 el 을 사용할 수 있다
@@ -97,7 +84,7 @@ $(document).ready(function() {
 
 	});
 
-	function close() {
+	function closeWindow() {
 		//opener.frm.reid.value=document.frm.userid.value;
 		self.close();
 	}
@@ -125,14 +112,12 @@ $(document).ready(function() {
 		var inputCertificationNumber = $("#inputCertificationNumber").val();
 
 		//인증번호를 잘못 입력했을때
-		if (certificationNumber === inputCeritifcationNumber) {
-			alert("인증번호가 잘못됐습니다1. 다시 한번 확인해주세요");
+		if (certificationNumber != inputCertificationNumber) {
+			alert("인증번호가 잘못됐습니다. 다시 한번 확인해주세요");
 			return false;
 		}
-		else {
-			alert("인증번호가 잘못됐습니다2. 다시 한번 확인해주세요");
-			//location
-		}
+		//인증번호를 제대로 입력했을때 return true를 통해 submit 시킨다
+	
 		return true;
 	}
 </script>
@@ -203,8 +188,7 @@ $(document).ready(function() {
 					<a href=# id="addDelay">시간연장</a>
 					<!-- 실제 발급된 인증번호를 저장하는 hidden 타입의 input -->	
 					<input type="hidden" id="certificationNumber" value="${certificationNumber}">
-					<!-- 인증을 성공했는지 안했는지 확인하기 위한 hidden 타입의 input -->
-					<input type="hidden" id="certificationStatus" value="false">					
+					<input type="hidden" name="phone" value="${phone }">		
 				</td>
 
 			</tr>
@@ -212,7 +196,7 @@ $(document).ready(function() {
 			<tr>
 				<td colspan="2">
 					<input type="submit" class="btn1" value="확인" onclick="return certificationok()">
-					<input type="button" class="btn2" value="취소" onclick="close()">
+					<input type="button" class="btn2" value="취소" onclick="closeWindow()">
 				</td>
 				
 			</tr>

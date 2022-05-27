@@ -348,7 +348,7 @@ function phoneCheck(){
 	
 	//first 를 통해 인증번호 첫 발송인것을 알려줌
 	var url="/TeamProject/SendMessage.do?phone="+document.frm.phone.value+"&first=true";
-	window.open(url,"_blank_1","toolbar=no,menubar=no,"+"scrollbars=yes,resizable=no,width=330,height=300, left="+ popupX + ", top= "+ popupY);
+	window.open(url,"_blank_1","toolbar=no,menubar=no,"+"scrollbars=yes,resizable=no,width=500,height=300, left="+ popupX + ", top= "+ popupY);
 }
 
 function idok(userid){
