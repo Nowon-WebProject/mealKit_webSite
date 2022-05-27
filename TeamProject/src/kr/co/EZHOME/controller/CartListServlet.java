@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import kr.co.EZHOME.dao.CartDAO;
+import kr.co.EZHOME.dao.ItemDAO;
 import kr.co.EZHOME.dao.UserDAO;
 import kr.co.EZHOME.dto.CartDTO;
 import kr.co.EZHOME.dto.UserDTO;
@@ -44,26 +45,42 @@ public class CartListServlet extends HttpServlet {
 		
 		
 		CartDAO cdao=CartDAO.getInstance();
+		ItemDAO idao=ItemDAO.getInstance();
 		ArrayList<CartDTO> clist=cdao.selectCartProduct(userid);
-		request.setAttribute("clist", clist);
-		
-		System.out.println(clist.size());	
 		String message = "";
+		int check=0;
 		for(int i=0; i<clist.size();i++) {
-			int quantity = clist.get(i).getItem_quantity();
+			int quantity = idao.itemCnt(clist.get(i).getItem_num());
 			int cnt = clist.get(i).getItem_cnt();
 			int num = clist.get(i).getItem_num();
-			if(quantity < cnt) {
-				cdao.cartItemCntModify(quantity, num);
-				clist=cdao.selectCartProduct(userid);
-				request.setAttribute("clist", clist);
-				message += clist.get(i).getItem_name()+",";
-				}
+			int check2 = 0;
 			
-		}
-
+			cdao.cartItemQuantityModify(quantity, num);
+			
+			if (quantity == 0) {
+				cdao.cartItemCntModify(quantity, num);
+				cdao.cartItemQuantityModify(quantity, num);
+				message += clist.get(i).getItem_name() + "(품절) ";
+				check += 1;
+				cdao.deleteCart(clist.get(i).getCart_seq());
+				check2 = 1;
+				
+			}
+			
+			if (quantity < cnt) {
+				cdao.cartItemCntModify(quantity, num);
+				check += 1;
+				if(check2 == 0) {
+				message += clist.get(i).getItem_name() +"(재고량 변동) ";
+				}
+			}
 		
-		request.setAttribute("message", ("["+message+"] 상품이 재고량 보다 많아 최대치로 조정합니다."));
+		}
+		clist=cdao.selectCartProduct(userid);
+		request.setAttribute("clist", clist);
+		if(check > 0) {
+		request.setAttribute("message", ("[ "+message+"] 상품의 재고 정보가 변동되어 장바구니가 수정됩니다."));
+		}
 		session.setAttribute("cartcnt", cdao.cartCnt(userid));
 		
 		

@@ -15,7 +15,7 @@
 $(document).ready(
 		function() {
 			var message = "${message}";
-			if(message.length > 28 ){
+			if(message.length > 30 ){
 				alert(message);
 			}
 		});

@@ -97,7 +97,6 @@ public class PurchaseOkServlet extends HttpServlet {
 		String item_cnt = request.getParameter("item_cnt");
 		String[] item_num1 = item_num.split(",");
 		String[] item_cnt1 = item_cnt.split(",");
-		
 		CartDAO cdao = CartDAO.getInstance();
 		int cnt = cdao.cartCnt(userid);
 		for (int i = 0; i < cnt; i++) {
@@ -108,23 +107,17 @@ public class PurchaseOkServlet extends HttpServlet {
 			if(cnt==1) {
 			String iok = item_num1[i].substring(1, item_num1[i].length()-1);
 			String cok = item_cnt1[i].substring(1, item_cnt1[i].length()-1);
-			System.out.println(iok);
-			System.out.println(cok);
 			item_num_ok = Integer.parseInt(iok);
 			item_cnt_ok = Integer.parseInt(cok);
 			}else {
 				if(i==cnt-1) {
 				String iok = item_num1[i].substring(1, item_num1[i].length()-1);
 				String cok = item_cnt1[i].substring(1, item_cnt1[i].length()-1);
-				System.out.println(iok);
-				System.out.println(cok);
 				item_num_ok = Integer.parseInt(iok);
 				item_cnt_ok = Integer.parseInt(cok);
 				}else {
 				String iok = item_num1[i].substring(1, item_num1[i].length());
 				String cok = item_cnt1[i].substring(1, item_cnt1[i].length());
-				System.out.println(iok);
-				System.out.println(cok);
 				item_num_ok = Integer.parseInt(iok);
 				item_cnt_ok = Integer.parseInt(cok);
 				}

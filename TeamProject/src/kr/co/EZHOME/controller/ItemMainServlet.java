@@ -41,12 +41,8 @@ public class ItemMainServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 
 		ItemDAO idao = ItemDAO.getInstance();
-/*
-		ArrayList<ItemDTO> ilist = idao.selectNewItem();
-		ArrayList<ItemDTO> ilist = idao.selectBestItem();
-		ArrayList<ItemDTO> ilist = idao.selectAllItem();
-		*/
 		ArrayList<ItemDTO> ilist = idao.selectMainItem();
+		
 		request.setAttribute("ilist", ilist);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);

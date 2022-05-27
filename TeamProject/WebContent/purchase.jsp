@@ -312,6 +312,22 @@ function selectMyAddr(i){
 	modal.classList.toggle('show');
 	body.style.overflow = 'auto'
 }
+
+$(document).ready(
+		function() {
+			var message = "${message}";
+			if(message.length > 38 ){
+				alert(message);
+			}
+		});
+$(document).ready(
+		function() {
+			var message2 = "${message2}";
+			if(message2.length > 33 ){
+				alert(message2);
+				  location.href="cartlist.do";
+			}
+		});
 </script>
 <style>
 /* number값 화살표 없애기 */
@@ -442,7 +458,7 @@ li {
 <body>
 	<jsp:include page="nav.jsp"></jsp:include>
 		<div style="width:60%;margin-left: auto; margin-right: auto;">
-		<form action="payment.jsp" method="post" name="frm" id="frm">
+		<form action="payment.do" method="post" name="frm" id="frm">
 	
 		<div class="cart">
 		<hr>
@@ -657,6 +673,7 @@ li {
 					<br>
 					<input type="checkbox" required>(필수) 구매하실 상품의 결제정보를 확인하였으며, 구매진행에 동의합니다.
 
+					<input type="hidden" name="cartcnt" value="<%=session.getAttribute("cartcnt")%>">
 					<input type="hidden" name="item_name" value="${clist[0].item_name}">
 					<input type="hidden" name="userid" value="<%=session.getAttribute("userid")%>">
 					<input type="hidden" name="total_price" value="${result+3000}">

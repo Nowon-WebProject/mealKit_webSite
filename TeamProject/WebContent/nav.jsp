@@ -45,17 +45,6 @@
 	
 	%>
 
-	
-<%-- 	이름<%=name%><br>
-	아이디<%=userid%><br>
-	비밀번호<%=pw%><br>
-	이메일<%=email%><br>
-	전화번호<%=phone%><br>
-	권한<%=admin%><br>
-	장바구니<%=cartcnt%><br>
-	주소<%=addr%><br>
-	포인트<%=point%><br> --%>
-	
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
@@ -76,10 +65,10 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">밀키트</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="itemall.do">전체 밀키트</a></li>
+                                <li><a class="dropdown-item" href="itemlist.do?view=card&pageSize=12&check=all&category=empty&priceSort=default&keyword=">전체 밀키트</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="itembest.do">인기 밀키트</a></li>
-                                <li><a class="dropdown-item" href="itemnew.do">신상 밀키트</a></li>
+                                <li><a class="dropdown-item" href="itemlist.do?view=card&pageSize=12&check=best&category=empty&priceSort=default&keyword=">인기 밀키트</a></li>
+                                <li><a class="dropdown-item" href="itemlist.do?view=card&pageSize=12&check=new&category=empty&priceSort=default&keyword=">신상 밀키트</a></li>
                             </ul>
                         </li>
                     </ul>

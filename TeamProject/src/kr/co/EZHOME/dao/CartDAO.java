@@ -328,7 +328,7 @@ public class CartDAO {
 	}
 	
 	public void cartItemCntModify(int item_quantity, int item_num) {
-		String sql="update carttbl set item_cnt=? where item_num=?";
+		String sql="update carttbl set item_quantity=?, item_cnt=? where item_num=?";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -337,7 +337,8 @@ public class CartDAO {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, item_quantity);
-			pstmt.setInt(2, item_num);
+			pstmt.setInt(2, item_quantity);
+			pstmt.setInt(3, item_num);
 			pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -353,6 +354,35 @@ public class CartDAO {
 			}
 		}
 
+		
+	}
+	
+	public void cartItemQuantityModify(int item_quantity, int item_num) {
+		String sql="update carttbl set item_quantity=? where item_num=?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, item_quantity);
+			pstmt.setInt(2, item_num);
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		
 	}
 	

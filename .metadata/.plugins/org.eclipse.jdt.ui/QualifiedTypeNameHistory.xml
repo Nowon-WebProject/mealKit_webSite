@@ -3,7 +3,12 @@
 <fullyQualifiedTypeName name="kr.co.EZHOME.dto.UserDTO"/>
 <fullyQualifiedTypeName name="kr.co.EZHOME.dto.MyAddrDTO"/>
 <fullyQualifiedTypeName name="kr.co.EZHOME.dao.MyAddrDAO"/>
-<fullyQualifiedTypeName name="kr.co.EZHOME.dao.ItemDAO"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="kr.co.EZHOME.dto.CartDTO"/>
+<fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="kr.co.EZHOME.dto.ItemDTO"/>
+<fullyQualifiedTypeName name="kr.co.EZHOME.dao.ItemDAO"/>
+<fullyQualifiedTypeName name="java.util.Vector"/>
 </qualifiedTypeNameHistroy>

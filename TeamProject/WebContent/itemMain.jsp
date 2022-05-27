@@ -55,18 +55,6 @@
 }
         </style>
         
-<script type="text/javascript">
-
-		function cart() {
-			if(<%=session.getAttribute("userid")%> != null){
-				alert("장바구니에 담았습니다.");
-				
-			}else{
-				alert("로그인이 필요합니다");
-			}
-			};
-
-</script>        
         
 </head>
 <body>
@@ -85,35 +73,60 @@
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 
-                	<c:forEach var="main" items="${ilist}">
+                	<c:forEach var="item" items="${ilist}">
                 	<form action="cartinsert.do" method="post">
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                             <a href="itemabout.do?item_num=${main.item_num}">
-                            <img class="card-img-top" src="${main.item_pictureUrl1}" alt="..." />
+                             <a href="itemabout.do?item_num=${item.item_num}">
+                            <img class="card-img-top" src="${item.item_pictureUrl1}" alt="..." />
                             </a>
                             <!-- Product details-->
-                            <div class="card-body p-4">
+                            <div class="card-body p-4" >
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">${main.item_name}</h5>
-                                    <p style="color:gray">${main.item_content}</p>
+                                    <h5 class="fw-bolder">${item.item_name}</h5>
+                                    <p style="color:gray">${item.item_content}</p>
                                     <!-- Product price-->
-                                    \ <fmt:formatNumber value="${main.item_price}"/>
+                                    \ <fmt:formatNumber value="${item.item_price}"/>
                                     
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto"><i class="bi-cart-fill me-1"></i>                    <input type="hidden" name="pictureurl" value="${main.item_pictureUrl1}">
-                    <input type="hidden" name="item_quantity" value="${main.item_quantity}">
-                    <input type="hidden" name="item_pictureUrl1" value="${main.item_pictureUrl1}">
-                    <input type="hidden" name="item_num" value="${main.item_num}">
-                    <input type="hidden" name="item_name" value="${main.item_name}">
-                    <input type="hidden" name="item_price" value="${main.item_price}">
-                    <input type="number" name="item_cnt" value="1" min="1" max="${main.item_quantity}">
-                    <input type="submit" class="form-btn" value="장바구니에 담기" onclick="cart()"></a></div>
+                            <c:choose>
+                            	<c:when test="${item.item_quantity != 0}">
+                            	<% String userid = (String) session.getAttribute("userid");  %>
+                         		<c:set var="userid" value="<%=userid%>"/>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto"><i class="bi-cart-fill me-1"></i>
+                    <input type="hidden" name="userid" value="${userid}">
+                    <input type="hidden" name="item_quantity" value="${item.item_quantity}">
+                    <input type="hidden" name="item_pictureUrl1" value="${item.item_pictureUrl1}">
+                    <input type="hidden" name="item_num" value="${item.item_num}">
+                    <input type="hidden" name="item_name" value="${item.item_name}">
+                    <input type="hidden" name="item_price" value="${item.item_price}">
+                    <input type="number" name="item_cnt" value="1" min="1" max="${item.item_quantity}">
+													<script>
+														function loginCheck() {
+															var userid = "${userid}";
+															if (userid == "") {
+																alert("로그인 후 이용 가능합니다.");
+															} else {
+																alert("장바구니에 담았습니다.");
+															}
+														}
+													</script>
+								 <input type="submit" class="form-btn" value="장바구니에 담기" onClick="loginCheck()"></a></div>
+                  				  </c:when>
+                  				  <c:otherwise>
+                  				  <div class="text-center">
+                  				  <br>
+                  				  <a class="btn btn-outline-dark mt-auto">품절된 상품입니다.</a>
+                  				  <br>
+                  				  <br>
+                  				  </div>
+                  				  </c:otherwise>
+                            </c:choose>
                             </div>
                         </div>
                     </div>

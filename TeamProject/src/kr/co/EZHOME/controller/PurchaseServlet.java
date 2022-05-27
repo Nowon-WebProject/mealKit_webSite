@@ -54,8 +54,20 @@ public class PurchaseServlet extends HttpServlet {
 		String userid = (String) session.getAttribute("userid");
 		
 		CartDAO cdao=CartDAO.getInstance();
+		ItemDAO idao=ItemDAO.getInstance();
 		ArrayList<CartDTO> clist=cdao.selectCartProduct(userid);
 		request.setAttribute("clist", clist);
+		String message2 = "";
+		for(int i=0; i<clist.size();i++) {
+			int quantity = idao.itemCnt(clist.get(i).getItem_num());
+			int cnt = clist.get(i).getItem_cnt();
+			if(quantity < cnt) {
+				message2 += clist.get(i).getItem_name()+" ";
+				}
+		}
+
+		
+		request.setAttribute("message2", ("[ "+message2+"] 상품의 재고량에 문제가 생겼습니다. 다시 확인해주세요"));
 		session.setAttribute("cartcnt", cdao.cartCnt(userid));
 		
 		

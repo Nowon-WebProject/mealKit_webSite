@@ -21,14 +21,6 @@ $(document).ready(
 				history.back();
 			}
 		});
-$(document).ready(
-		function() {
-			var check = "${ilist[0].item_quantity}";
-			if(check == 0){
-				alert("품절된 상품입니다.");
-				history.back();
-			}
-		});
 	$(document).ready(
 			function() {
 				
@@ -191,25 +183,49 @@ $(document).ready(
 					<fmt:formatNumber value="${ilist[0].item_price*0.05}"/>p]
 				</p>
 				<hr>
-				<p>몇인분 :${ilist[0].item_total}인분</p>
-				<p>조리시간 : ${ilist[0].item_time}분</p>
-				<p>
-					수량 : <input type="number" name='item_cnt' id="cnt" value="1" min="1"
-						max="${ilist[0].item_quantity}">
-				</p>
-				<p>
-					남은 수량 : ${ilist[0].item_quantity}
-				</p>
-				<p>
-					총 합계 금액 <span id="total_price"></span>원
-				</p>
+				<p>${ilist[0].item_total}인분</p>
+				<p>조리시간 ${ilist[0].item_time}분</p>
+				
+				
+				<% String userid = (String) session.getAttribute("userid");  %>
+                <c:set var="userid" value="<%=userid%>"/>
+                <input type="hidden" name="userid" value="${userid}">
 				<input type="hidden" name="item_quantity" value="${ilist[0].item_quantity}">
 				<input type="hidden" name="item_num" value="${ilist[0].item_num}">
 				<input type="hidden" name="item_pictureUrl1" value="${ilist[0].item_pictureUrl1}">
 				<input type="hidden" name="item_name" value="${ilist[0].item_name}">
 				<input type="hidden" name="item_price"
-					value="${ilist[0].item_price}"> <input type="submit"
-					class="form-btn" value="장바구니" id="cart">
+					value="${ilist[0].item_price}">
+				<c:choose>
+					<c:when test="${ilist[0].item_quantity != 0}">
+						<p>
+							수량 : <input type="number" name='item_cnt' id="cnt" value="1"
+								min="1" max="${ilist[0].item_quantity}">
+						</p>
+						<p>남은 수량 : ${ilist[0].item_quantity}</p>
+						<p>
+							총 합계 금액 <span id="total_price"></span>원
+						</p>
+						<script>
+							function loginCheck() {
+								var userid ="${userid}";
+								if(userid == ""){
+									alert("로그인 후 이용 가능합니다.");								
+								}else{
+									alert("장바구니에 담았습니다.");								
+								}
+							}
+						</script>
+						<input type="submit" class="form-btn" value="장바구니" id="cart" onClick="loginCheck()">
+					</c:when>
+					<c:otherwise>
+					<br>
+					<br>
+					<br>
+						<input type="button" class="form-btn" value="품절되어 구매가 불가능합니다."
+							id="cart">
+					</c:otherwise>
+				</c:choose>
 			</form>
 			<!-- 가격 자동 계산용 -->
 			<input type="hidden" value="${ilist[0].item_price}" id="price">
