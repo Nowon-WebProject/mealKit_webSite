@@ -8,7 +8,7 @@
 <link href="css/styles.css" rel="stylesheet" />
 </head>
 <body>
-<jsp:include page="nav.jsp"></jsp:include>
+<jsp:include page="/ui/nav.jsp"></jsp:include>
 <br><br>
 <div align="center"><img alt="사이트 소개 이미지" src="images/about/about.jpg"></div>
 <br><br>
