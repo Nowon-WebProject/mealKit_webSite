@@ -1,7 +1,6 @@
 package kr.co.EZHOME.controller;
 
 import java.io.IOException;
-import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,16 +13,16 @@ import kr.co.EZHOME.dao.BbsDAO;
 import kr.co.EZHOME.dto.BbsDTO;
 
 /**
- * Servlet implementation class bbsViewServlet
+ * Servlet implementation class bbsDeleteServlet
  */
-@WebServlet("/bbsView.do")
-public class bbsViewServlet extends HttpServlet {
+@WebServlet("/bbsDelete.do")
+public class bbsDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public bbsViewServlet() {
+    public bbsDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,29 +41,13 @@ public class bbsViewServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		String bbsid = request.getParameter("bbsid");
-		String url = "";
-		String update = request.getParameter("update");
-		
-		if(update == null || update =="") { url = "/managePage/bbsView.jsp"; }
-		else {url = "/managePage/bbsUpdate.jsp"; }
-		
 		BbsDAO bdao=BbsDAO.getInstance();
-		BbsDTO bdto=new BbsDTO();
-		Vector<BbsDTO> vec=new Vector<BbsDTO>();
+		String bbsid = request.getParameter("delete");
+	
+		int result = bdao.deleteMember(bbsid);
 		
-			bdto=bdao.findUser(bbsid);
-			vec.add(bdto);
-			
-		//String content = bdto.getBbscontent();
-		//String title = bdto.getBbstitle();
-		
-			request.setAttribute("vec", vec);
-			
-			RequestDispatcher dispatcher=request.getRequestDispatcher(url);
-			dispatcher.forward(request, response);
-			
-		
+		RequestDispatcher dispatcher=request.getRequestDispatcher("bbsList.do");
+		dispatcher.forward(request, response);
 		
 	}
 

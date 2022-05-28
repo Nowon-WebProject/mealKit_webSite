@@ -35,30 +35,15 @@
     background-color: 	#F8AD7B;
 }
 </style>
-<script type="text/javascript">
-function method(a){
-	let form = document.createElement("form");
-	
-	let str = document.createElement("input");
-	str.setAttribute("type","hidden");
-	str.setAttribute("name","bbsid");
-	str.setAttribute("value",a);
-	
-	form.appendChild(str);
-	form.setAttribute("method" , "post");
-	form.setAttribute("action" , "/TeamProject/bbsView.do");
-	document.body.appendChild(form);
-	
-	form.submit();
-}
+ <script type="text/javascript" src="js/sunwoo.js"></script>
 
-</script>
+
 </head>
 <body>
 <%
 	Vector<BbsDTO> vec=(Vector<BbsDTO>)request.getAttribute("vec");
-	
-
+	int pageNum = (int)request.getAttribute("pageNum");
+	int pageSize = (int)request.getAttribute("pageSize");
 %>
 <jsp:include page="/ui/nav.jsp"></jsp:include>
 	<div align="center">
@@ -87,13 +72,22 @@ function method(a){
 			<td><%=bdto.getBbsdate() %></td>	
 			</tr>
 	<%} %>
+
     </tbody>
     </table>
+  	</div>
+  	<br>
+  	<div align="center">
+			<form action="/TeamProject/bbsList.do" method="post">
+			
+			<% for(int i=1;i<=pageSize;i++){%>	
+			<span><input type="submit" value="<%=i %>" name="page"></span>
+			<%} %>
+			</form>
     </div>
-	<!-- <form action="bbsport.do" method="post">
-	<input type="submit" name="a" value="글쓰기">
-	</form> -->
-	<a href="/TeamProject/managePage/bbsWrite.jsp">글쓰기</a>
+    <div align="right">
+	<h2><a href="/TeamProject/managePage/bbsWrite.jsp">글쓰기</a></h2>
+	</div>
 	<br>
 	<br>
 	<br>

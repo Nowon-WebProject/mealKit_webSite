@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="kr.co.EZHOME.dto.BbsDTO" %>
+<%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,36 +37,42 @@
 </style>
 </head>
 <body>
+<%
+	Vector<BbsDTO> vec=(Vector<BbsDTO>)request.getAttribute("vec");
+	BbsDTO bdto = new BbsDTO();
+	bdto=vec.get(0);
+%>
 <jsp:include page="/ui/nav.jsp"></jsp:include>
 	<div align="center">
         <br><br>
         <b><font size="6" color="gray">공지 사항 </font></b>
         <br><br><br>
     </div>
-	<div class="cart" align="center">
+	<div class="cart">
+	<form action="/TeamProject/bbsUpdate.do" method="post">
 	<table>
     <thead>
         <tr>
-            <th colspan="2">글쓰기</th>
+            <th colspan="2"></th>
             
         </tr>
     </thead> 
-    <form action="/TeamProject/bbsWrite.do" method="post">
     <tbody>	
 			<tr>
-			<td><input type="text" name="bbstitle" placeholder="제목" maxlength="50" style="width:50%;"></td>
+			<td><input type="text" name="bbstitle" value=<%=bdto.getBbstitle() %> maxlength="50" style="width:50%;"></td>
 			</tr>
 			<tr>
-			<td><textarea type="text" name="bbscontent" placeholder="글내용" maxlength="2048" style="width:100%; height:350px;"></textarea></td>
+			<td><textarea type="text" name="bbscontent" value=<%=bdto.getBbscontent()%> maxlength="2048" style="width:100%; height:350px;"></textarea></td>
 			</tr>
     </tbody>
     </table>
     </div>
     <br>
     <div align="center">
-	<input type="submit" value="등록">
-	</form>
-	</div>
+    <input type="hidden" name="bbsid" value="<%=bdto.getBbsid() %>">
+    <input type="submit" value="수정">
+    </div>
+    </form>
 	<br>
 	<br>
 	<br>

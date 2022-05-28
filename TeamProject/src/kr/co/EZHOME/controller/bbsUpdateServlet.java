@@ -9,17 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.EZHOME.dao.BbsDAO;
+import kr.co.EZHOME.dto.BbsDTO;
+
 /**
- * Servlet implementation class bbsport
+ * Servlet implementation class bbsUpdateServlet
  */
-@WebServlet("/bbsport.do")
-public class bbsport extends HttpServlet {
+@WebServlet("/bbsUpdate.do")
+public class bbsUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public bbsport() {
+    public bbsUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,11 +40,17 @@ public class bbsport extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
+		BbsDAO bdao=BbsDAO.getInstance();
+		BbsDTO bdto=new BbsDTO();
 		
+		bdto.setBbsid(Integer.parseInt(request.getParameter("bbsid")));
+		bdto.setBbstitle(request.getParameter("bbstitle"));
+		bdto.setBbscontent(request.getParameter("bbscontent"));
 		
+		int result = bdao.updateMember(bdto);
 		
-		 
-		RequestDispatcher dispatcher=request.getRequestDispatcher("/managePage/bbsWrite.jsp");
+		RequestDispatcher dispatcher=request.getRequestDispatcher("bbsList.do");
 		dispatcher.forward(request, response);
 		
 		

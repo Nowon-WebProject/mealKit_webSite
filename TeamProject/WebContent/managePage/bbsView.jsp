@@ -49,6 +49,7 @@
         <br><br><br>
     </div>
 	<div class="cart">
+	<form action="/TeamProject/bbsView.do" method="post">
 	<table>
     <thead>
         <tr>
@@ -66,6 +67,13 @@
     </tbody>
     </table>
     </div>
+    <br>
+    <div align="center">
+    <input type="hidden" name="bbsid" value=<%=bdto.getBbsid() %>>
+    <button type="submit" value="수정" name="update">수정</button>
+    <button type="submit" formaction="/TeamProject/bbsDelete.do" name="delete" value=<%=bdto.getBbsid() %>>삭제</button>
+    </div>
+    </form>
 	<br>
 	<br>
 	<br>

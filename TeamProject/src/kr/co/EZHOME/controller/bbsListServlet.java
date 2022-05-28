@@ -44,10 +44,34 @@ public class bbsListServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		BbsDAO bdao=BbsDAO.getInstance();
 		Vector<BbsDTO> vec=new Vector<BbsDTO>();
+		Vector<BbsDTO> vec1=new Vector<BbsDTO>();
+		String page =request.getParameter("page");
+		int pageNum=1;
+		vec=bdao.bbsList();	
+		int size=vec.size();
+		int a=size / 10 ;
+		int b=size % 10 ;
+		if( b != 0 ) {
+			a=a+1;
+		}
+		if( page == null || page == "") {
+			page = "1";
+		}else { pageNum = Integer.parseInt(page);}
 		
-		vec=bdao.bbsList();
+		int c=(pageNum*10)-9;
 		
-		request.setAttribute("vec", vec);
+		for(int i = c ; i<c+10; i++) {
+			if(i>size) {break;}
+			BbsDTO bdto=new BbsDTO();
+			bdto=null;
+			bdto=vec.get(i-1);
+			vec1.add(bdto);
+		}
+		
+		
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("pageSize", a);
+		request.setAttribute("vec", vec1);
 		
 		RequestDispatcher dispatcher=request.getRequestDispatcher("/managePage/bbsList.jsp");
 		dispatcher.forward(request, response);

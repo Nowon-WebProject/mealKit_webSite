@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 
 import kr.co.EZHOME.domain.User;
 import kr.co.EZHOME.dto.BbsDTO;
+import kr.co.EZHOME.dto.UserDTO;
 
 public class BbsDAO {
 	
@@ -64,15 +65,14 @@ public class BbsDAO {
 		Connection conn=null;
 		PreparedStatement ptmt=null;
 		
-		String sql ="insert into bbs values(?,?,?,?,default)"; 
+		String sql ="insert into bbs values(bbs_seq.nextval,?,?,?,default)"; 
 		
 		try {
 			conn=getConnection();
 			ptmt=conn.prepareStatement(sql);
-			ptmt.setInt(1, bbsid());
-			ptmt.setString(2, bdto.getUserid());
-			ptmt.setString(3, bdto.getBbstitle());
-			ptmt.setString(4, bdto.getBbscontent());
+			ptmt.setString(1, bdto.getUserid());
+			ptmt.setString(2, bdto.getBbstitle());
+			ptmt.setString(3, bdto.getBbscontent());
 			result=ptmt.executeUpdate();
 			
 		}catch(Exception e) {
@@ -89,7 +89,7 @@ public class BbsDAO {
 		ResultSet rs=null;
 		Vector<BbsDTO> vec=new Vector<BbsDTO>();
 		
-		String sql ="select * from bbs";
+		String sql ="select * from bbs order by bbsid desc";
 		
 		try {
 			conn=getConnection();
@@ -158,5 +158,64 @@ public class BbsDAO {
 		}
 		
 		return bdto;
+	}
+	
+	public int updateMember(BbsDTO udto) {
+		int result=-1;
+		String sql="update bbs set bbstitle = ?, bbscontent = ? where bbsid = ?";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, udto.getBbstitle());
+			pstmt.setString(2, udto.getBbscontent());
+			pstmt.setInt(3, udto.getBbsid());
+			result=pstmt.executeUpdate();//
+			System.out.println("result="+result);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null)
+					pstmt.close();
+				if(conn != null)
+					conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
+	public int deleteMember(String userid) {
+		int answer=-1;
+		Connection conn = null;
+		PreparedStatement ptmt = null;
+		
+		String sql="delete from bbs where bbsid = ?";
+		
+		try {
+			conn=getConnection();
+			ptmt=conn.prepareStatement(sql);
+			ptmt.setString(1, userid);
+			answer=ptmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				if( conn != null) 
+					conn.close();
+				if( ptmt != null)
+					ptmt.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return answer;
 	}
 }
