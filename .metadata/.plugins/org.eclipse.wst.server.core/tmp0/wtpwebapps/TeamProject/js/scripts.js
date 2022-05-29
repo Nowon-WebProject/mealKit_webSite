@@ -1,7 +1,20 @@
-/*!
-* Start Bootstrap - Shop Homepage v5.0.5 (https://startbootstrap.com/template/shop-homepage)
-* Copyright 2013-2022 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-homepage/blob/master/LICENSE)
-*/
-// This file is intentionally blank
-// Use this file to add JavaScript to your project
+function setDisplay(){
+    if($('input:radio[id=deli2]').is(':checked')){
+        $('#divId').hide();
+		$("input:text[name=deli_pwd]").val("");
+    }else{
+        $('#divId').show();
+    }
+}
+function modalDisplay1(){
+        $('#recent').hide();
+        $('#manage').show();
+}
+function modalDisplay2(){
+        $('#manage').hide();
+        $('#recent').show();
+}
+
+
+
+

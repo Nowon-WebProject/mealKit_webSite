@@ -165,7 +165,14 @@ $(document).ready(
 	<div style="width: 60%; margin-left: auto; margin-right: auto;"
 		align="center">
 		<div style="width: 60%; float: left;">
-			<img width="70%" height="70%" src="${ilist[0].item_pictureUrl1}">
+		                        <c:choose>
+						<c:when test="${ilist[0].item_pictureUrl1 == null}">
+							<img width="70%" height="70%" src="upload/no_image1.jpg">
+                            </c:when>
+                            <c:otherwise>
+							<img width="70%" height="70%" src="upload/${ilist[0].item_pictureUrl1}">
+                            </c:otherwise>
+                            </c:choose>
 		</div>
 		<div style="width: 40%; float: left;" align="left">
 			<form action="cartinsert.do" method="post">
@@ -173,9 +180,15 @@ $(document).ready(
 				<p>
 					<strong><h2>${ilist[0].item_name}</h2></strong>
 				</p>
-				<p style="color:gray">
+				 <p>
+                    <i style="color:orange;" class="bi-star-fill"></i>
+                    <i style="color:orange;" class="bi-star-fill"></i>
+                    <i style="color:orange;" class="bi-star-half"></i>
+                    <i style="color:orange;" class="bi-star"></i>
+                    <i style="color:orange;" class="bi-star"></i></p>
+			<%-- 	<p style="color:gray">
 					${ilist[0].item_content}
-				</p>
+				</p> --%>
 				<hr>
 				<p><fmt:formatNumber value="${ilist[0].item_price}"/>원</p>
 				<p style="color:green">
@@ -185,8 +198,7 @@ $(document).ready(
 				<hr>
 				<p>${ilist[0].item_total}인분</p>
 				<p>조리시간 ${ilist[0].item_time}분</p>
-				
-				
+				<hr>
 				<% String userid = (String) session.getAttribute("userid");  %>
                 <c:set var="userid" value="<%=userid%>"/>
                 <input type="hidden" name="userid" value="${userid}">
@@ -200,9 +212,9 @@ $(document).ready(
 					<c:when test="${ilist[0].item_quantity != 0}">
 						<p>
 							수량 : <input type="number" name='item_cnt' id="cnt" value="1"
-								min="1" max="${ilist[0].item_quantity}">
+								min="1" max="${ilist[0].item_quantity}"> <span style="color:gray;font-size:8pt">남은 수량(${ilist[0].item_quantity})</span>
 						</p>
-						<p>남은 수량 : ${ilist[0].item_quantity}</p>
+						
 						<p>
 							총 합계 금액 <span id="total_price"></span>원
 						</p>
@@ -226,25 +238,15 @@ $(document).ready(
 							id="cart">
 					</c:otherwise>
 				</c:choose>
+				<br>
+				<br>
+				<br>
+				<br>
 			</form>
 			<!-- 가격 자동 계산용 -->
 			<input type="hidden" value="${ilist[0].item_price}" id="price">
 		</div>
 	</div>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
 	
 	<div class="Menu">
 		<a href="#info">상세정보</a> <a href="#review">후기</a> <a href="#qna">문의</a>
@@ -252,8 +254,14 @@ $(document).ready(
 	
 	<div id="info"
 		align="center">
-		<br> <br> <br> <br> <br> <img
-			src="${ilist[0].item_pictureUrl2}">
+		<c:choose>
+		<c:when test="${ilist[0].item_pictureUrl2 == null}">
+			<img src="upload/no_image2.jpg">
+		</c:when>
+		<c:otherwise>
+			<img src="upload/${ilist[0].item_pictureUrl2}">
+		</c:otherwise>
+		</c:choose>
 	</div>
 
 	<div id="review"

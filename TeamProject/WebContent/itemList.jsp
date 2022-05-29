@@ -9,6 +9,8 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,6 +54,21 @@
 	box-sizing: border-box;
 	margin: 5px 0;
 	cursor: pointer;
+}
+
+.pageSize{
+	border: 0;
+	width: 100px;
+	font-size: 16px;
+	height: 30px;
+	background-color: #fd7e14;
+	color: #fff;
+	box-sizing: border-box;
+	margin: 5px 0;
+	cursor: pointer;
+}
+
+
 }
 
 .form-btn:hover {
@@ -147,6 +164,8 @@ function loginCheck() {
 		List<ItemDTO> list = idao.selectAllItem();
 
 	%>
+				
+
         <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
@@ -166,30 +185,19 @@ function loginCheck() {
       				  } %>
       			  <hr>
 			<div align="right">
-				  <form action="itemlist.do">
-							<input type="hidden" name="view" value="${view}">
-							<input type="hidden" name="category" value="<%=category%>">
-							<input type="hidden" name="check" value="${check}">
-							<input type="hidden" name="keyword" value="<%=keyword%>">
-							<input type="hidden" name="pageSize" value="<%=pageSize%>">
-      			  <button type="submit" name="priceSort" value="high">가격 높은 순</button>
-      			  </form>
-				  <form action="itemlist.do">
-				  			<input type="hidden" name="view" value="${view}">
-							<input type="hidden" name="category" value="<%=category%>">
-							<input type="hidden" name="check" value="${check}">
-							<input type="hidden" name="keyword" value="<%=keyword%>">
-							<input type="hidden" name="pageSize" value="<%=pageSize%>">
-      			  <button type="submit" name="priceSort" value="low">가격 낮은 순</button>
-      			  </form>
-				  <form action="itemlist.do">
-				  			<input type="hidden" name="view" value="${view}">
-							<input type="hidden" name="category" value="<%=category%>">
-							<input type="hidden" name="check" value="${check}">
-							<input type="hidden" name="keyword" value="<%=keyword%>">
-							<input type="hidden" name="pageSize" value="<%=pageSize%>">
-      			  <button type="submit" name="priceSort" value="default">가격 기본 정렬</button>
-      			  </form>
+			<a href="itemlist.do?view=${view}&pageSize=<%=pageSize%>&check=${check}&category=<%=category%>&priceSort=high&keyword=<%=keyword%>" style="color:white;background-color:#FF8868;border-radius:5px;text-decoration-line: none;">&nbsp;가격 높은 순<i class="bi-arrow-bar-up"></i>&nbsp;</a>
+			<a href="itemlist.do?view=${view}&pageSize=<%=pageSize%>&check=${check}&category=<%=category%>&priceSort=low&keyword=<%=keyword%>" style="color:white;background-color:#FF8868;border-radius:5px;text-decoration-line: none;">&nbsp;가격 낮은순<i class="bi-arrow-bar-down"></i>&nbsp;</a>
+			<a href="itemlist.do?view=${view}&pageSize=<%=pageSize%>&check=${check}&category=<%=category%>&priceSort=default&keyword=<%=keyword%>" style="color:white;background-color:#FF8868;border-radius:5px;text-decoration-line: none;">&nbsp;가격 정렬 기본&nbsp;</a>
+<br>
+					<c:choose>
+			<c:when test="${view eq 'card'}">	
+			<a href="itemlist.do?view=list&pageSize=<%=pageSize%>&check=${check}&category=<%=category%>&priceSort=<%=priceSort%>&keyword=<%=keyword%>" style="color:white;background-color:skyblue;border-radius:5px;text-decoration-line: none;">&nbsp;리스트형 보기&nbsp;</a>
+      			  </c:when>
+      			  <c:otherwise>
+			<a href="itemlist.do?view=card&pageSize=<%=pageSize%>&check=${check}&category=<%=category%>&priceSort=<%=priceSort%>&keyword=<%=keyword%>" style="color:white;background-color:skyblue;border-radius:5px;text-decoration-line: none;">&nbsp;카드형 보기&nbsp;</a>
+      			  </c:otherwise>
+      			  </c:choose>
+      			  <br>
       			  <c:set var="pageSize" value="${pageSize}"></c:set>
 				<c:choose>
 					<c:when test="${pageSize == 8}">
@@ -205,7 +213,7 @@ function loginCheck() {
 							<input type="hidden" name="category" value="<%=category%>">
 							<input type="hidden" name="check" value="${check}">
 							<input type="hidden" name="keyword" value="<%=keyword%>">
-							<button type="submit">개씩 보기</button>
+							<button type="submit" class="pageSize" >개씩 보기</button>
 						</form>
 					</c:when>
 					<c:when test="${pageSize == 12}">
@@ -221,7 +229,7 @@ function loginCheck() {
 							<input type="hidden" name="category" value="<%=category%>">
 							<input type="hidden" name="check" value="${check}">
 							<input type="hidden" name="keyword" value="<%=keyword%>">
-							<button type="submit">개씩 보기</button>
+							<button type="submit" class="pageSize" >개씩 보기</button>
 						</form>
 					</c:when>
 					<c:when test="${pageSize == 16}">
@@ -237,7 +245,7 @@ function loginCheck() {
 							<input type="hidden" name="category" value="<%=category%>">
 							<input type="hidden" name="check" value="${check}">
 							<input type="hidden" name="keyword" value="<%=keyword%>">
-							<button type="submit">개씩 보기</button>
+							<button type="submit" class="pageSize" >개씩 보기</button>
 						</form>
 					</c:when>
 					<c:when test="${pageSize == 20}">
@@ -253,34 +261,15 @@ function loginCheck() {
 							<input type="hidden" name="category" value="<%=category%>">
 							<input type="hidden" name="check" value="${check}">
 							<input type="hidden" name="keyword" value="<%=keyword%>">
-							<button type="submit">개씩 보기</button>
+							<button type="submit" class="pageSize" >개씩 보기</button>
 						</form>
 					</c:when>
 				</c:choose>
-			<c:choose>
-			<c:when test="${view eq 'card'}">	
-				<form action="itemlist.do">
-							<input type="hidden" name="priceSort" value="<%=priceSort%>">
-							<input type="hidden" name="category" value="<%=category%>">
-							<input type="hidden" name="check" value="${check}">
-							<input type="hidden" name="keyword" value="<%=keyword%>">
-							<input type="hidden" name="pageSize" value="<%=pageSize%>">
-      			  <button type="submit" name="view" value="list">리스트형 보기</button>
-      			  </form>
-      			  </c:when>
-      			  <c:otherwise>
-				<form action="itemlist.do">
-							<input type="hidden" name="priceSort" value="<%=priceSort%>">
-							<input type="hidden" name="category" value="<%=category%>">
-							<input type="hidden" name="check" value="${check}">
-							<input type="hidden" name="keyword" value="<%=keyword%>">
-							<input type="hidden" name="pageSize" value="<%=pageSize%>">
-      			  <button type="submit" name="view" value="card">카드형 보기</button>
-      			  </form>
-      			  </c:otherwise>
-      			  </c:choose>
+
+		
 			</div>
 			<br>
+	<% if(count != 0) {		%>
 			<c:choose>
 			<c:when test="${view eq 'card'}">
 			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -288,18 +277,52 @@ function loginCheck() {
                 	<form action="cartinsert.do" method="post">
                     <div class="col mb-5">
                         <div class="card h-100">
+                        <c:choose>
+						<c:when test="${item.item_pictureUrl1 == null}">
                             <!-- Product image-->
                              <a href="itemabout.do?item_num=${item.item_num}">
-                            <img class="card-img-top" src="${item.item_pictureUrl1}" alt="..." />
+                            <img class="card-img-top" src="upload/no_image1.jpg" alt="..." />
                             </a>
+                            </c:when>
+                            <c:otherwise>
+                            	<c:choose>
+                            	<c:when test="${item.item_quantity != 0}">
+                          	    <a href="itemabout.do?item_num=${item.item_num}">
+                         	   <img class="card-img-top" src="upload/${item.item_pictureUrl1}" alt="..." />
+                         	   </a>
+                         	   </c:when>
+                        	    <c:otherwise>
+                              <a href="itemabout.do?item_num=${item.item_num}">
+                            <img style="background:#000;opacity:0.2" class="card-img-top" src="upload/${item.item_pictureUrl1}" alt="..." />
+                            </a>
+                            
+                            </c:otherwise>
+                            </c:choose>
+                            </c:otherwise>
+                            </c:choose>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
+                                	<div style="height:50px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">${item.item_name}</h5>
-                                    <p style="color:gray">${item.item_content}</p>
+                                    <c:choose>
+                                    <c:when test="${fn:length(item.item_name)>11}">
+                                  	   <marquee width="100%"><h5 class="fw-bolder">${item.item_name}</h5></marquee>
+                                    </c:when>
+                                    <c:otherwise>
+                                  	  <h5 class="fw-bolder">${item.item_name}</h5>
+                                    </c:otherwise>
+                                    </c:choose>
+                                    </div>
+                                    <p>
+                                    <i style="color:orange;" class="bi-star-fill"></i>
+                                    <i style="color:orange;" class="bi-star-fill"></i>
+                                    <i style="color:orange;" class="bi-star-half"></i>
+                                    <i style="color:orange;" class="bi-star"></i>
+                                    <i style="color:orange;" class="bi-star"></i></p>
+                                   <%--  <p style="color:gray">${item.item_content}</p> --%>
                                     <!-- Product price-->
-                                    \ <fmt:formatNumber value="${item.item_price}"/>
+                                    <fmt:formatNumber value="${item.item_price}"/>원
                                     
                                 </div>
                             </div>
@@ -323,7 +346,7 @@ function loginCheck() {
                   				  <c:otherwise>
                   				  <div class="text-center">
                   				  <br>
-                  				  <a class="btn btn-outline-dark mt-auto">품절된 상품입니다.</a>
+                  				  <a class="btn btn-outline-dark mt-auto">품절된 상품입니다.<br></a>
                   				  <br>
                   				  <br>
                   				  </div>
@@ -341,9 +364,22 @@ function loginCheck() {
                 	<form action="cartinsert.do" method="post">
                 		<table width="100%">
                 			<tr>
-                				<td width="100px" height="100px">  <a href="itemabout.do?item_num=${item.item_num}">
-                            <img class="card-img-top" src="${item.item_pictureUrl1}" alt="..." />
-                            </a></td>
+                				<td width="100px" height="100px"> 
+                				                        <c:choose>
+						<c:when test="${item.item_pictureUrl1 == null}">
+                            <!-- Product image-->
+                             <a href="itemabout.do?item_num=${item.item_num}">
+                            <img class="card-img-top" src="upload/no_image1.jpg" alt="..." />
+                            </a>
+                            </c:when>
+                            <c:otherwise>
+                              <a href="itemabout.do?item_num=${item.item_num}">
+                            <img class="card-img-top" src="upload/${item.item_pictureUrl1}" alt="..." />
+                            </a>
+                            </c:otherwise>
+                            </c:choose>
+                				
+                				 </td>
                             	<td width="40%">${item.item_name}<br>
                             	${item.item_content}
                             	</td>
@@ -372,13 +408,25 @@ function loginCheck() {
 			</c:forEach>
 		</c:otherwise> 
 		</c:choose>
-                
-                    
                 </div>
         </section>
+    <%} else {%>
+		<div align="center">
+			<i style="font-size:200px;color:orange" class="bi-search"></i>
+			<div style="font-size:30px;color:gray">검색 결과가 없습니다.</div>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+	<%
+		}
+	%>
+	</div>
         <hr>
         <div align="center">
-        <i class="bi-search"></i>
         <form action="itemlist.do">
         <input type="hidden" name="priceSort" value="<%=priceSort%>">
         <input type="hidden" name="check" value="${check}">
@@ -390,7 +438,11 @@ function loginCheck() {
 			<option value="${category.item_category}">${category.item_category}</option>
 			</c:forEach>
 		</select>      
+		&nbsp;
+        <i class="bi-search" style="font-size:20px"></i>
+		&nbsp;
         <input type="text" name="keyword" placeholder="검색할 상품을 입력해주세요" size="40">
+        <input type="submit" value="검색">
         </form>
         </div>
         <hr>

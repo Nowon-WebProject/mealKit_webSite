@@ -85,9 +85,18 @@ $(document).ready(
 				<c:forEach var="cart" items="${clist}">
 					<tr>
 						<td>
+							<c:choose>
+							<c:when test="${cart.item_pictureUrl1 == null}">
 						<a href="itemabout.do?item_num=${cart.item_num}">
-						<img alt="이미지" src="${cart.item_pictureUrl1}" width="75px" height="75px">
+						<img alt="이미지" src="upload/no_image1.jpg" width="75px" height="75px">
 						</a>
+                            </c:when>
+                            <c:otherwise>
+						<a href="itemabout.do?item_num=${cart.item_num}">
+						<img alt="이미지" src="upload/${cart.item_pictureUrl1}" width="75px" height="75px">
+						</a>
+                            </c:otherwise>
+                            </c:choose>
 						</td>
 						<td>${cart.item_name}</td>
 						<td><fmt:formatNumber value="${cart.item_price}" pattern="#,##0" />원</td>

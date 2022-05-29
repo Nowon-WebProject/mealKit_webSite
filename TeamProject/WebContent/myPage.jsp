@@ -21,6 +21,7 @@
 <input type="submit" value="상품페이지로">
 </form>
 <button onclick="location.href='itemmain.do'">테스트 index</button><br><br>
+<button onclick="location.href='itemWriteGo.do'">제품등록</button><br><br>
 	</div>
 	
 <jsp:include page="footer.jsp"></jsp:include>

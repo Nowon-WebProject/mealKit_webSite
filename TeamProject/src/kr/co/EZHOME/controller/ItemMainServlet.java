@@ -37,7 +37,7 @@ public class ItemMainServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 
-		String url = "itemMain.jsp";
+		String url = "index.jsp";
 		request.setCharacterEncoding("utf-8");
 
 		ItemDAO idao = ItemDAO.getInstance();

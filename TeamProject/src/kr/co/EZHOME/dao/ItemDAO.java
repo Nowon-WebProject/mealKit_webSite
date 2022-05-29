@@ -780,4 +780,40 @@ public class ItemDAO {
 		return vec;
 	}
 	
+	//////////////////////////////////////////////
+	public void insertItem(ItemDTO iVo3) {
+		String sql = "insert into item values(?, ?, item_seq.nextval, ?, ?, ?, ?, ?, to_char(sysdate, 'YY/MM/DD HH:MI:SS'), ?, ?, ?, ?)";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, iVo3.getItem_pictureUrl1());
+			pstmt.setString(2, iVo3.getItem_pictureUrl2());
+			pstmt.setString(3, iVo3.getItem_category());
+			pstmt.setString(4, iVo3.getItem_name());
+			pstmt.setString(5, iVo3.getItem_content());
+			pstmt.setInt(6, iVo3.getItem_price());
+			pstmt.setInt(7, iVo3.getItem_quantity());
+			pstmt.setString(8, iVo3.getItem_total());
+			pstmt.setString(9, iVo3.getItem_time());
+			pstmt.setString(10, String.valueOf(iVo3.getItem_main()));
+			pstmt.setString(11, iVo3.getItem_sales());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	
 }
