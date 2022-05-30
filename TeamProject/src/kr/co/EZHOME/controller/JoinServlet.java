@@ -52,10 +52,15 @@ public class JoinServlet extends HttpServlet {
 		String name=request.getParameter("name");
 		String userid=request.getParameter("userid");
 		String pwd=request.getParameter("pwd");
-		String email=request.getParameter("email");
 		String phone=request.getParameter("phone");
 		String admin=request.getParameter("admin");
 		String birth = request.getParameter("birth"); 
+		
+		//email email + @ + emailSite
+		String email = null;
+		if (request.getParameter("email") != "" && request.getParameter("eMailSite") != "") {
+			email = request.getParameter("email") + "@" + request.getParameter("eMailSite");
+		}
 		
 		//address 값 받아오기
 		String addr1 = request.getParameter("addr1");
@@ -73,7 +78,7 @@ public class JoinServlet extends HttpServlet {
 		HttpSession session=request.getSession();
 		
 		if(result == 1) {
-			session.setAttribute("userid",udto.getUserid());
+			session.setAttribute("userid", udto.getUserid());
 			request.setAttribute("message","회원 가입에 성공했습니다.");
 		}else {
 			request.setAttribute("message","회원 가입에 실패했습니다.");

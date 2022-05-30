@@ -11,7 +11,7 @@
     
     <style>
         #wrap{
-            width:600px;
+            width:1000px;
 
             margin-left:auto; 
             margin-right:auto;
@@ -21,6 +21,11 @@
         
         table{
            /* border:3px solid #fd7e14 */
+           overflow: visible;
+           margin-left:auto; 
+           margin-right:auto;
+           border-collapse: separate;
+           border-spacing: 0 10px;
         }
         
         td{
@@ -31,10 +36,13 @@
             background-color:#fd7e14
         }
         
+        .bi bi-check-lg {
+        	color: red;
+        }
     </style>
     <script type="text/javascript" src="/TeamProject/js/libs/jquery-3.6.0.min.js"></script>
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-    <script type="text/javascript" src="/TeamProject/js/member.js?test=3"></script>
+    <script type="text/javascript" src="/TeamProject/js/member.js?test=10"></script>
     <!-- 도로명 주소 검색시 사용하는 daum api -->
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
@@ -44,7 +52,7 @@
     <div align="center">
         <br><br>
         <b><font size="6" color="gray">회원가입</font></b>
-        <br><br><br>
+        <br>
     </div>
 <div id="wrap">
 	<form action="/TeamProject/join.do" method="post" name="frm">
@@ -53,13 +61,13 @@
 			<td colspan="2"><hr> </td>
 			</tr>
 			<tr>
-				<td>이름</td>
-				<td><input type="text" name="name" size="20" maxlength="16">*</td>
+				<td>이름 <i class="bi bi-check-lg" style="color: red;"></i> </td>
+				<td><input type="text" name="name" size="20" maxlength="16"></td>
 			</tr>
 			<tr>
-				<td>아이디</td>
+				<td>아이디 <i class="bi bi-check-lg" style="color: red;"></i></td>
 				<td>
-					<input type="text" id="userid" name="userid" size="20" maxlength="16">*
+					<input type="text" id="userid" name="userid" size="20" maxlength="16">
 					<input type="hidden" name="reid" size="20">
 					<input type="button" value="중복체크" onclick="idCheck()">
 				</td>
@@ -69,16 +77,16 @@
 				<td>
 					<p class="txt_guideId" >
 						<span class="badId">4자 이상의 영문 혹은 영문과 숫자를 조합</span>
-						<input type="hidden" name="idValid" size="20">
+						<input type="hidden" name="idValid" value = "false" size="20">
 						<br>
 						<span class="badCheckedId">아이디 중복확인</span>
 					</p>
 				</td>
 			</tr>
 			<tr>
-				<td>암호</td>
-				<td><input type="password" id="pwd" name="pwd" size="20" maxlength="16">*</td>
-				<td><input type="hidden" name="passwordValid" size="20"></td>
+				<td>암호 <i class="bi bi-check-lg" style="color: red;"></i></td>
+				<td><input type="password" id="pwd" name="pwd" size="20" maxlength="16"></td>
+				<td><input type="hidden" name="passwordValid" size="20" value="false"></td>
 			</tr>
 			<tr>
 				<td/>
@@ -86,13 +94,12 @@
 					<p class="txt_guidePassword" >
 						<span class="badPasswordGuide1">비밀 번호는 8글자 이상이어야 합니다</span> <br>
 						<span class="badPasswordGuide2">비밀 번호는 영문, 숫자, 특수문자 중 2가지 이상을 조합해야합니다</span>
-						<input type="hidden" name="passwordCheckValid" size="20">
 					</p>
 				</td>
 			</tr>
-			<tr height="30">
-				<td width="80">암호 확인</td>
-				<td><input type="password" id="pwd_check" name="pwd_check" size="20" maxlength="16">*</td>
+			<tr>
+				<td>암호 확인 <i class="bi bi-check-lg" style="color: red;"></i></td>
+				<td><input type="password" id="pwd_check" name="pwd_check" size="20" maxlength="16"></td>
 			</tr>
 			<tr>
 				<td/>
@@ -114,24 +121,36 @@
 				<td>
 					<p class="txt_guideBirth" >
 						<span class="badBirthGuide"></span>
-						<input type="hidden" name="birthValid" size="20">
+						<input type="hidden" name="birthValid" value="false" size="20">
 					</p>
 				</td>
 			</tr>
+
 			<tr>
 				<td>이메일</td>
-				<td><input type="text" name="email" size="20"></td>
-			</tr>
-			<tr>
-				<td>전화번호</td>
-				<td>
-					<input type='tel' class="phone" name='phone' maxlength="13"/>
-					<input type="button" value="인증번호 받기" onclick="return phoneCheck()">
-					<input type="hidden" id="phoneValid" name="phoneValid" size="20">
+				<td><input type="text" name="email" value=""> @ <input type="text" name="eMailSite" value="" readonly>
+					<select	id="eMailForm" name="eMailForm" size="1" onchange="email_check()">
+						<option value="">선택하세요</option>
+						<option value="naver.com">naver.com</option>
+						<option value="hanmail.net">hanmail.net</option>
+						<option value="daum.net">daum.net</option>
+						<option value="nate.com">nate.com</option>
+						<option value="samsung.com">samsung.com</option>
+						<option value="gmail.com">gmail.com</option>
+						<option id="직접입력">직접입력</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
-				<td>주소</td>
+				<td>전화번호 <i class="bi bi-check-lg" style="color: red;"></i></td>
+				<td>
+					<input type='tel' class="phone" name='phone' maxlength="13"/>
+					<input type="button" value="인증번호 받기" onclick="return phoneCheck()">
+					<input type="hidden" id="phoneValid" name="phoneValid" value="false" size="20">
+				</td>
+			</tr>
+			<tr>
+				<td>주소 <i class="bi bi-check-lg" style="color: red;"></i></td>
 				<td>
 					<input type="text" id="sample4_postcode" name="addr1" placeholder="우편번호" readonly>
 					<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>

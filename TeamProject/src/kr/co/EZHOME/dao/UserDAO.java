@@ -243,7 +243,13 @@ public class UserDAO {
 			pstmt.setString(1,udto.getName());
 			pstmt.setString(2,udto.getUserid());
 			pstmt.setString(3,udto.getPwd());
-			pstmt.setDate(4,udto.transformDate(udto.getBirth()));
+			//생년월일을 안넣었을 경우 transfromDate를 하지 않음
+			if (udto.getBirth() == "") {
+				pstmt.setDate(4, null);
+			}
+			else {
+				pstmt.setDate(4,udto.transformDate(udto.getBirth()));
+			}
 			pstmt.setString(5,udto.getEmail());
 			pstmt.setString(6,udto.getPhone());
 			pstmt.setString(7,udto.getAddr());

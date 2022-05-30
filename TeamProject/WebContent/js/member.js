@@ -40,8 +40,12 @@ $(document).ready(function() {
 		var valid = true;
 		var checkEng = false;
 		
-		//새로운 값이 들어왔으므로 id 중복체크 다시해줘야함
-		$(".goodCheckedId").attr("class", "badCheckedId");
+		//새로운 값이 들어왔으므로 id 중복체크 다시해줘야함 (tab이 아닐경우에만)
+		//key가 tab이 아닐때
+		if (key != 9) {
+			$(".goodCheckedId").attr("class", "badCheckedId");
+		}
+		
 		
 		if (text.val().length < 4) {
 			//class 변경 attr 에 클래스명 적을때는 . 찍지 말것
@@ -250,8 +254,8 @@ $(document).ready(function() {
 		//입력된 생년월일이 8글자가 안된다면
 		if (text.val().length < 8) {
 			$(".goodBirthGuide").attr("class", "badBirthGuide")
-			$(".badBirthGuide").text("유효하지 않은 생년월일 입니다 다시 확인해주세요");
-			document.frm.passwordValid.value = false;
+			$(".badBirthGuide").text("유효하지 않은 생년월일 입니다 다시 확인해주세요 (필수입력X)");
+			document.frm.birthValid.value = false;
 			return;
 		}
 		
@@ -262,8 +266,8 @@ $(document).ready(function() {
 			//숫자가 아니라면
 			if (!(c >= 48 && c <= 57)) {
 				$(".goodBirthGuide").attr("class", "badBirthGuide")
-				$(".badBirthGuide").text("유효하지 않은 생년월일 입니다 다시 확인해주세요");
-				document.frm.passwordValid.value = false;
+				$(".badBirthGuide").text("유효하지 않은 생년월일 입니다 다시 확인해주세요 (필수입력X)");
+				document.frm.birtValid.value = false;
 				return ;
 			}
 		}
@@ -276,13 +280,13 @@ $(document).ready(function() {
 		//미래
 		if (date.getFullYear()-year < 1 || date.getFullYear()-year > 120 || (month < 1 || month > 12) || (day < 1 || day > 31)) {
 			$(".goodBirthGuide").attr("class", "badBirthGuide")
-			$(".badBirthGuide").text("유효하지 않은 생년월일 입니다 다시 확인해주세요");
-			document.frm.passwordValid.value = false;
+			$(".badBirthGuide").text("유효하지 않은 생년월일 입니다 다시 확인해주세요 (필수입력X)");
+			document.frm.birthValid.value = false;
 		}
 		else {
 			$(".badBirthGuide").attr("class", "goodBirthGuide")
 			$(".goodBirthGuide").text("유효한 생년월일입니다");
-			document.frm.passwordValid.value = true;
+			document.frm.birthValid.value = true;
 		}
 
 	});
@@ -331,7 +335,7 @@ function idCheck(){
 function phoneCheck(){
 	//정규 표현식
 	const regExp = /[^0-9\-]/g;
-	var phone = document.frm.phone.value
+	var phone = document.frm.phone.value;
 	
 	if (phone.length < 13) {
 		alert("전화번호 13자리를 다시 확인해주세요")
@@ -365,49 +369,94 @@ function idok(userid){
 	self.close();
 }
 
-
+//내가 선택한 이메일 select option값 넣기
+function email_check() {
+    if (document.frm.eMailForm.options[document.frm.eMailForm.selectedIndex].value == "선택하세요") {
+        document.frm.eMailSite.readOnly = true;
+        document.frm.eMailSite.value = "";
+    }
+    if (document.frm.eMailForm.options[document.frm.eMailForm.selectedIndex].id == "직접입력") {
+        document.frm.eMailSite.readOnly = false;
+        document.frm.eMailSite.value = "";
+        document.frm.eMailSite.focus();
+    } else {
+        document.frm.eMailSite.readOnly = true;
+        document.frm.eMailSite.value= 
+            document.frm.eMailForm.options[document.frm.eMailForm.selectedIndex].value;
+    }
+}
 
 function joinCheck(){
+	//이름
 	if(document.frm.name.value.length == 0){
-		alert("이름을 써 주세요.");
+		alert("이름을 적어 주세요.");
 		document.frm.name.focus();
 	
 	return false;
 	}
 	
-	if(document.frm.userid.value.length == 0){
-		alert("아이디 써 주세요.");
+	//아이디
+	if(document.frm.idValid.value === "false"){
+		alert("아이디는 4자 이상의 영문 혹은 영문과 숫자를 조합 이어야 합니다.");
 		document.frm.userid.focus();
-	
-	return false;
-	}
-	
-	if(document.frm.userid.value.length < 4){
-		alert("아이디 4글자 이상이어야 합니다.");
-		document.frm.userid.focus();
-	
-	return false;
-	}
-	
-	if(document.frm.pwd.value == ""){
-		alert("암호는 반드시 입력해야 합니다.");
-		document.frm.pwd.focus();
 	
 		return false;
 	}
 	
-	if(document.frm.pwd.value != document.frm.pwd_check.value){
-		alert("암호가 일치하지 않습니다.");
-		document.frm.pwd.focus();
+	//아이디 중복체크
+	if(document.frm.reid.value == ""){
+		alert("아이디 중복체크를 해주세요");
+		document.frm.userid.focus();
 	
 		return false;
 	}
 	
-	if(document.frm.reid.value.length == 0){
-		alert("중복 체크를 하지 않았습니다.");
-	    document.frm.userid.focus();
+	//비밀번호
+	if(document.frm.passwordValid.value == "false"){
+		alert("비밀번호가 유효하지 않습니다 비밀번호를 확인해주세요");
+		document.frm.pwd.focus();
+	
+		return false;
+	}
+	//암호확인
+	if(document.frm.passwordCheckValid.value == "false"){
+		alert("암호확인을 다시 확인해주세요");
+		document.frm.pwd_check.focus();
+	
+		return false;
+	}
+	
+	//생년월일 (필수가 아니므로 비어있다면 넘어간다)
+	if(document.frm.birthValid.value == "false" && !(document.frm.birth.value == "")){
+		alert("생년월일이 유효하지 않습니다(필수X) 기입하지 않으시려면 내용을 지워주세요");
+	    document.frm.birth.focus();
 	
 	    return false;
+	}
+	
+	//이메일 유효성검사 하지 않음
+	
+	//전화번호
+	if (document.frm.phoneValid.value == "false") {
+		alert("휴대폰 번호 인증을 해주세요");
+		document.frm.phone.focus();
+		
+		return false;
+	}
+
+	//주소
+	//우편번호를 검색하지 않았을때
+	if (document.frm.addr1.value.length === 0) {
+		alert("우편번호 찾기를 진행해주세요");
+		
+		return false;
+	}
+	
+	//상세주소를 입력하지 않았을때
+	if (document.frm.addr3.value.length === 0) {
+		alert("상세주소를 입력해주세요");
+		
+		return false;
 	}
 	
 	return true;
