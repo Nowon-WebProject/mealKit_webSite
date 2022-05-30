@@ -58,6 +58,8 @@ public class bbsViewServlet extends HttpServlet {
 			bdto=bdao.findUser(bbsid);
 			vec.add(bdto);
 			
+			if(bdto.getBbsimg() == "" || bdto.getBbsimg() == null) {}
+			else {
 			for(int i = 0; i<bdto.getBbsimg().length(); i++) {
 				if(bdto.getBbsimg().charAt(i) == ',') {count = i;}
 			}
@@ -66,6 +68,7 @@ public class bbsViewServlet extends HttpServlet {
 				for(int i=0; i<count; i++) { file1 = file1 + bdto.getBbsimg().charAt(i);}
 				for(int i=count+1; i<bdto.getBbsimg().length();i++) {file2= file2 + bdto.getBbsimg().charAt(i);}
 			}else { file1 = bdto.getBbsimg();}
+			}
 		
 		//String content = bdto.getBbscontent();
 		//String title = bdto.getBbstitle();
