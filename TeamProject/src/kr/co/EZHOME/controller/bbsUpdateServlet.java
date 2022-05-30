@@ -3,11 +3,15 @@ package kr.co.EZHOME.controller;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kr.co.EZHOME.dao.BbsDAO;
 import kr.co.EZHOME.dto.BbsDTO;
@@ -44,9 +48,27 @@ public class bbsUpdateServlet extends HttpServlet {
 		BbsDAO bdao=BbsDAO.getInstance();
 		BbsDTO bdto=new BbsDTO();
 		
-		bdto.setBbsid(Integer.parseInt(request.getParameter("bbsid")));
-		bdto.setBbstitle(request.getParameter("bbstitle"));
-		bdto.setBbscontent(request.getParameter("bbscontent"));
+		ServletContext context = getServletContext();
+		String path = context.getRealPath("img");
+		int size = 5 * 1024 * 1024;
+		
+		MultipartRequest multi = new MultipartRequest(request,path,size,"UTF-8",new DefaultFileRenamePolicy());
+		String bbsid=multi.getParameter("bbsid");
+		String bbstitle=multi.getParameter("bbstitle");
+		String bbscontent=multi.getParameter("bbscontent");
+		String file1 = multi.getFilesystemName("file1");
+		String file2 = multi.getFilesystemName("file2");
+		bbscontent = bbscontent.replace("\n", "<br>");
+	
+		bdto.setBbsid(Integer.parseInt(bbsid));
+		bdto.setBbstitle(bbstitle);
+		bdto.setBbscontent(bbscontent);
+		
+		if((file1 == null || file1 =="" )&& (file2 == null || file2 =="")) {
+		}else if(file1 == null || file1 =="") { bdto.setBbsimg(file2);
+		}else if(file2 == null || file2 =="") { bdto.setBbsimg(file1);
+		}else {bdto.setBbsimg(file1 + "," + file2);}
+		
 		
 		int result = bdao.updateMember(bdto);
 		

@@ -8,7 +8,6 @@
 <style>
 .cart {
 	margin-left: auto; margin-right: auto;
-	border: 1px solid orange;
 }
 
 .cart table {
@@ -49,7 +48,7 @@
             
         </tr>
     </thead> 
-    <form action="/TeamProject/bbsWrite.do" method="post">
+    <form action="/TeamProject/bbsWrite.do" method="post" encType="multipart/form-data">
     <tbody>	
 			<tr>
 			<td><input type="text" name="bbstitle" placeholder="제목" maxlength="50" style="width:50%;"></td>
@@ -59,6 +58,9 @@
 			</tr>
     </tbody>
     </table>
+    <br>
+    	<input type="file" name="file1"><br>
+    	<input type="file" name="file2">
     </div>
     <br>
     <div align="center">

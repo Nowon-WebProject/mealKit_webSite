@@ -45,9 +45,11 @@ public class bbsViewServlet extends HttpServlet {
 		String bbsid = request.getParameter("bbsid");
 		String url = "";
 		String update = request.getParameter("update");
-		
 		if(update == null || update =="") { url = "/managePage/bbsView.jsp"; }
 		else {url = "/managePage/bbsUpdate.jsp"; }
+		String file1 = "";
+		String file2 = "";
+		int count = 0;
 		
 		BbsDAO bdao=BbsDAO.getInstance();
 		BbsDTO bdto=new BbsDTO();
@@ -56,9 +58,19 @@ public class bbsViewServlet extends HttpServlet {
 			bdto=bdao.findUser(bbsid);
 			vec.add(bdto);
 			
+			for(int i = 0; i<bdto.getBbsimg().length(); i++) {
+				if(bdto.getBbsimg().charAt(i) == ',') {count = i;}
+			}
+			
+			if( count != 0) {
+				for(int i=0; i<count; i++) { file1 = file1 + bdto.getBbsimg().charAt(i);}
+				for(int i=count+1; i<bdto.getBbsimg().length();i++) {file2= file2 + bdto.getBbsimg().charAt(i);}
+			}else { file1 = bdto.getBbsimg();}
+		
 		//String content = bdto.getBbscontent();
 		//String title = bdto.getBbstitle();
-		
+			request.setAttribute("file1", file1);
+			request.setAttribute("file2", file2);
 			request.setAttribute("vec", vec);
 			
 			RequestDispatcher dispatcher=request.getRequestDispatcher(url);

@@ -13,6 +13,7 @@ import kr.co.EZHOME.dao.UserDAO;
 import kr.co.EZHOME.domain.DataStatus;
 
 
+
 /**
  * Servlet implementation class IdCheckServlet
  */

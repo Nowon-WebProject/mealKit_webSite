@@ -11,6 +11,7 @@
 .cart {
 	margin-left: auto; margin-right: auto;
 	border: 1px solid orange;
+	overflow : auto;
 }
 
 .cart table {
@@ -41,6 +42,8 @@
 	Vector<BbsDTO> vec=(Vector<BbsDTO>)request.getAttribute("vec");
 	BbsDTO bdto = new BbsDTO();
 	bdto=vec.get(0);
+	String file1 = (String)request.getAttribute("file1");
+	String file2 = (String)request.getAttribute("file2");
 %>
 <jsp:include page="/ui/nav.jsp"></jsp:include>
 	<div align="center">
@@ -62,7 +65,15 @@
 			<td><%=bdto.getBbstitle() %></td>
 			</tr>
 			<tr>
-			<td><%=bdto.getBbscontent() %></td>
+			<td>
+			<%if(file1 != ""){%>
+			<img src="/TeamProject/img/<%=file1 %>" style = "width:50%; heigth:auto;"></img><br>
+			<%} %>
+			<%if(file2 != ""){%>
+			<img src="/TeamProject/img/<%=file2 %>"style = "width:50%; heigth:auto;"></img><br>
+			<%} %>
+			<%=bdto.getBbscontent() %>
+			</td>
 			</tr>
     </tbody>
     </table>

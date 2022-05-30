@@ -65,7 +65,7 @@ public class BbsDAO {
 		Connection conn=null;
 		PreparedStatement ptmt=null;
 		
-		String sql ="insert into bbs values(bbs_seq.nextval,?,?,?,default)"; 
+		String sql ="insert into bbs values(bbs_seq.nextval,?,?,?,default,?)"; 
 		
 		try {
 			conn=getConnection();
@@ -73,6 +73,7 @@ public class BbsDAO {
 			ptmt.setString(1, bdto.getUserid());
 			ptmt.setString(2, bdto.getBbstitle());
 			ptmt.setString(3, bdto.getBbscontent());
+			ptmt.setString(4, bdto.getBbsimg());
 			result=ptmt.executeUpdate();
 			
 		}catch(Exception e) {
@@ -102,6 +103,7 @@ public class BbsDAO {
 				bdto.setUserid(rs.getString("userid"));
 				bdto.setBbstitle(rs.getString("bbstitle"));
 				bdto.setBbscontent(rs.getString("bbscontent"));
+				bdto.setBbsimg(rs.getString("bbsimg"));
 				
 				if(rs.getDate("bbsdate") == null) {
 					bdto.setBbsdate(null);
@@ -137,6 +139,7 @@ public class BbsDAO {
 				bdto.setBbstitle(rs.getString("bbstitle"));
 				bdto.setBbscontent(rs.getString("bbscontent"));
 				bdto.setUserid(rs.getString("userid"));
+				bdto.setBbsimg(rs.getString("bbsimg"));
 				if(rs.getDate("bbsdate") == null) {
 					bdto.setBbsdate(null);
 				}else {bdto.setBbsdate(rs.getDate("bbsdate").toString());}
@@ -162,7 +165,7 @@ public class BbsDAO {
 	
 	public int updateMember(BbsDTO udto) {
 		int result=-1;
-		String sql="update bbs set bbstitle = ?, bbscontent = ? where bbsid = ?";
+		String sql="update bbs set bbstitle = ?, bbscontent = ?, bbsimg = ? where bbsid = ?";
 		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -172,7 +175,8 @@ public class BbsDAO {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, udto.getBbstitle());
 			pstmt.setString(2, udto.getBbscontent());
-			pstmt.setInt(3, udto.getBbsid());
+			pstmt.setString(3, udto.getBbsimg());
+			pstmt.setInt(4, udto.getBbsid());
 			result=pstmt.executeUpdate();//
 			System.out.println("result="+result);
 		}catch(Exception e) {

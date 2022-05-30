@@ -10,7 +10,7 @@
 <style>
 .cart {
 	margin-left: auto; margin-right: auto;
-	border: 1px solid orange;
+	
 }
 
 .cart table {
@@ -48,8 +48,8 @@
         <b><font size="6" color="gray">공지 사항 </font></b>
         <br><br><br>
     </div>
+    <form action="/TeamProject/bbsUpdate.do" method="post" encType="multipart/form-data">
 	<div class="cart">
-	<form action="/TeamProject/bbsUpdate.do" method="post">
 	<table>
     <thead>
         <tr>
@@ -59,17 +59,22 @@
     </thead> 
     <tbody>	
 			<tr>
-			<td><input type="text" name="bbstitle" value=<%=bdto.getBbstitle() %> maxlength="50" style="width:50%;"></td>
+			<td><input type="text" name="bbstitle" value="<%=bdto.getBbstitle() %>" maxlength="50" style="width:50%;"></td>
 			</tr>
 			<tr>
-			<td><textarea type="text" name="bbscontent" value=<%=bdto.getBbscontent()%> maxlength="2048" style="width:100%; height:350px;"></textarea></td>
+			<td><textarea type="text" name="bbscontent" value="<%=bdto.getBbscontent()%>" maxlength="2048" style="width:100%; height:350px;"></textarea></td>
 			</tr>
     </tbody>
     </table>
     </div>
     <br>
     <div align="center">
-    <input type="hidden" name="bbsid" value="<%=bdto.getBbsid() %>">
+    <br>
+    	<input type="file" name="file1"><br>
+    	<input type="file" name="file2">
+    <br>
+    <br>
+    <input type="hidden" name="bbsid" value="<%=bdto.getBbsid()%>">
     <input type="submit" value="수정">
     </div>
     </form>
