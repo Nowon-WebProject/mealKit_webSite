@@ -107,7 +107,7 @@ $(document).ready(function() {
 		return seconds
 	}
 	
-	function certificationok() {
+	function certificationok(caseNum) {
 		var certificationNumber = "<c:out value='${certificationNumber}'/>";
 		var inputCertificationNumber = $("#inputCertificationNumber").val();
 
@@ -117,8 +117,21 @@ $(document).ready(function() {
 			return false;
 		}
 		//인증번호를 제대로 입력했을때 return true를 통해 submit 시킨다
-	
-		return true;
+		//회원가입시 sms 인증인 경우
+		if (caseNum == 0) {
+			return true;
+		}
+		//id찾기시 sms 인증인 경우
+		else if (caseNum == 1) {
+			var phone = "<c:out value='${param.phone}'/>";
+			alert("휴대폰 인증에 성공하였습니다");
+			opener.frm.phoneValid.value = true;
+			opener.frm.checkedPhone.value = phone;
+			$(".phone", opener.document).attr("disabled", true);
+			self.close();
+			return false;
+		}
+
 	}
 </script>
 <style type="text/css">
@@ -165,7 +178,7 @@ $(document).ready(function() {
 </head>
 <body>
 <section>
-	<form action="/TeamProject/checkUser.do" method="post">
+		<form action="/TeamProject/checkUser.do" method="post">
 		<table>
 			<tr>
 				<th colspan="2">
@@ -195,8 +208,9 @@ $(document).ready(function() {
 
 			<tr>
 				<td colspan="2">
-					<input type="submit" class="btn1" value="확인" onclick="return certificationok()">
+					<input type="submit" class="btn1" value="확인" onclick="return certificationok('${param.caseNum}')">
 					<input type="button" class="btn2" value="취소" onclick="closeWindow()">
+					<input type="hidden" name="caseNum" value="${param.caseNum }" size="20">
 				</td>
 				
 			</tr>

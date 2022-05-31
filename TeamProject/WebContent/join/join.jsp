@@ -42,7 +42,7 @@
     </style>
     <script type="text/javascript" src="/TeamProject/js/libs/jquery-3.6.0.min.js"></script>
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-    <script type="text/javascript" src="/TeamProject/js/member.js?test=10"></script>
+    <script type="text/javascript" src="/TeamProject/js/member.js?test=12"></script>
     <!-- 도로명 주소 검색시 사용하는 daum api -->
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
@@ -142,11 +142,13 @@
 				</td>
 			</tr>
 			<tr>
-				<td>전화번호 <i class="bi bi-check-lg" style="color: red;"></i></td>
+				<td>휴대폰 번호 <i class="bi bi-check-lg" style="color: red;"></i></td>
 				<td>
 					<input type='tel' class="phone" name='phone' maxlength="13"/>
-					<input type="button" value="인증번호 받기" onclick="return phoneCheck()">
+					<!--  -->
+					<input type="button" value="인증번호 받기" onclick="return phoneCheck(0)">
 					<input type="hidden" id="phoneValid" name="phoneValid" value="false" size="20">
+					<input type="hidden" name="checkedPhone" size="20">
 				</td>
 			</tr>
 			<tr>

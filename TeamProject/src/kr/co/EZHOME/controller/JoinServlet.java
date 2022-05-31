@@ -52,7 +52,7 @@ public class JoinServlet extends HttpServlet {
 		String name=request.getParameter("name");
 		String userid=request.getParameter("userid");
 		String pwd=request.getParameter("pwd");
-		String phone=request.getParameter("phone");
+		String phone=request.getParameter("checkedPhone");
 		String admin=request.getParameter("admin");
 		String birth = request.getParameter("birth"); 
 		

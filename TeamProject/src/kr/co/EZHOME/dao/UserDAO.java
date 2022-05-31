@@ -10,6 +10,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import kr.co.EZHOME.domain.DAOResult;
 import kr.co.EZHOME.domain.DataStatus;
 import kr.co.EZHOME.domain.LoginStatus;
 import kr.co.EZHOME.domain.User;
@@ -36,8 +37,94 @@ public class UserDAO {
 		
 		return conn;
 	}
+
+	//비밀번호 변경
+	public DAOResult updatePassword(String userId, String password) {
+		String sql = "update usertbl set pwd=? where userid=?";
+		DAOResult result = DAOResult.Failed;
+		int resultNum;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, password);
+			pstmt.setString(2, userId);
+			resultNum = pstmt.executeUpdate();
+
+			if (resultNum > 0) {
+				result = DAOResult.Success;
+			}
+			else {
+				result = DAOResult.Failed;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return result;
+	}
 	
-	
+	// 해당 핸드폰 번호와 이름을 가진 유저가 있는지 확인하기
+	public DataStatus checkPhoneUser(String name, String phone, String userId) {
+		String sql = "select userid from usertbl where name=? AND phone=? AND userid=?";
+		DataStatus result = DataStatus.Invalid_InputValue;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, phone);
+			pstmt.setString(3, userId);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = DataStatus.Exist;
+			}
+			else {
+				result = DataStatus.Not_Exist;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	// 해당 핸드폰 번호와 이름을 가진 유저가 있는지 확인하기
+	public String checkPhoneUser(String name, String phone) {
+		String sql = "select userid from usertbl where name=? AND phone=?";
+		String result = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, phone);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getString("userid");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
 	//해당 핸드폰 번호를 가진 유저가 있는지 확인하기
 	public DataStatus checkPhoneUser(String phone) {
 		DataStatus result = DataStatus.Invalid_InputValue;

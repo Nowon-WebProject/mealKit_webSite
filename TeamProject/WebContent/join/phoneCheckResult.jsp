@@ -11,9 +11,11 @@
 <body>
 	<script type="text/javascript">
 		var message = "<c:out value='${message}'/>";
+		var phone = "<c:out value='${param.phone}'/>";
 		if (message == "휴대폰 번호 인증이 완료되었습니다") {
 			opener.frm.phoneValid.value = true;
-			 $(".phone", opener.document).attr("disabled", true);
+			opener.frm.checkedPhone.value = phone;
+			$(".phone", opener.document).attr("disabled", true);
 		}
 		alert(message);
 		self.close();

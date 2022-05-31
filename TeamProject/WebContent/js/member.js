@@ -332,7 +332,7 @@ function idCheck(){
 	window.open(url,"_blank_1","toolbar=no,menubar=no,"+"scrollbars=yes,resizable=no,width=450,height=200");
 }
 
-function phoneCheck(){
+function phoneCheck(caseNum){
 	//정규 표현식
 	const regExp = /[^0-9\-]/g;
 	var phone = document.frm.phone.value;
@@ -357,7 +357,7 @@ function phoneCheck(){
 	// 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
 	
 	//first 를 통해 인증번호 첫 발송인것을 알려줌
-	var url="/TeamProject/SendMessage.do?phone="+document.frm.phone.value+"&first=true";
+	var url="/TeamProject/SendMessage.do?phone="+document.frm.phone.value+"&first=true"+"&caseNum="+caseNum;
 	window.open(url,"_blank_1","toolbar=no,menubar=no,"+"scrollbars=yes,resizable=no,width=500,height=300, left="+ popupX + ", top= "+ popupY);
 }
 
@@ -461,6 +461,71 @@ function joinCheck(){
 	
 	return true;
 }
+
+//아이디 찾기
+function findId() {
+	if (document.frm.name.value == "") {
+		alert("회원님의 이름을 입력해주세요");
+		document.frm.name.focus();
+		
+		return false;
+	}
+	
+	if (document.frm.phoneValid.value == "false") {
+		alert("핸드폰 인증을 진행해 주세요");
+		document.frm.phone.focus();
+		
+		return false;
+	}
+	
+	return true;
+}
+
+//새 비밀번호로 변경
+function updatePassword() {
+	if (document.frm.passwordValid.value == "false") {
+		alert("비밀번호가 유효하지 않습니다. 다시 확인해 주세요.");
+		document.frm.pwd.focus();
+		
+		return false;
+	}
+	
+	if (document.frm.passwordCheckValid.value == "false") {
+		alert("비밀번호 확인이 유효하지 않습니다. 다시 확인해 주세요.")
+		document.frm.pwd_check.focus();
+		
+		return false;
+	}
+	
+	return true;
+}
+
+//비밀번호 찾기
+function findPassword() {
+	if (document.frm.name.value == "") {
+		alert("회원님의 이름을 입력해주세요");
+		document.frm.name.focus();
+		
+		return false;
+	}
+	
+	if (document.frm.userId.value == "") {
+		alert("회원님의 아이디를 입력해주세요");
+		document.frm.userId.focus();
+		
+		return false;
+	}
+	
+	if (document.frm.phoneValid.value == "false") {
+		alert("핸드폰 인증을 진행해 주세요");
+		document.frm.phone.focus();
+		
+		return false;
+	}
+	
+	return true;
+}
+
 
 //주소 검색
 function sample4_execDaumPostcode() {

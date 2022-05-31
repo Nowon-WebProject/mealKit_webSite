@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <!-- 로그인 페이지 -->
 <html>
@@ -92,7 +93,19 @@ li {
 	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
 }
 
+ .findUserInfo{
+	float: right;
+	font-size: 8px;
+	margin-bottom: 10px;
+}
+
 </style>
+<script type="text/javascript">
+	var message = "<c:out value='${message}'/>";
+	if (message != "") {
+		alert(message);
+	}
+</script>
 </head>
 <body>
 <jsp:include page="/ui/nav.jsp"></jsp:include>
@@ -107,7 +120,10 @@ li {
 					<input type="text" id="pwd" name="userid" class="form-input">
 					<div align="left"><label class=form-input--title for="pwd">비밀번호</label></div>
 					<input type="password" id="userid" name="pwd" class="form-input">
-					<div style="color:red"><Strong>${message}</Strong></div>
+					<div class="findUserInfo">
+						<a class="findId" href="/TeamProject/login/findId.jsp">아이디 찾기</a> &nbsp; 
+						<a class="findPassword" href="/TeamProject/login/findPassword.jsp">비밀번호 찾기</a>
+					</div>
 					<input type="submit" class="form-btn" value="로그인" id="login">
 					<input type="button" class="form-btn" value="회원가입" id="signup" onclick="location.href='/TeamProject/join/terms.jsp'">
 				</div>
