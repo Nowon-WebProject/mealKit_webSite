@@ -7,8 +7,12 @@
 <fullyQualifiedTypeName name="kr.co.EZHOME.dto.CartDTO"/>
 <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="java.util.Vector"/>
 <fullyQualifiedTypeName name="kr.co.EZHOME.dto.ItemDTO"/>
+<fullyQualifiedTypeName name="java.util.Vector"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="kr.co.EZHOME.dao.ItemDAO"/>
+<fullyQualifiedTypeName name="kr.co.EZHOME.dao.PurchaseDAO"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="kr.co.EZHOME.dao.OrderDAO"/>
+<fullyQualifiedTypeName name="kr.co.EZHOME.dto.OrderDTO"/>
 </qualifiedTypeNameHistroy>

@@ -16,7 +16,7 @@ import kr.co.EZHOME.dto.ItemDTO;
 /**
  * Servlet implementation class TestServlet
  */
-@WebServlet("/itemmain.do")
+@WebServlet("/itemMain.do")
 public class ItemMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -36,14 +36,28 @@ public class ItemMainServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		// 메인화면 서블릿
+		// item_main 값을 이용하여
+		// 원하는 상품들만 띄울 수 있음.
+		// index.jsp 에서 출력할 양을 정할 수 있으며
+		// 출력할 아이템에 item_main값만 추가해주면 됨.
 
 		String url = "index.jsp";
 		request.setCharacterEncoding("utf-8");
 
 		ItemDAO idao = ItemDAO.getInstance();
-		ArrayList<ItemDTO> ilist = idao.selectMainItem();
+		ArrayList<ItemDTO> ilist1 = idao.selectMainItem(1);
+		request.setAttribute("ilist1", ilist1);
 		
-		request.setAttribute("ilist", ilist);
+		ArrayList<ItemDTO> ilist2 = idao.selectMainItem(2);
+		request.setAttribute("ilist2", ilist2);
+		
+		ArrayList<ItemDTO> ilist3 = idao.selectMainItem(3);
+		request.setAttribute("ilist3", ilist3);
+		
+		ArrayList<ItemDTO> ilist4 = idao.selectMainItem(4);
+		request.setAttribute("ilist4", ilist4);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);

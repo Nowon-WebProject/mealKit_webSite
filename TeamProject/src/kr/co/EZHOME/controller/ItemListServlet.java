@@ -1,7 +1,6 @@
 package kr.co.EZHOME.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
@@ -17,7 +16,7 @@ import kr.co.EZHOME.dto.ItemDTO;
 /**
  * Servlet implementation class TestServlet
  */
-@WebServlet("/itemlist.do")
+@WebServlet("/itemList.do")
 public class ItemListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -37,6 +36,14 @@ public class ItemListServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		
+		// 상품 리스트 출력 서블릿
+		// itemList.jsp에도 자바코드가 많이 사용되고 있음..
+		// 카테고리 설정, 키워드 검색, ~개씩 보기, 가격순 정렬, 리스트(카드)형 보기 등 조건을 선택할 때 마다
+		// 해당 조건에 맞는 리스트만 ilist에 담아 넘김. 
+		
+		
 
 		request.setCharacterEncoding("utf-8");
 		
@@ -51,10 +58,6 @@ public class ItemListServlet extends HttpServlet {
 		priceSort = request.getParameter("priceSort");
 		check =request.getParameter("check");
 		category =request.getParameter("category");
-		System.out.println(check);
-		System.out.println(view);
-		System.out.println(category);
-		// 현재 카운터를 클릭한 번호값을 읽어 옴
 		String pageNum = request.getParameter("pageNum");
 		
 		if (pageNum == null) {
@@ -70,7 +73,6 @@ public class ItemListServlet extends HttpServlet {
 		int startRow = (currentPage - 1) * pageSize + 1; // 1 11 21 31
 		int endRow = currentPage * pageSize; // 10 20 30 40
 
-		// 최신글 10개를 기준으로 게시글을 리턴 받아주는 메서드 호출
 		String keyword = "";
 		
 		if (check.equals("all")) {
@@ -121,6 +123,10 @@ public class ItemListServlet extends HttpServlet {
 		request.setAttribute("count", count);
 		request.setAttribute("pageSize", pageSize);
 		request.setAttribute("currentPage", currentPage);
+		
+		//임시
+		double star = 4.5;
+		request.setAttribute("star", star);
 		
 		Vector<ItemDTO> categoryList = idao.category();
 		request.setAttribute("categoryList", categoryList);

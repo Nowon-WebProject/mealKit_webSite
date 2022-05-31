@@ -9,7 +9,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import kr.co.EZHOME.dto.AddrDTO;
 import kr.co.EZHOME.dto.CartDTO;
 import kr.co.EZHOME.dto.MyAddrDTO;
 import kr.co.EZHOME.dto.UserDTO;
@@ -177,41 +176,6 @@ public class MyAddrDAO {
 			}
 		}
 
-	}
-	
-	public int addrCnt(String userid) {
-		int addrCnt = 0;
-		String sql = "select count(*) from myaddrtbl where userid=?";
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userid);
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				addrCnt = rs.getInt(1);
-				System.out.println(userid+"님의 저장된 배송지 갯수"+addrCnt);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (pstmt != null)
-					pstmt.close();
-				if (conn != null)
-					conn.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		return addrCnt;
 	}
 	
 	public int MyAddrCnt(String userid) {

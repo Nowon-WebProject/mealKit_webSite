@@ -87,12 +87,12 @@ $(document).ready(
 						<td>
 							<c:choose>
 							<c:when test="${cart.item_pictureUrl1 == null}">
-						<a href="itemabout.do?item_num=${cart.item_num}">
+						<a href="itemAbout.do?item_num=${cart.item_num}">
 						<img alt="이미지" src="upload/no_image1.jpg" width="75px" height="75px">
 						</a>
                             </c:when>
                             <c:otherwise>
-						<a href="itemabout.do?item_num=${cart.item_num}">
+						<a href="itemAbout.do?item_num=${cart.item_num}">
 						<img alt="이미지" src="upload/${cart.item_pictureUrl1}" width="75px" height="75px">
 						</a>
                             </c:otherwise>
@@ -101,7 +101,7 @@ $(document).ready(
 						<td>${cart.item_name}</td>
 						<td><fmt:formatNumber value="${cart.item_price}" pattern="#,##0" />원</td>
 						<td>
-							<form action="cartcntmodify.do" method="post">
+							<form action="cartCntModify.do" method="post">
 								<input type="hidden" name="cart_seq" value="${cart.cart_seq}">
 								<input type="number" min="1" max="${cart.item_quantity}" name="item_cnt" size="2" value="${cart.item_cnt}">
 								<input type="submit" value="변경">
@@ -110,8 +110,9 @@ $(document).ready(
 						<td><fmt:formatNumber value="${cart.item_price*cart.item_cnt}" pattern="#,##0" />원</td>
 						<c:set var="result" value="${result+(cart.item_price*cart.item_cnt)}" />
 						<td>
-							<form action="cartdelete.do" method="post">
+							<form action="cartDelete.do" method="post">
 								<input type="hidden" name="cart_seq" value="${cart.cart_seq}">
+								<input type="hidden" name="check" value="0">
 								<input type="submit" value="삭제">
 							</form>
 						</td>
@@ -120,12 +121,13 @@ $(document).ready(
 			</table>
 			<br>
 			<div align="center">
-				<form action="cartdeleteall.do" method="post" align="right">
+				<form action="cartDelete.do" method="post" align="right">
 					<input type="hidden" name="userid" value="<%=session.getAttribute("userid")%>">
+					<input type="hidden" name="check" value="1">
 					<input type="submit" value="전체 상품 삭제">
 				</form>
 				<Strong><fmt:formatNumber value="${result}" pattern="#,##0" /></Strong>원 입니다.
-				<form action="purchase.do" method="post">
+				<form action="order.do" method="post">
 					<input type="hidden" name="userid" value="<%=session.getAttribute("userid")%>">
 					<input type="submit" class="form-btn" value="구매하기" onclick="check()">
 				</form>

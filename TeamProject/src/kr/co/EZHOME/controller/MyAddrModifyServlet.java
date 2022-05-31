@@ -8,15 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import kr.co.EZHOME.dao.CartDAO;
 import kr.co.EZHOME.dao.MyAddrDAO;
-import kr.co.EZHOME.dto.CartDTO;
 import kr.co.EZHOME.dto.MyAddrDTO;
 
 /**
  * Servlet implementation class MyAddrModify
  */
-@WebServlet("/myaddrmodify.do")
+@WebServlet("/myAddrModify.do")
 public class MyAddrModifyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -42,6 +40,11 @@ public class MyAddrModifyServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		
+		// 나의 배송지 수정 서블릿
+		// seq값을 이용해 해당하는 배송지 정보를 수정함.
+		
+		
 		HttpSession session = request.getSession();
 		String userid = (String) session.getAttribute("userid");
 		
@@ -65,7 +68,7 @@ public class MyAddrModifyServlet extends HttpServlet {
 		madao.updateMyAddr(madto);
 		
 		
-		response.sendRedirect("addrmanage.do?userid="+userid);
+		response.sendRedirect("myAddrManage.do?userid="+userid);
 		
 		
 		

@@ -10,7 +10,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import kr.co.EZHOME.dto.CartDTO;
 import kr.co.EZHOME.dto.ItemDTO;
 
 public class ItemDAO {
@@ -84,8 +83,8 @@ public class ItemDAO {
 		return itemList;
 	}
 
-	public ArrayList<ItemDTO> selectMainItem() {
-		String sql = "select * from item where item_main=1";
+	public ArrayList<ItemDTO> selectMainItem(int num) {
+		String sql = "select * from item where item_main=?";
 		ArrayList<ItemDTO> itemList = new ArrayList<ItemDTO>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -94,6 +93,7 @@ public class ItemDAO {
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -317,7 +317,65 @@ public class ItemDAO {
 			pstmt.setInt(1, cart_cnt);
 			pstmt.setInt(2, item_num);
 			pstmt.executeUpdate();
-			System.out.println(item_num + "제품의  재고 -" + cart_cnt + "개 완료");
+			System.out.println(item_num + "번 제품의  재고 -" + cart_cnt + "개 완료");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public void itemSalesRefund(int cart_cnt, int item_num) {
+		String sql = "update item set item_sales = item_sales-? where item_num=?";
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cart_cnt);
+			pstmt.setInt(2, item_num);
+			pstmt.executeUpdate();
+			System.out.println(item_num + "번 제품의 판매량 -" + cart_cnt + "개 완료");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public void itemQuantityRefund(int cart_cnt, int item_num) {
+		String sql = "update item set item_quantity = item_quantity+? where item_num=?";
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cart_cnt);
+			pstmt.setInt(2, item_num);
+			pstmt.executeUpdate();
+			System.out.println(item_num + "제품의  재고 +" + cart_cnt + "개 완료");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -599,53 +657,53 @@ public class ItemDAO {
 		
 		if(priceSort.equals("high")) {
 			if(check.equals("all")) {
-				sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? order by item_price desc, item_date asc, item_price desc)A) item where Rnum >= ? and Rnum <= ?";
+				sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? order by item_price desc, item_date asc, item_price desc)A) where Rnum >= ? and Rnum <= ?";
 				if(!category.equals("empty")) {
-					sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_category like '"+category+"' order by item_price desc, item_date asc)A) item where Rnum >= ? and Rnum <= ?";	
+					sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_category like '"+category+"' order by item_price desc, item_date asc)A) where Rnum >= ? and Rnum <= ?";	
 				}
 			}else if(check.equals("new")) {
-				sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? order by item_price desc, item_date desc)A) item where Rnum >= ? and Rnum <= ?";
+				sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? order by item_price desc, item_date desc)A) where Rnum >= ? and Rnum <= ?";
 				if(!category.equals("empty")) {
-					sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_category like '"+category+"' order by item_price desc, item_date desc)A) item where Rnum >= ? and Rnum <= ?";
+					sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_category like '"+category+"' order by item_price desc, item_date desc)A) where Rnum >= ? and Rnum <= ?";
 				}
 			}else if(check.equals("best")) {
-				sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_sales>0 order by item_price desc, to_number(item_sales) desc)A) item where Rnum >= ? and Rnum <= ?";	
+				sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_sales>0 order by item_price desc, to_number(item_sales) desc)A) where Rnum >= ? and Rnum <= ?";	
 				if(!category.equals("empty")) {
-					sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_category like '"+category+"' and item_sales>0 order by item_price desc, to_number(item_sales) desc)A) item where Rnum >= ? and Rnum <= ?";	
+					sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_category like '"+category+"' and item_sales>0 order by item_price desc, to_number(item_sales) desc)A) where Rnum >= ? and Rnum <= ?";	
 				}
 			}
 		}else if(priceSort.equals("low")) {
 			if(check.equals("all")) {
-				sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? order by item_price asc, item_date asc, item_price desc)A) item where Rnum >= ? and Rnum <= ?";
+				sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? order by item_price asc, item_date asc, item_price desc)A) where Rnum >= ? and Rnum <= ?";
 				if(!category.equals("empty")) {
-					sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_category like '"+category+"' order by item_price asc, item_date asc)A) item where Rnum >= ? and Rnum <= ?";	
+					sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_category like '"+category+"' order by item_price asc, item_date asc)A) where Rnum >= ? and Rnum <= ?";	
 				}
 			}else if(check.equals("new")) {
-				sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? order by item_price asc, item_date desc)A) item where Rnum >= ? and Rnum <= ?";
+				sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? order by item_price asc, item_date desc)A) where Rnum >= ? and Rnum <= ?";
 				if(!category.equals("empty")) {
-					sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_category like '"+category+"' order by item_price asc, item_date desc)A) item where Rnum >= ? and Rnum <= ?";
+					sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_category like '"+category+"' order by item_price asc, item_date desc)A) where Rnum >= ? and Rnum <= ?";
 				}
 			}else if(check.equals("best")) {
-				sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_sales>0 order by item_price asc, to_number(item_sales) desc)A) item where Rnum >= ? and Rnum <= ?";	
+				sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_sales>0 order by item_price asc, to_number(item_sales) desc)A) where Rnum >= ? and Rnum <= ?";	
 				if(!category.equals("empty")) {
-					sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_category like '"+category+"' and item_sales>0 order by item_price asc, to_number(item_sales) desc)A) item where Rnum >= ? and Rnum <= ?";	
+					sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_category like '"+category+"' and item_sales>0 order by item_price asc, to_number(item_sales) desc)A) where Rnum >= ? and Rnum <= ?";	
 				}
 			}
 		}else if(priceSort.equals("default")) {
 			if(check.equals("all")) {
-				sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? order by item_date asc, item_price desc)A) item where Rnum >= ? and Rnum <= ?";
+				sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? order by item_date asc, item_price desc)A) where Rnum >= ? and Rnum <= ?";
 				if(!category.equals("empty")) {
-					sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_category like '"+category+"' order by item_date asc)A) item where Rnum >= ? and Rnum <= ?";	
+					sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_category like '"+category+"' order by item_date asc)A) where Rnum >= ? and Rnum <= ?";	
 				}
 			}else if(check.equals("new")) {
-				sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? order by item_date desc)A) item where Rnum >= ? and Rnum <= ?";
+				sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? order by item_date desc)A) where Rnum >= ? and Rnum <= ?";
 				if(!category.equals("empty")) {
-					sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_category like '"+category+"' order by item_date desc)A) item where Rnum >= ? and Rnum <= ?";
+					sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_category like '"+category+"' order by item_date desc)A) where Rnum >= ? and Rnum <= ?";
 				}
 			}else if(check.equals("best")) {
-				sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_sales>0 order by to_number(item_sales) desc)A) item where Rnum >= ? and Rnum <= ?";	
+				sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_sales>0 order by to_number(item_sales) desc)A) where Rnum >= ? and Rnum <= ?";	
 				if(!category.equals("empty")) {
-					sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_category like '"+category+"' and item_sales>0 order by to_number(item_sales) desc)A) item where Rnum >= ? and Rnum <= ?";	
+					sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_name like ? and item_category like '"+category+"' and item_sales>0 order by to_number(item_sales) desc)A) where Rnum >= ? and Rnum <= ?";	
 				}
 			}
 		}
@@ -815,5 +873,81 @@ public class ItemDAO {
 		}
 	}
 
+	
+	public Vector<ItemDTO> selectRefundItem(int item_num){
+		Vector<ItemDTO> vec = new Vector<>();
+		String sql = "select * from item where item_num=?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, item_num);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ItemDTO idto = new ItemDTO();
+				idto.setItem_pictureUrl1(rs.getString("item_pictureurl1"));
+				idto.setItem_num(rs.getInt("item_num"));
+				idto.setItem_category(rs.getString("item_category"));
+				idto.setItem_name(rs.getString("item_name"));
+				idto.setItem_price(rs.getInt("item_price"));
+				vec.add(idto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return vec;
+	}
+	
+	public int selectItemPrice(int item_num){
+		int item_price=0;
+		String sql = "select item_price from item where item_num=?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, item_num);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ItemDTO idto = new ItemDTO();
+				item_price = rs.getInt("item_price");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return item_price;
+	}
+	
 	
 }

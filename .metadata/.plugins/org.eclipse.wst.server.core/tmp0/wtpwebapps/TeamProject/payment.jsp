@@ -16,13 +16,13 @@
 <body>
 <jsp:include page="nav.jsp"></jsp:include>
     <script>
-         	   var item_name_encode = encodeURIComponent('${item_name}');
+         	    var item_name_encode = encodeURIComponent('${item_name}');
          	   var item_num_encode = encodeURIComponent('${item_num}');
            	   var item_cnt_encode = encodeURIComponent('${item_cnt}');
                var deli_pwd_encode = encodeURIComponent('${param.deli_pwd}');
-               location.href='http://localhost:8080/TeamProject/purchaseok.do?userid=${userid}&item_name='+item_name_encode+'&total_price=${amount}&deli_name=${deli_name}&deli_addr=${deli_addr}&deli_phone=${deli_phone}&deli_msg=${deli_msg}&deli_pwd='+deli_pwd_encode+'&deli_status=${deli_status}&usePoint=${usePoint}&point=${point}&deli_postcode=${deli_postcode}&item_num='+item_num_encode+'&item_cnt='+item_cnt_encode+'';
-         
-  /*             $(function(){
+               location.href='http://localhost:8080/TeamProject/orderOk.do?userid=${userid}&item_name='+item_name_encode+'&total_price=${amount}&deli_name=${deli_name}&deli_addr=${deli_addr}&deli_phone=${deli_phone}&deli_msg=${deli_msg}&deli_pwd='+deli_pwd_encode+'&deli_status=${deli_status}&usePoint=${usePoint}&point=${point}&deli_postcode=${deli_postcode}&item_num='+item_num_encode+'&item_cnt='+item_cnt_encode+'';
+          
+/*               $(function(){
         var IMP = window.IMP; // 생략가능
         IMP.init('imp79971809'); // "가맹점 식별코드"
         var msg;
@@ -30,7 +30,7 @@
         IMP.request_pay({
             pg : 'kakaopay',
             pay_method : 'card',
-            merchant_uid : 'merchant_' + new Date().getTime(),
+            merchant_uid : '${order_num}',
             name : '이젠, 집에서) ${item_name}',
             amount : ${amount},
             buyer_name : '${deli_name}',
@@ -52,7 +52,7 @@
               var item_num_encode = encodeURIComponent('${item_num}');
            	   var item_cnt_encode = encodeURIComponent('${item_cnt}');
                var deli_pwd_encode = encodeURIComponent('${param.deli_pwd}');
-               location.href='http://localhost:8080/TeamProject/purchaseok.do?userid=${userid}&item_name=${item_name}&total_price=${amount}&deli_name=${deli_name}&deli_addr=${deli_addr}&deli_phone=${deli_phone}&deli_msg=${deli_msg}&deli_pwd='+deli_pwd_encode+'&deli_status=${deli_status}&usePoint=${usePoint}&point=${point}&deli_postcode=${deli_postcode}&item_num='+item_num_encode+'&item_cnt='+item_cnt_encode+'';
+               location.href='http://localhost:8080/TeamProject/purchaseok.do?userid=${userid}&item_name=${item_name}&total_price=${amount}&deli_name=${deli_name}&deli_addr=${deli_addr}&deli_phone=${deli_phone}&deli_msg=${deli_msg}&deli_pwd='+deli_pwd_encode+'&deli_status=${deli_status}&usePoint=${usePoint}&point=${point}&deli_postcode=${deli_postcode}&order_num=${order_num}&item_num='+item_num_encode+'&item_cnt='+item_cnt_encode+'';
               
             } else {
                 msg = '결제에 실패하였습니다. 장바구니로 돌아갑니다.';

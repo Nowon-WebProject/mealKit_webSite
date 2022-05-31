@@ -45,6 +45,12 @@ public class PaymentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		
+		// 결제 서블릿.
+		// order에서 넘어온 정보를
+		// payment로 보낼 준비를 하고,
+		// 또 한번 재고 체크를 진행함.
+		
 		String url="payment.jsp";
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
@@ -57,9 +63,7 @@ public class PaymentServlet extends HttpServlet {
 		userid = request.getParameter("userid");
 		String deli_name = request.getParameter("deli_name");
 		String deli_phone = request.getParameter("deli_phone");
-		
 		String deli_addr = "("+request.getParameter("deli_postcode")+") "+ request.getParameter("deli_addr1") +", "+ request.getParameter("deli_addr2");
-		
 		String deli_postcode = request.getParameter("deli_postcode");
 		String deli_msg = request.getParameter("deli_msg");
 		String deli_pwd = request.getParameter("deli_pwd");
@@ -138,7 +142,7 @@ public class PaymentServlet extends HttpServlet {
 
 		}
 		if(check > 0) {
-		url = "purchase.do";
+		url = "order.do";
 		}
 		request.setAttribute("message", "[ "+message+"] 의 재고보다 구매하시려는 양이 많아 결제가 취소됩니다. 확인 후 다시 주문해주세요.");
 		

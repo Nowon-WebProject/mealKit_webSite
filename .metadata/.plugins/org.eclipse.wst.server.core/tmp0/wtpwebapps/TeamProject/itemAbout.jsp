@@ -134,13 +134,23 @@ $(document).ready(
 .Fixed {
 	position: fixed;
 	top: 0px;
-	
-	
-	
 	left: 50%;
 	transform: translate(-50%, 0); @media ( max-width :480px) { .Menu a {
 	font-size: 20px;
 }
+
+.back{
+	border: 0;
+	width: 100px;
+	font-size: 16px;
+	height: 30px;
+	background-color: #fd7e14;
+	color: #fff;
+	box-sizing: border-box;
+	margin: 5px 0;
+	cursor: pointer;
+}
+
 </style>
 
 <script>
@@ -154,6 +164,16 @@ $(document).ready(
 			}
 		});
 	});
+	
+	
+	function loginCheck() {
+		var userid = "${userid}";
+		if (userid == "") {
+			alert("로그인 후 이용 가능합니다.");
+		} else {
+			alert("장바구니에 담았습니다.");
+		}
+	}
 </script>
 
 </head>
@@ -164,6 +184,8 @@ $(document).ready(
 	<br>
 	<div style="width: 60%; margin-left: auto; margin-right: auto;"
 		align="center">
+		
+		
 		<div style="width: 60%; float: left;">
 		                        <c:choose>
 						<c:when test="${ilist[0].item_pictureUrl1 == null}">
@@ -175,10 +197,13 @@ $(document).ready(
                             </c:choose>
 		</div>
 		<div style="width: 40%; float: left;" align="left">
-			<form action="cartinsert.do" method="post">
+			<form action="cartInsert.do" method="post">
 				<p>[${ilist[0].item_category}]</p>
 				<p>
 					<strong><h2>${ilist[0].item_name}</h2></strong>
+				</p>
+				<p style="color:gray">
+					${ilist[0].item_content}
 				</p>
 				 <p>
                     <i style="color:orange;" class="bi-star-fill"></i>
@@ -186,9 +211,6 @@ $(document).ready(
                     <i style="color:orange;" class="bi-star-half"></i>
                     <i style="color:orange;" class="bi-star"></i>
                     <i style="color:orange;" class="bi-star"></i></p>
-			<%-- 	<p style="color:gray">
-					${ilist[0].item_content}
-				</p> --%>
 				<hr>
 				<p><fmt:formatNumber value="${ilist[0].item_price}"/>원</p>
 				<p style="color:green">
@@ -214,20 +236,12 @@ $(document).ready(
 							수량 : <input type="number" name='item_cnt' id="cnt" value="1"
 								min="1" max="${ilist[0].item_quantity}"> <span style="color:gray;font-size:8pt">남은 수량(${ilist[0].item_quantity})</span>
 						</p>
+						<p>누적 판매량 ${ilist[0].item_sales} (취소, 환불건 제외)</p>
 						
 						<p>
 							총 합계 금액 <span id="total_price"></span>원
 						</p>
-						<script>
-							function loginCheck() {
-								var userid ="${userid}";
-								if(userid == ""){
-									alert("로그인 후 이용 가능합니다.");								
-								}else{
-									alert("장바구니에 담았습니다.");								
-								}
-							}
-						</script>
+						
 						<input type="submit" class="form-btn" value="장바구니" id="cart" onClick="loginCheck()">
 					</c:when>
 					<c:otherwise>

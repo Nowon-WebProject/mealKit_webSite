@@ -2,22 +2,18 @@ package kr.co.EZHOME.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import kr.co.EZHOME.dao.AddrDAO;
-import kr.co.EZHOME.dao.CartDAO;
 import kr.co.EZHOME.dao.MyAddrDAO;
 
 /**
  * Servlet implementation class AddrDeleteServlet
  */
-@WebServlet("/myaddrdelete.do")
+@WebServlet("/myAddrDelete.do")
 public class MyAddrDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -43,6 +39,10 @@ public class MyAddrDeleteServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		
+		// 나의 배송지 삭제 서블릿
+		// seq값을 받아와 해당하는 데이터를 삭제함.
+		
 		String userid = request.getParameter("userid");
 		
 		
@@ -50,7 +50,7 @@ public class MyAddrDeleteServlet extends HttpServlet {
 		MyAddrDAO madao = MyAddrDAO.getInstance();
 		madao.deleteAddr(my_deli_addr_seq);
 		
-		response.sendRedirect("addrmanage.do?userid="+userid);
+		response.sendRedirect("myAddrManage.do?userid="+userid);
 	}
 
 }

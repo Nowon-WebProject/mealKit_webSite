@@ -55,7 +55,17 @@
 	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
 }
         </style>
-        
+       <script type="text/javascript">
+
+       function loginCheck() {
+    		var userid = "${userid}";
+    		if (userid == "") {
+    			alert("로그인 후 이용 가능합니다.");
+    		} else {
+    			alert("장바구니에 담았습니다.");
+    		}
+    	}
+</script>      
         
 </head>
 <body>
@@ -71,22 +81,35 @@
         </header>
         <br>
         <!-- Section-->
-       <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                	<c:forEach var="item" items="${ilist}">
-                	<form action="cartinsert.do" method="post">
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+         <h2>현대인의 선택, 샐러드!</h2>   
+       	 <hr>
+     	  <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                	<c:forEach var="item" items="${ilist1}">
+                	<form action="cartInsert.do" method="post">
                     <div class="col mb-5">
                         <div class="card h-100">
                         <c:choose>
 						<c:when test="${item.item_pictureUrl1 == null}">
                             <!-- Product image-->
-                             <a href="itemabout.do?item_num=${item.item_num}">
+                             <a href="itemAbout.do?item_num=${item.item_num}">
                             <img class="card-img-top" src="upload/no_image1.jpg" alt="..." />
                             </a>
                             </c:when>
                             <c:otherwise>
-                              <a href="itemabout.do?item_num=${item.item_num}">
-                            <img class="card-img-top" src="upload/${item.item_pictureUrl1}" alt="..." />
+                            	<c:choose>
+                            	<c:when test="${item.item_quantity != 0}">
+                          	    <a href="itemAbout.do?item_num=${item.item_num}">
+                         	   <img class="card-img-top" src="upload/${item.item_pictureUrl1}" alt="..." />
+                         	   </a>
+                         	   </c:when>
+                        	    <c:otherwise>
+                              <a href="itemAbout.do?item_num=${item.item_num}">
+                            <img style="background:#000;opacity:0.2" class="card-img-top" src="upload/${item.item_pictureUrl1}" alt="..." />
                             </a>
+                            </c:otherwise>
+                            </c:choose>
                             </c:otherwise>
                             </c:choose>
                             <!-- Product details-->
@@ -147,9 +170,299 @@
 
                     </form>
                     </c:forEach>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    
+                    
+                    
+                             <h2>이젠, 집에서 즐기는 해외여행!</h2>   
+       		 <hr>
+     	  <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                	<c:forEach var="item" items="${ilist2}">
+                	<form action="cartInsert.do" method="post">
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                        <c:choose>
+						<c:when test="${item.item_pictureUrl1 == null}">
+                            <!-- Product image-->
+                             <a href="itemAbout.do?item_num=${item.item_num}">
+                            <img class="card-img-top" src="upload/no_image1.jpg" alt="..." />
+                            </a>
+                            </c:when>
+                            <c:otherwise>
+                                                         	<c:choose>
+                            	<c:when test="${item.item_quantity != 0}">
+                          	    <a href="itemAbout.do?item_num=${item.item_num}">
+                         	   <img class="card-img-top" src="upload/${item.item_pictureUrl1}" alt="..." />
+                         	   </a>
+                         	   </c:when>
+                        	    <c:otherwise>
+                              <a href="itemAbout.do?item_num=${item.item_num}">
+                            <img style="background:#000;opacity:0.2" class="card-img-top" src="upload/${item.item_pictureUrl1}" alt="..." />
+                            </a>
+                            
+                            </c:otherwise>
+                            </c:choose>
+                            </c:otherwise>
+                            </c:choose>
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                	<div style="height:50px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                                    <!-- Product name-->
+                                    <c:choose>
+                                    <c:when test="${fn:length(item.item_name)>11}">
+                                  	   <marquee width="100%"><h5 class="fw-bolder">${item.item_name}</h5></marquee>
+                                    </c:when>
+                                    <c:otherwise>
+                                  	  <h5 class="fw-bolder">${item.item_name}</h5>
+                                    </c:otherwise>
+                                    </c:choose>
+                                    </div>
+                                    <p>
+                                    <i style="color:orange;" class="bi-star-fill"></i>
+                                    <i style="color:orange;" class="bi-star-fill"></i>
+                                    <i style="color:orange;" class="bi-star-half"></i>
+                                    <i style="color:orange;" class="bi-star"></i>
+                                    <i style="color:orange;" class="bi-star"></i></p>
+                                   <%--  <p style="color:gray">${item.item_content}</p> --%>
+                                    <!-- Product price-->
+                                    <fmt:formatNumber value="${item.item_price}"/>원
+                                    
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <c:choose>
+                            	<c:when test="${item.item_quantity != 0}">
+                            	<% String userid = (String) session.getAttribute("userid");  %>
+                         		<c:set var="userid" value="<%=userid%>"/>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto"><i class="bi-cart-fill me-1"></i>
+                    <input type="hidden" name="userid" value="${userid}">
+                    <input type="hidden" name="item_quantity" value="${item.item_quantity}">
+                    <input type="hidden" name="item_pictureUrl1" value="${item.item_pictureUrl1}">
+                    <input type="hidden" name="item_num" value="${item.item_num}">
+                    <input type="hidden" name="item_name" value="${item.item_name}">
+                    <input type="hidden" name="item_price" value="${item.item_price}">
+                    <input type="number" name="item_cnt" value="1" min="1" max="${item.item_quantity}">
+
+								 <input type="submit" class="form-btn" value="장바구니에 담기" onClick="loginCheck()"></a></div>
+                  				  </c:when>
+                  				  <c:otherwise>
+                  				  <div class="text-center">
+                  				  <br>
+                  				  <a class="btn btn-outline-dark mt-auto">품절된 상품입니다.<br></a>
+                  				  <br>
+                  				  <br>
+                  				  </div>
+                  				  </c:otherwise>
+                            </c:choose>
+                            </div>
+                        </div>
+                    </div>
+
+                    </form>
+                    </c:forEach>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    
+                                  
+                             <h2>한국인의 사랑, 찌개!</h2>   
+       		 <hr>
+     	  <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                	<c:forEach var="item" items="${ilist3}">
+                	<form action="cartInsert.do" method="post">
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                        <c:choose>
+						<c:when test="${item.item_pictureUrl1 == null}">
+                            <!-- Product image-->
+                             <a href="itemAbout.do?item_num=${item.item_num}">
+                            <img class="card-img-top" src="upload/no_image1.jpg" alt="..." />
+                            </a>
+                            </c:when>
+                            <c:otherwise>
+                                                         	<c:choose>
+                            	<c:when test="${item.item_quantity != 0}">
+                          	    <a href="itemAbout.do?item_num=${item.item_num}">
+                         	   <img class="card-img-top" src="upload/${item.item_pictureUrl1}" alt="..." />
+                         	   </a>
+                         	   </c:when>
+                        	    <c:otherwise>
+                              <a href="itemAbout.do?item_num=${item.item_num}">
+                            <img style="background:#000;opacity:0.2" class="card-img-top" src="upload/${item.item_pictureUrl1}" alt="..." />
+                            </a>
+                            
+                            </c:otherwise>
+                            </c:choose>
+                            </c:otherwise>
+                            </c:choose>
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                	<div style="height:50px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                                    <!-- Product name-->
+                                    <c:choose>
+                                    <c:when test="${fn:length(item.item_name)>11}">
+                                  	   <marquee width="100%"><h5 class="fw-bolder">${item.item_name}</h5></marquee>
+                                    </c:when>
+                                    <c:otherwise>
+                                  	  <h5 class="fw-bolder">${item.item_name}</h5>
+                                    </c:otherwise>
+                                    </c:choose>
+                                    </div>
+                                    <p>
+                                    <i style="color:orange;" class="bi-star-fill"></i>
+                                    <i style="color:orange;" class="bi-star-fill"></i>
+                                    <i style="color:orange;" class="bi-star-half"></i>
+                                    <i style="color:orange;" class="bi-star"></i>
+                                    <i style="color:orange;" class="bi-star"></i></p>
+                                   <%--  <p style="color:gray">${item.item_content}</p> --%>
+                                    <!-- Product price-->
+                                    <fmt:formatNumber value="${item.item_price}"/>원
+                                    
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <c:choose>
+                            	<c:when test="${item.item_quantity != 0}">
+                            	<% String userid = (String) session.getAttribute("userid");  %>
+                         		<c:set var="userid" value="<%=userid%>"/>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto"><i class="bi-cart-fill me-1"></i>
+                    <input type="hidden" name="userid" value="${userid}">
+                    <input type="hidden" name="item_quantity" value="${item.item_quantity}">
+                    <input type="hidden" name="item_pictureUrl1" value="${item.item_pictureUrl1}">
+                    <input type="hidden" name="item_num" value="${item.item_num}">
+                    <input type="hidden" name="item_name" value="${item.item_name}">
+                    <input type="hidden" name="item_price" value="${item.item_price}">
+                    <input type="number" name="item_cnt" value="1" min="1" max="${item.item_quantity}">
+
+								 <input type="submit" class="form-btn" value="장바구니에 담기" onClick="loginCheck()"></a></div>
+                  				  </c:when>
+                  				  <c:otherwise>
+                  				  <div class="text-center">
+                  				  <br>
+                  				  <a class="btn btn-outline-dark mt-auto">품절된 상품입니다.<br></a>
+                  				  <br>
+                  				  <br>
+                  				  </div>
+                  				  </c:otherwise>
+                            </c:choose>
+                            </div>
+                        </div>
+                    </div>
+
+                    </form>
+                    </c:forEach>
+                    </div>
+                    
+                    
+                                        
+                                  
+                             <h2>불금에 어울리는 음식!</h2>   
+       		 <hr>
+     	  <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                	<c:forEach var="item" items="${ilist4}">
+                	<form action="cartInsert.do" method="post">
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                        <c:choose>
+						<c:when test="${item.item_pictureUrl1 == null}">
+                            <!-- Product image-->
+                             <a href="itemAbout.do?item_num=${item.item_num}">
+                            <img class="card-img-top" src="upload/no_image1.jpg" alt="..." />
+                            </a>
+                            </c:when>
+                            <c:otherwise>
+                                                         	<c:choose>
+                            	<c:when test="${item.item_quantity != 0}">
+                          	    <a href="itemAbout.do?item_num=${item.item_num}">
+                         	   <img class="card-img-top" src="upload/${item.item_pictureUrl1}" alt="..." />
+                         	   </a>
+                         	   </c:when>
+                        	    <c:otherwise>
+                              <a href="itemAbout.do?item_num=${item.item_num}">
+                            <img style="background:#000;opacity:0.2" class="card-img-top" src="upload/${item.item_pictureUrl1}" alt="..." />
+                            </a>
+                            
+                            </c:otherwise>
+                            </c:choose>
+                            </c:otherwise>
+                            </c:choose>
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                	<div style="height:50px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                                    <!-- Product name-->
+                                    <c:choose>
+                                    <c:when test="${fn:length(item.item_name)>11}">
+                                  	   <marquee width="100%"><h5 class="fw-bolder">${item.item_name}</h5></marquee>
+                                    </c:when>
+                                    <c:otherwise>
+                                  	  <h5 class="fw-bolder">${item.item_name}</h5>
+                                    </c:otherwise>
+                                    </c:choose>
+                                    </div>
+                                    <p>
+                                    <i style="color:orange;" class="bi-star-fill"></i>
+                                    <i style="color:orange;" class="bi-star-fill"></i>
+                                    <i style="color:orange;" class="bi-star-half"></i>
+                                    <i style="color:orange;" class="bi-star"></i>
+                                    <i style="color:orange;" class="bi-star"></i></p>
+                                   <%--  <p style="color:gray">${item.item_content}</p> --%>
+                                    <!-- Product price-->
+                                    <fmt:formatNumber value="${item.item_price}"/>원
+                                    
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <c:choose>
+                            	<c:when test="${item.item_quantity != 0}">
+                            	<% String userid = (String) session.getAttribute("userid");  %>
+                         		<c:set var="userid" value="<%=userid%>"/>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto"><i class="bi-cart-fill me-1"></i>
+                    <input type="hidden" name="userid" value="${userid}">
+                    <input type="hidden" name="item_quantity" value="${item.item_quantity}">
+                    <input type="hidden" name="item_pictureUrl1" value="${item.item_pictureUrl1}">
+                    <input type="hidden" name="item_num" value="${item.item_num}">
+                    <input type="hidden" name="item_name" value="${item.item_name}">
+                    <input type="hidden" name="item_price" value="${item.item_price}">
+                    <input type="number" name="item_cnt" value="1" min="1" max="${item.item_quantity}">
+
+								 <input type="submit" class="form-btn" value="장바구니에 담기" onClick="loginCheck()"></a></div>
+                  				  </c:when>
+                  				  <c:otherwise>
+                  				  <div class="text-center">
+                  				  <br>
+                  				  <a class="btn btn-outline-dark mt-auto">품절된 상품입니다.<br></a>
+                  				  <br>
+                  				  <br>
+                  				  </div>
+                  				  </c:otherwise>
+                            </c:choose>
+                            </div>
+                        </div>
+                    </div>
+
+                    </form>
+                    </c:forEach>
+                    </div>
+                    
+                    
+                    
                 </div>
-            </div>
-        </section>
+                </section>
+                
 <br>
 <br>
 <br>
