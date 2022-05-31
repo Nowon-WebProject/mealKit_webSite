@@ -51,14 +51,14 @@
 	%>
 	<div id="wrap" style="width: 800px" align="center">
 		<h1>상품 목록-관리자 페이지</h1>
-		<form action method="post">
+		<form action="postList.do" method="post">
 		<table class="list">
 			<tr>
 				<td colspan="6" style="border: white; text-align: right">
-					<select name>
-						<option value>최근등록순</option>
-						<option value>좋아요많은순</option>
-						<option value>조회많은순</option>
+					<select name="order">
+						<option value="1">최근등록순</option>
+						<option value="2">좋아요많은순</option>
+						<option value="3">조회많은순</option>
 					</select>
 				</td>
 			</tr>
@@ -82,7 +82,7 @@
 			</c:forEach>
 			<tr>
 				<td colspan="6" style="border: white; text-align: right">
-					<input type="submit" value="후기쓰기">
+					<a href="postWrite.do">후기 쓰기</a>
 				</td>
 			</tr>
 		</table>
@@ -113,17 +113,17 @@
 			// 아래는 페이지 표시 과정
 			if (startPage > 10) {
 		%>
-		<a href="itemList3.do?pageNum=<%=startPage - 10 %>&pageSize=<%=pageSize%>">[이전]</a>
+		<a href="postList.do?pageNum=<%=startPage - 10 %>&pageSize=<%=pageSize%>">[이전]</a>
 		<%
 			}
 			for (int i = startPage; i <= endPage; i++) {
 		%>
-		<a href="itemList3.do?pageNum=<%=i %>&pageSize=<%=pageSize%>">[<%=i %>]</a>
+		<a href="postList.do?pageNum=<%=i %>&pageSize=<%=pageSize%>">[<%=i %>]</a>
 		<%
 			}
 			if (endPage < pageCount) {
 		%>
-		<a href="itemList3.do?pageNum=<%=startPage + 10 %>&pageSize=<%=pageSize%>">[다음]</a>
+		<a href="postList.do?pageNum=<%=startPage + 10 %>&pageSize=<%=pageSize%>">[다음]</a>
 		<%
 			}
 		%>
@@ -131,7 +131,7 @@
 		<c:set var="pageSize" value="<%=pageSize %>"></c:set>
 		<c:choose>
 			<c:when test="${pageSize == 5}">
-				<form action="itemList3.do">
+				<form action="postList.do">
 				<select name="pageSize">
 					<option value="5" selected>5</option>
 					<option value="10">10</option>
@@ -142,7 +142,7 @@
 				</form>
 			</c:when>
 			<c:when test="${pageSize == 10}">
-				<form action="itemList3.do">
+				<form action="postList.do">
 				<select name="pageSize">
 					<option value="5">5</option>
 					<option value="10" selected>10</option>
@@ -153,7 +153,7 @@
 				</form>
 			</c:when> 
 			<c:when test="${pageSize == 15}">
-				<form action="itemList3.do">
+				<form action="postList.do">
 				<select name="pageSize">
 					<option value="5">5</option>
 					<option value="10">10</option>
@@ -164,7 +164,7 @@
 				</form>
 			</c:when>
 			<c:when test="${pageSize == 20}">
-				<form action="itemList3.do">
+				<form action="postList.do">
 				<select name="pageSize">
 					<option value="5">5</option>
 					<option value="10">10</option>
