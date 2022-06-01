@@ -65,7 +65,7 @@ public class BbsDAO {
 		Connection conn=null;
 		PreparedStatement ptmt=null;
 		
-		String sql ="insert into bbs values(bbs_seq.nextval,?,?,?,default,?)"; 
+		String sql ="insert into bbs values(bbs_seq.nextval,?,?,?,default,?,default)"; 
 		
 		try {
 			conn=getConnection();
@@ -104,6 +104,7 @@ public class BbsDAO {
 				bdto.setBbstitle(rs.getString("bbstitle"));
 				bdto.setBbscontent(rs.getString("bbscontent"));
 				bdto.setBbsimg(rs.getString("bbsimg"));
+				bdto.setBbscount(rs.getInt("bbscount"));
 				
 				if(rs.getDate("bbsdate") == null) {
 					bdto.setBbsdate(null);
@@ -140,6 +141,7 @@ public class BbsDAO {
 				bdto.setBbscontent(rs.getString("bbscontent"));
 				bdto.setUserid(rs.getString("userid"));
 				bdto.setBbsimg(rs.getString("bbsimg"));
+				bdto.setBbscount(rs.getInt("bbscount"));
 				if(rs.getDate("bbsdate") == null) {
 					bdto.setBbsdate(null);
 				}else {bdto.setBbsdate(rs.getDate("bbsdate").toString());}
@@ -221,5 +223,35 @@ public class BbsDAO {
 			}
 		}
 		return answer;
+	}
+	
+	public int bbscount(BbsDTO udto) {
+		int result=-1;
+		String sql="update bbs set bbscount = ? where bbsid = ?";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, udto.getBbscount());
+			pstmt.setInt(2, udto.getBbsid());
+			result=pstmt.executeUpdate();//
+			System.out.println("result="+result);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null)
+					pstmt.close();
+				if(conn != null)
+					conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
 	}
 }

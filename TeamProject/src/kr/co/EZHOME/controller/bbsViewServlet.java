@@ -45,8 +45,7 @@ public class bbsViewServlet extends HttpServlet {
 		String bbsid = request.getParameter("bbsid");
 		String url = "";
 		String update = request.getParameter("update");
-		if(update == null || update =="") { url = "/managePage/bbsView.jsp"; }
-		else {url = "/managePage/bbsUpdate.jsp"; }
+		
 		String file1 = "";
 		String file2 = "";
 		int count = 0;
@@ -57,6 +56,11 @@ public class bbsViewServlet extends HttpServlet {
 		
 			bdto=bdao.findUser(bbsid);
 			vec.add(bdto);
+			
+			if(update == null || update =="") { url = "/managePage/bbsView.jsp";
+			bdto.setBbscount(bdto.getBbscount() + 1);
+			int result = bdao.bbscount(bdto);
+			}else {url = "/managePage/bbsUpdate.jsp"; }
 			
 			if(bdto.getBbsimg() == "" || bdto.getBbsimg() == null) {}
 			else {

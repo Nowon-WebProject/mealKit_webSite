@@ -7,6 +7,15 @@ public class BbsDTO {
 	private String bbscontent;
 	private String bbsdate;
 	private String bbsimg;
+	private int bbscount;
+
+	public int getBbscount() {
+		return bbscount;
+	}
+
+	public void setBbscount(int bbscount) {
+		this.bbscount = bbscount;
+	}
 
 	public BbsDTO() {
 

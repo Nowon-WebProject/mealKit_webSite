@@ -51,6 +51,7 @@
         <b><font size="6" color="gray">공지 사항 </font></b>
         <br><br><br>
     </div>
+    <p style="align:left; margin-left: 20px;"> 조회수 : <%=bdto.getBbscount() %></p>
 	<div class="cart">
 	<form action="/TeamProject/bbsView.do" method="post">
 	<table>
