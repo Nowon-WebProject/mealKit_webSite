@@ -22,8 +22,11 @@ public class SendMessage {
         	
             String certificationNumber = MakeCertificationNumber();
             
-            String[] phoneSplit = phone.split("-");
-            phone = phoneSplit[0] + phoneSplit[1] + phoneSplit[2];
+            //첫 번째 발송의 경우 phone 에 -가 있기 때문에 split을 해준다
+            if (phone.length() == 13) {
+            	String[] phoneSplit = phone.split("-");
+            	phone = phoneSplit[0] + phoneSplit[1] + phoneSplit[2];
+            }
             // 4 params(to, from, type, text) are mandatory. must be filled
             HashMap<String, String> params = new HashMap<String, String>();
             params.put("to", phone);

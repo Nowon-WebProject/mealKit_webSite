@@ -197,7 +197,7 @@ $(document).ready(function() {
 					</div>	
 				</td>
 				<td class="actionBox">		
-					<a href="SendMessage.do" id="reSend">재발송</a> <br>		
+					<a href="SendMessage.do?phone=${param.phone}" id="reSend">재발송</a> <br>		
 					<a href=# id="addDelay">시간연장</a>
 					<!-- 실제 발급된 인증번호를 저장하는 hidden 타입의 input -->	
 					<input type="hidden" id="certificationNumber" value="${certificationNumber}">

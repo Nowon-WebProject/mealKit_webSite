@@ -78,8 +78,7 @@
 								<input type="hidden" name="userId" value="${param.userId }">
 							</td>
 						</tr>
-					</table>
-					
+					</table>					
 				</form>
 			</section>
 		<jsp:include page="/ui/footer.jsp"></jsp:include>

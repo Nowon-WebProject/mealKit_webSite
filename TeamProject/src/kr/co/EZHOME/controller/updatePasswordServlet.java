@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.EZHOME.dao.UserDAO;
 import kr.co.EZHOME.domain.DAOResult;
+import kr.co.EZHOME.domain.User;
 
 /**
  * Servlet implementation class updatePasswordServlet
@@ -44,6 +45,23 @@ public class updatePasswordServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 		UserDAO userDAO = UserDAO.getInstance();
 		String message;
+		
+		//1. 비밀번호가 이전 비밀번호와 일치하는지 확인하기
+		try {
+			User user = userDAO.findUser(userId);
+			if (user.getPassword().equals(password)) {
+				message = "비밀번호가 이전 비밀번호와 같습니다. 새로운 비밀번호를 입력해주세요";
+				request.setAttribute("message", message);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/login/findPasswordResult.jsp");
+				dispatcher.forward(request, response);
+				return ;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		//2. 일치하지 않다면 비밀번호 변경하기
 		DAOResult result = userDAO.updatePassword(userId, password);
 		
 		if (result == DAOResult.Success) {
