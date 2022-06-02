@@ -52,7 +52,7 @@ public class ItemDAO3 {
 				iVo3.setItem_total(rs.getString("item_total"));
 				iVo3.setItem_time(rs.getString("item_time"));
 				iVo3.setItem_main(rs.getString("item_main").charAt(0));
-				iVo3.setItem_sales(rs.getString("item_sales"));
+				iVo3.setItem_sales(rs.getInt("item_sales"));
 				list.add(iVo3);
 			}
 		} catch (Exception e) {
@@ -83,7 +83,7 @@ public class ItemDAO3 {
 			pstmt.setString(8, iVo3.getItem_total());
 			pstmt.setString(9, iVo3.getItem_time());
 			pstmt.setString(10, String.valueOf(iVo3.getItem_main()));
-			pstmt.setString(11, iVo3.getItem_sales());
+			pstmt.setInt(11, iVo3.getItem_sales());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -121,7 +121,7 @@ public class ItemDAO3 {
 					iVo3.setItem_total(rs.getString(10));
 					iVo3.setItem_time(rs.getString(11));
 					iVo3.setItem_main(rs.getString(12).charAt(0));
-					iVo3.setItem_sales(rs.getString(13));
+					iVo3.setItem_sales(rs.getInt(13));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -154,7 +154,7 @@ public class ItemDAO3 {
 			pstmt.setString(9, iVo3.getItem_total());
 			pstmt.setString(10, iVo3.getItem_time());
 			pstmt.setString(11, String.valueOf(iVo3.getItem_main()));
-			pstmt.setString(12, iVo3.getItem_sales());
+			pstmt.setInt(12, iVo3.getItem_sales());
 			pstmt.setInt(13, iVo3.getItem_num());
 			pstmt.executeUpdate();
 		} catch (Exception e) {

@@ -13,7 +13,7 @@ public class ItemVO3 {
 	private String item_total;
 	private String item_time;
 	private char item_main;
-	private String item_sales;
+	private Integer item_sales;
 
 	public String getItem_pictureUrl1() {
 		return item_pictureUrl1;
@@ -111,11 +111,11 @@ public class ItemVO3 {
 		this.item_main = item_main;
 	}
 
-	public String getItem_sales() {
+	public Integer getItem_sales() {
 		return item_sales;
 	}
 
-	public void setItem_sales(String item_sales) {
+	public void setItem_sales(Integer item_sales) {
 		this.item_sales = item_sales;
 	}
 

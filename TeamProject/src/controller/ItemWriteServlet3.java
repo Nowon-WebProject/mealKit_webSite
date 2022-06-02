@@ -83,7 +83,7 @@ public class ItemWriteServlet3 extends HttpServlet {
 		iVo3.setItem_total(item_total);
 		iVo3.setItem_time(item_time);
 		iVo3.setItem_main(item_main);
-		iVo3.setItem_sales(item_sales);
+		iVo3.setItem_sales(Integer.parseInt(item_sales));
 		
 		iVo3.setItem_pictureUrl1(item_pictureUrl1);
 		iVo3.setItem_pictureUrl2(item_pictureUrl2);

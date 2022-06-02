@@ -97,7 +97,7 @@ public class ItemUpdateServlet3 extends HttpServlet {
 		iVo3.setItem_total(item_total);
 		iVo3.setItem_time(item_time);
 		iVo3.setItem_main(item_main.charAt(0));
-		iVo3.setItem_sales(item_sales);
+		iVo3.setItem_sales(Integer.parseInt(item_sales));
 		iVo3.setItem_pictureUrl1(item_pictureUrl1);
 		iVo3.setItem_pictureUrl2(item_pictureUrl2);
 		iVo3.setItem_num(Integer.parseInt(item_num));
