@@ -97,7 +97,7 @@
 				</tr>
 				<tr>
 					<th>상품명</th>
-					<td><input type="text" name="item_name" size="16" value="${item.item_name}"></td>
+					<td><input type="text" name="item_name" size="20" value="${item.item_name}"></td>
 				</tr>
 				<tr>
 					<th>내용</th>
@@ -105,28 +105,36 @@
 				</tr>
 				<tr>
 					<th>가격</th>
-					<td><input type="text" size="4" name="item_price" value="${item.item_price}">원</td>
+					<td><input type="text" size="7" name="item_price" value="${item.item_price}">원</td>
 					<!-- 문자열로 보내짐 -->
 				</tr>
 				<tr>
 					<th>재고</th>
-					<td><input type="text" size="3" name="item_quantity" value="${item.item_quantity}">개</td>
+					<td><input type="text" size="5" name="item_quantity" value="${item.item_quantity}">개</td>
 				</tr>
 				<tr>
 					<th>인분</th>
-					<td><input type="text" size="1" name="item_total" value="${item.item_total}">(숫자만 입력하세요)</td>
+					<td><input type="text" size="3" name="item_total" value="${item.item_total}">(숫자만 입력하세요)</td>
 				</tr>
 				<tr>
 					<th>조리시간</th>
-					<td><input type="text" size="1" name="item_time" value="${item.item_time}">분</td>
+					<td><input type="text" size="3" name="item_time" value="${item.item_time}">분</td>
 				</tr>
 				<tr>
-					<th>메인 등장 여부</th>
-					<td><input type="text" size="1" name="item_main" value="${item.item_main}">(안 하면 0, 하면 1 입력)</td>
+					<th>메인 카테고리</th>
+					<td><input type="text" size="20" name="item_main" value="${item.item_main}"></td>
 				</tr>
 				<tr>
 					<th>판매량</th>
-					<td><input type="text" size="1" name="item_sales" value="${item.item_sales}">개</td>
+					<td><input type="text" size="3" name="item_sales" value="${item.item_sales}">개</td>
+				</tr>
+				<tr>
+					<th>할인율</th>
+					<td><input type="text" size="3" name="item_discount" value="${item.item_discount}">%</td>
+				</tr>
+				<tr>
+					<th>평점의 평균</th>
+					<td><input type="text" size="3" name="item_starsAvg" value="${item.item_starsAvg}"></td>
 				</tr>
 				<tr>
 					<th>대표 사진</th>

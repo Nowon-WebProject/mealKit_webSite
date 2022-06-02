@@ -12,8 +12,10 @@ public class ItemVO3 {
 	private String item_date;
 	private String item_total;
 	private String item_time;
-	private char item_main;
+	private String item_main;
 	private Integer item_sales;
+	private Double item_discount;
+	private Double item_starsAvg;
 
 	public String getItem_pictureUrl1() {
 		return item_pictureUrl1;
@@ -103,11 +105,11 @@ public class ItemVO3 {
 		this.item_time = item_time;
 	}
 
-	public char getItem_main() {
+	public String getItem_main() {
 		return item_main;
 	}
 
-	public void setItem_main(char item_main) {
+	public void setItem_main(String item_main) {
 		this.item_main = item_main;
 	}
 
@@ -117,6 +119,22 @@ public class ItemVO3 {
 
 	public void setItem_sales(Integer item_sales) {
 		this.item_sales = item_sales;
+	}
+
+	public Double getItem_discount() {
+		return item_discount;
+	}
+
+	public void setItem_discount(Double item_discount) {
+		this.item_discount = item_discount;
+	}
+
+	public Double getItem_starsAvg() {
+		return item_starsAvg;
+	}
+
+	public void setItem_starsAvg(Double item_starsAvg) {
+		this.item_starsAvg = item_starsAvg;
 	}
 
 }

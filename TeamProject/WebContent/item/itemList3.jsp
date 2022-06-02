@@ -49,11 +49,11 @@
 	
 				List<ItemVO3> list = iDao3.selectAllItems(startRow, endRow);
 	%>
-	<div id="wrap" style="width: 800px" align="center">
+	<div id="wrap" style="width: 900px" align="center">
 		<h1>상품 목록-관리자 페이지</h1>
 		<table class="list">
 			<tr>
-				<td colspan="13" style="border: white; text-align: right">
+				<td colspan="15" style="border: white; text-align: right">
 					<a href="itemWrite3.do">상품 등록</a>
 				</td>
 			</tr>
@@ -67,8 +67,10 @@
 				<td>날짜</td>
 				<td>인분</td>
 				<td>조리 시간</td>
-				<td>메인</td>
+				<td>메인</td>  <%-- 여기에서는 빠질 수도 있음 --%>
 				<td>판매량</td>
+				<td>할인율</td>
+				<td>평점</td>
 				<td>수정</td>
 				<td>삭제</td>
 			</tr>
@@ -94,17 +96,19 @@
 					<td>${item.item_time}</td>
 					<td>${item.item_main}</td>
 					<td>${item.item_sales}</td>
+					<td>${item.item_discount}</td>
+					<td>${item.item_starsAvg}</td>
 					<td><a href="itemUpdate3.do?item_num=${item.item_num}">상품 수정</a></td>
 					<td><a href="itemDelete3.do?item_num=${item.item_num}">상품 삭제</a></td>
 				</tr>
 			</c:forEach>
 			<tr>
-				<td colspan="13" style="border: white; text-align: right">
+				<td colspan="15" style="border: white; text-align: right">
 					<a href="itemNumReset.do">상품 번호 초기화(미완)</a>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="13" style="border: white; text-align: right">
+				<td colspan="15" style="border: white; text-align: right">
 					<a href="./item/deleteAll.jsp">모든 상품 삭제</a>
 				</td>
 			</tr>

@@ -31,14 +31,16 @@ create table item(
     item_num number, -- 상품 번호
     item_category varchar2(20), -- 카테고리
     item_name varchar2(100), -- 상품명
-    item_content varchar2(255), -- 내용 --
+    item_content varchar2(255), -- 내용
     item_price number, -- 가격
     item_quantity number, -- 재고
-    item_date varchar2(50), -- 등록한 날짜 --
+    item_date varchar2(50), -- 등록한 날짜
     item_total varchar2(50), -- 인분
     item_time varchar2(50), -- 조리 시간
-    item_main char(1), -- 메인 등장 여부
+    item_main varchar2(50), -- 메인 등장 여부
     item_sales number, -- 판매량
+    item_discount number(4,2), -- 적용될 할인율
+    item_starsAvg number(4,2), -- 후기 평점의 평균
     primary key(item_num)
 );
 
@@ -49,7 +51,7 @@ create table postScript(
     post_date varchar2(10), -- 작성일
     post_help number, -- 도움
     post_hits number, -- 조회
-    post_stars number, -- 별점
+    post_stars number(4,2), -- 별점
     post_content nvarchar2(255), -- 내용
     primary key(post_num)
 );
@@ -88,7 +90,7 @@ BEGIN
     LOOP
     DBMS_OUTPUT.PUT_LINE(NUM1); -- 출력
     insert into item values(null, null, item_seq.nextval, '한식', '불고기볶음', '맛있는 불고기? 뭘 봐',
-                        13000, 100, sysdate, '1', '10', '0', 50);
+                        13000, 100, sysdate, '1', '10', '0', 50, 33, 3.9);
     NUM1 := NUM1+1; -- NUM = NUM +1
     EXIT WHEN NUM1 >100; -- NUM1이 100보다 크면 LOOP 종료
     END LOOP;
