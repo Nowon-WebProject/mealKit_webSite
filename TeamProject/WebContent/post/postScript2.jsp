@@ -13,15 +13,10 @@
 </head>
 <body>
 	<%
-		// 화면에 보여질 게시글 개수 조절 가능한 버전 (예비용)
+		// 화면에 보여질 게시글 개수 7개로 고정한 버전
 	
 				// 화면에 보여질 총 게시글 개수
-				int pageSize = 0;
-				String ps = request.getParameter("pageSize");
-				if (ps == null)
-					pageSize = 10;
-				else
-					pageSize = Integer.parseInt(ps);
+				int pageSize = 7;
 			
 				// 누른 페이지
 				String pageNum = request.getParameter("pageNum");	
@@ -52,7 +47,7 @@
 				List<ItemVO3> list = iDao3.selectAllItems(startRow, endRow);
 	%>
 	<div id="wrap" style="width: 800px" align="center">
-		<h1>상품 목록-관리자 페이지</h1>
+		<h3>후기</h3>
 		<form action="postList.do" method="post">
 		<table class="list">
 			<tr>
@@ -130,53 +125,6 @@
 			}
 		%>
 		<br><br>
-		<c:set var="pageSize" value="<%=pageSize %>"></c:set>
-		<c:choose>
-			<c:when test="${pageSize == 5}">
-				<form action="postList.do">
-				<select name="pageSize">
-					<option value="5" selected>5</option>
-					<option value="10">10</option>
-					<option value="15">15</option>
-					<option value="20">20</option>
-				</select>
-				<button type="submit">페이지씩 보기</button>
-				</form>
-			</c:when>
-			<c:when test="${pageSize == 10}">
-				<form action="postList.do">
-				<select name="pageSize">
-					<option value="5">5</option>
-					<option value="10" selected>10</option>
-					<option value="15">15</option>
-					<option value="20">20</option>
-				</select>
-				<button type="submit">페이지씩 보기</button>
-				</form>
-			</c:when> 
-			<c:when test="${pageSize == 15}">
-				<form action="postList.do">
-				<select name="pageSize">
-					<option value="5">5</option>
-					<option value="10">10</option>
-					<option value="15" selected>15</option>
-					<option value="20">20</option>
-				</select>
-				<button type="submit">페이지씩 보기</button>
-				</form>
-			</c:when>
-			<c:when test="${pageSize == 20}">
-				<form action="postList.do">
-				<select name="pageSize">
-					<option value="5">5</option>
-					<option value="10">10</option>
-					<option value="15">15</option>
-					<option value="20" selected>20</option>
-				</select>
-				<button type="submit">페이지씩 보기</button>
-				</form>
-			</c:when>
-		</c:choose>
 	</div>
 </body>
 </html>
