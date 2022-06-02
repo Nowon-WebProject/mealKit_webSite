@@ -111,6 +111,7 @@ public class PostScriptDAO {
 					pVo.setPost_help(rs.getInt(5));
 					pVo.setPost_hits(rs.getInt(6));
 					pVo.setPost_stars(rs.getInt(7));
+					pVo.setPost_content(rs.getString(8));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -8,6 +8,7 @@ public class PostScriptVO {
 	private Integer post_help;
 	private Integer post_hits;
 	private Integer post_stars;
+	private String post_content;
 
 	public Integer getPost_num() {
 		return post_num;
@@ -63,6 +64,14 @@ public class PostScriptVO {
 
 	public void setPost_stars(Integer post_stars) {
 		this.post_stars = post_stars;
+	}
+
+	public String getPost_content() {
+		return post_content;
+	}
+
+	public void setPost_content(String post_content) {
+		this.post_content = post_content;
 	}
 
 }

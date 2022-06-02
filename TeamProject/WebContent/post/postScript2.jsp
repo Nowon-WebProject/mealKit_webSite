@@ -65,7 +65,7 @@
 				<td>작성일</td>
 				<td>도움</td>
 				<td>조회</td>
-				<td>평점</td>
+				<td>별점</td>
 			</tr>
 			<c:forEach var="item" items="<%=list %>">
 				<tr>

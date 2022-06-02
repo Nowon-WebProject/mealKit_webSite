@@ -42,6 +42,18 @@ create table item(
     primary key(item_num)
 );
 
+create table postScript(
+    post_num number, -- 글 번호
+    post_subject nvarchar2(100), -- 글 제목
+    post_writer nvarchar2(30), -- 작성자
+    post_date varchar2(10), -- 작성일
+    post_help number, -- 도움
+    post_hits number, -- 조회
+    post_stars number, -- 별점
+    post_content nvarchar2(255), -- 내용
+    primary key(post_num)
+);
+
 create sequence item_seq start with 1 increment by 1;
 
 insert into item values(null, null, item_seq.nextval, '한식', '불고기볶음', '맛있는 불고기? 뭘 봐',
