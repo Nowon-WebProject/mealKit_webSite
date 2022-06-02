@@ -19,7 +19,7 @@
 				int pageSize = 7;
 			
 				// 누른 페이지
-				String pageNum = request.getParameter("pageNum");	
+				String pageNum = request.getParameter("pageNum");
 				
 				// 처음엔 1페이지
 				if (pageNum == null)
@@ -51,7 +51,7 @@
 		<form action="postList.do" method="post">
 		<table class="list">
 			<tr>
-				<td colspan="6" style="border: white; text-align: right">
+				<td colspan="7" style="border: white; text-align: right">
 					<select name="order">
 						<option value="1">최근등록순</option>
 						<option value="2">좋아요많은순</option>
@@ -66,6 +66,7 @@
 				<td>작성일</td>
 				<td>도움</td>
 				<td>조회</td>
+				<td>평점</td>
 			</tr>
 			<c:forEach var="item" items="<%=list %>">
 				<tr>
@@ -75,10 +76,11 @@
 					<td>${item.item_date}</td>
 					<td>${item.item_help}</td>
 					<td>${item.item_hits}</td>
+					<td>${item.item_stars}</td>
 				</tr>
 			</c:forEach>
 			<tr>
-				<td colspan="6" style="border: white; text-align: right">
+				<td colspan="7" style="border: white; text-align: right">
 					<a href="postWrite.do">후기 쓰기</a>
 				</td>
 			</tr>
