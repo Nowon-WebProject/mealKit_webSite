@@ -13,6 +13,8 @@ import util.DBManager;
 
 public class ItemDAO {
 	
+	// 파일 안 올리는 버전
+	
 	private ItemDAO() {
 
 	}

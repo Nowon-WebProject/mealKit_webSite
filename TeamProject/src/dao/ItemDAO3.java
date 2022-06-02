@@ -13,6 +13,8 @@ import util.DBManager;
 
 public class ItemDAO3 {
 	
+	// 파일 두 개 및 기타 칼럼 추가 버전
+	
 	private ItemDAO3() {
 
 	}
