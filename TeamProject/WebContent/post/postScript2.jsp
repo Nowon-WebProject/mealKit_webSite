@@ -48,13 +48,12 @@
 	%>
 	<div id="wrap" style="width: 800px" align="center">
 		<h3>후기</h3>
-		<form action="postList.do" method="post">
 		<table class="list">
 			<tr>
 				<td colspan="7" style="border: white; text-align: right">
 					<select name="order">
 						<option value="1">최근등록순</option>
-						<option value="2">좋아요많은순</option>
+						<option value="2">도움많은순</option>
 						<option value="3">조회많은순</option>
 					</select>
 				</td>
@@ -85,7 +84,6 @@
 				</td>
 			</tr>
 		</table>
-		</form>
 		<br><br>
 		<%
 			// 전체 페이지 개수 구하기
