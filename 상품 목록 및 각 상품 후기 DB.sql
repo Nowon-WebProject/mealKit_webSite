@@ -1,3 +1,5 @@
+-- 접속: scottDB
+
 -- 상품 목록 DB. 파일 안 올리는 버전
 --create table item(
 --    item_num number, -- 상품 번호
