@@ -1,9 +1,10 @@
+-- 상품 목록 DB. 파일 안 올리는 버전
 --create table item(
 --    item_num number, -- 상품 번호
 --    item_category varchar2(20), -- 카테고리
 --    item_name varchar2(20), -- 상품명
 --    item_content varchar2(255), -- 내용
---    item_price number, -- 가격
+--    item_price number,   -- 가격
 --    item_quantity number, -- 재고
 --    item_date varchar2(50), -- 등록한 날짜
 --    item_total varchar2(50), -- 인분
@@ -11,6 +12,7 @@
 --    primary key(item_num)
 -- );
 
+-- 상품 목록 DB. 파일 한 개 올리는 버전
 --create table item(
 --    item_pictureUrl varchar2(50), -- 사진
 --    item_num number, -- 상품 번호
@@ -25,6 +27,7 @@
 --    primary key(item_num)
 --);
 
+-- 상품 목록 DB. 파일 두 개 및 기타 칼럼 추가 버전
 create table item(
     item_pictureUrl1 varchar2(50), -- 사진1
     item_pictureUrl2 varchar2(50), -- 사진2
@@ -44,6 +47,7 @@ create table item(
     primary key(item_num)
 );
 
+-- 특정 상품 내 후기 게시판 목록 DB
 create table postScript(
     post_num number, -- 글 번호
     post_subject nvarchar2(100), -- 글 제목
@@ -56,8 +60,10 @@ create table postScript(
     primary key(post_num)
 );
 
+-- 상품 목록 시퀀스
 create sequence item_seq start with 1 increment by 1;
 
+-- 상품 목록 데이터 입력
 insert into item values(null, null, item_seq.nextval, '한식', '불고기볶음', '맛있는 불고기? 뭘 봐',
                         13000, 100, sysdate, '1', '10', '0', 50);
 insert into item values(null, null, item_seq.nextval, '양식', '스테이크', '맛있는 스테이크? 뭘 봐',
@@ -69,18 +75,22 @@ insert into item values(null, null, item_seq.nextval, '일식', '초밥무침', 
 insert into item values(null, null, item_seq.nextval, '샐러드', '참깨샐러드', '맛있는 샐러드? 뭘 봐',
                         100000, 5, sysdate, '5', '30', '0', 0);
 
+
+
 -- drop table item;
 -- drop sequence item_seq;
--- create sequence item_seq start with 1 increment by 1;
+
 
 
 select * from item;
 
 select * from user_sequences;
 
-commit; -- 행 100개 넣고 꼭 커밋하기
+commit; -- 행 100개 넣고 꼭 커밋할 것
 
--- 행 100개 넣기 과정 (보기 - DBMS 출력 - 여기의 + 버튼 클릭 - scott 계정 접속
+
+
+-- 상품 목록 행 100개 넣기 과정 (보기 - DBMS 출력 - 여기의 + 버튼 클릭 - scott 계정 접속)
 set serveroutput on;
 
 DECLARE
@@ -95,4 +105,6 @@ BEGIN
     EXIT WHEN NUM1 >100; -- NUM1이 100보다 크면 LOOP 종료
     END LOOP;
 END;
+
+
 
