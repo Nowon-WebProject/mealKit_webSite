@@ -3,11 +3,14 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import dto.PostScriptVO;
 import util.DBManager;
 
 public class PostScriptDAO {
+	
 	private PostScriptDAO() {
 
 	}
@@ -15,13 +18,42 @@ public class PostScriptDAO {
 	private static PostScriptDAO instance = new PostScriptDAO();
 
 	public static PostScriptDAO getInstance() {
-		
 		return instance;
 	}
 	
-	/*
-	public List<PostScriptVO> selectAllItems(int start, int end) {
-		String sql = "select * from(select A.*, Rownum Rnum from(select * from item order by item_num desc)A)" + "where Rnum >= ? and Rnum <= ?";
+	public int getAllCount() {
+		String sql = "select count(*) from postScript";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int count = 0;
+
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if (rs.next())
+				count = rs.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+
+		return count;
+	}
+	
+	public List<PostScriptVO> selectAllPostScripts(int start, int end, String order) {
+		String sql = null;
+		
+		if (order.equals("1")) // 최근등록순
+			sql = "select * from(select A.*, Rownum Rnum from(select * from postScript order by post_num desc)A)" + "where Rnum >= ? and Rnum <= ?";
+		else if (order.equals("2")) // 도움많은순
+			sql = "select * from(select A.*, Rownum Rnum from(select * from postScript order by post_help desc)A)" + "where Rnum >= ? and Rnum <= ?";
+		else if (order.equals("3")) // 조회많은순
+			sql = "select * from(select A.*, Rownum Rnum from(select * from postScript order by post_hits desc)A)" + "where Rnum >= ? and Rnum <= ?";
+			
 		List<PostScriptVO> list = new ArrayList<PostScriptVO>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -36,17 +68,14 @@ public class PostScriptDAO {
 
 			while (rs.next()) {
 				PostScriptVO pVo = new PostScriptVO();
-				pVo.setItem_pictureUrl1(rs.getString("item_pictureUrl1"));
-				pVo.setItem_num(rs.getInt("item_num"));
-				pVo.setItem_category(rs.getString("item_category"));
-				pVo.setItem_name(rs.getString("item_name"));
-				pVo.setItem_price(rs.getInt("item_price"));
-				pVo.setItem_quantity(rs.getInt("item_quantity"));
-				pVo.setItem_date(rs.getString("item_date"));
-				pVo.setItem_total(rs.getString("item_total"));
-				pVo.setItem_time(rs.getString("item_time"));
-				pVo.setItem_main(rs.getString("item_main").charAt(0));
-				pVo.setItem_sales(rs.getInt("item_sales"));
+				pVo.setPost_num(rs.getInt("post_num"));
+				pVo.setPost_subject(rs.getString("post_subject"));
+				pVo.setPost_writer(rs.getString("post_writer"));
+				pVo.setPost_date(rs.getString("post_date"));
+				pVo.setPost_help(rs.getInt("post_help"));
+				pVo.setPost_hits(rs.getInt("post_hits"));
+				pVo.setPost_stars(rs.getDouble("post_stars"));
+				pVo.setPost_content(rs.getString("post_content"));
 				list.add(pVo);
 			}
 		} catch (Exception e) {
@@ -58,7 +87,7 @@ public class PostScriptDAO {
 		return list;
 	}
 		
-
+	/*
 	public void insertItem(PostScriptVO pVo) {
 		String sql = "insert into item values(?, ?, item_seq.nextval, ?, ?, ?, ?, ?, sysdate, ?, ?, ?, ?)";
 		Connection conn = null;
@@ -209,29 +238,6 @@ public class PostScriptDAO {
 		} finally {
 			DBManager.close(conn, pstmt);
 		}
-	}
-	
-	public int getAllCount() {
-		String sql = "select count(*) from item";
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		int count = 0;
-
-		try {
-			conn = DBManager.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-
-			if (rs.next())
-				count = rs.getInt(1);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			DBManager.close(conn, pstmt, rs);
-		}
-
-		return count;
 	}
 	*/
 }

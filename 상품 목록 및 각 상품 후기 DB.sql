@@ -57,25 +57,30 @@ create table postScript(
     post_date varchar2(10), -- 작성일
     post_help number, -- 도움
     post_hits number, -- 조회
-    post_stars number(4,2), -- 별점
+    post_stars number(4,2), -- 평점
     post_content nvarchar2(255), -- 내용
     primary key(post_num)
 );
 
--- 상품 목록 시퀀스
+-- 상품 목록의 번호 시퀀스
 create sequence item_seq start with 1 increment by 1;
+-- 특정 상품 내 후기 게시판의 번호 시퀀스
+create sequence postScript_seq start with 1 increment by 1;
 
 -- 상품 목록 데이터 입력
 insert into item values(null, null, item_seq.nextval, '한식', '불고기볶음', '맛있는 불고기? 뭘 봐',
-                        13000, 100, sysdate, '1', '10', '0', 50);
+                        13000, 100, sysdate, '1', '10', '0', 50, 10.0, 5);
 insert into item values(null, null, item_seq.nextval, '양식', '스테이크', '맛있는 스테이크? 뭘 봐',
-                        20000, 70, sysdate, '2', '5', '0', 89);
+                        20000, 70, sysdate, '2', '5', '0', 89, 10.0, 5);
 insert into item values(null, null, item_seq.nextval, '중식', '전갈볶음', '맛있는 전갈? 뭘 봐',
-                        25000, 30, sysdate, '3', '20', '0', 5);
+                        25000, 30, sysdate, '3', '20', '0', 5, 10.0, 5);
 insert into item values(null, null, item_seq.nextval, '일식', '초밥무침', '맛있는 초밥? 뭘 봐',
-                        20000, 10, sysdate, '10', '5', '0', 0);
+                        20000, 10, sysdate, '10', '5', '0', 0, 10.0, 5);
 insert into item values(null, null, item_seq.nextval, '샐러드', '참깨샐러드', '맛있는 샐러드? 뭘 봐',
-                        100000, 5, sysdate, '5', '30', '0', 0);
+                        100000, 5, sysdate, '5', '30', '0', 0, 10.0, 5);
+
+-- 특정 상품 내 후기 게시판 데이터 입력
+tiger
 
 
 
@@ -85,6 +90,7 @@ insert into item values(null, null, item_seq.nextval, '샐러드', '참깨샐러
 
 
 select * from item;
+select * from postScript;
 
 select * from user_sequences;
 
