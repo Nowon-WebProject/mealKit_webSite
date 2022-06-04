@@ -81,10 +81,15 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("loginUser", user);
 		session.setAttribute("name", user.getName());
-		session.setAttribute("id", user.getUserid());
-		session.setAttribute("pwd",user.getPassword());
+		session.setAttribute("userid", user.getUserid());
+		session.setAttribute("password",user.getPassword());
+		session.setAttribute("birth", user.getBirth());
 		session.setAttribute("email",user.getEmail());
 		session.setAttribute("phone",user.getPhone());
+		session.setAttribute("registDate", user.getRegistDate());
+		session.setAttribute("addr", user.getAddr());
+		session.setAttribute("deli", user.getDeli());
+		session.setAttribute("point", user.getPoint());
 		session.setAttribute("admin", user.getAdmin());
 	}
 	

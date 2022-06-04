@@ -63,6 +63,62 @@
   --bs-body-color: #212529;
   --bs-body-bg: #fff;
 }
+		
+		.txt_guideId, .txt_guidePassword {
+        	display: none;
+        	height: 33px;
+        }
+      
+        .txt_guidePasswordCheck, .txt_guideBirth {
+        	display: none;
+        	height: 10px;
+        }
+        
+        .badId, .badCheckedId, .badPasswordGuide1, .badPasswordGuide2,
+        .badPasswordCheckGuide, .badBirthGuide {
+/* 		    display: none; */
+		    padding: 10px 0 9px;
+		    font-size: 12px;
+		    color: red;
+		    line-height: 18px;
+	   		word-break: break-all; 
+		    letter-spacing: -.1px;
+ 		    clear: both;
+		}
+ 		.badId:before, .badCheckedId:before, .badPasswordCheckGuide:before,
+ 		.badPasswordGuide1:before, .badPasswordGuide2:before, .badBirthGuide:before { 
+ 			/* \2715 : x 아이콘*/
+     		content: '\2715'; 
+     		display: inline-block; 
+    		padding: 0 4px 0 2px; 
+    		font-size: 12px; 
+     		vertical-align: 0; 
+ 		} 
+ 		
+ 		.goodId, .goodCheckedId, .goodPasswordGuide1, .goodPasswordGuide2,
+ 		.goodPasswordCheckGuide, .goodBirthGuide
+ 		{
+/* 		    display: none; */
+			/* \2713 : 체크아이콘 */
+/* 			content: '\2713'; */
+		    padding: 10px 0 9px;
+		    font-size: 12px;
+		    color: green;
+		    line-height: 18px;
+	   		word-break: break-all; 
+		    letter-spacing: -.1px;
+ 		    clear: both;
+		}
+ 		
+ 		.goodId:before, .goodCheckedId:before, .goodPasswordGuide1:before,
+ 		.goodPasswordGuide2:before, .goodPasswordCheckGuide:before, .goodBirthGuide:before
+ 		{
+    		content: '\2713';
+    		display: inline-block;
+    		padding: 0 4px 0 2px;
+    		font-size: 12px;
+    		vertical-align: 0;
+ 		}
 
 *,
 *::before,
@@ -11285,4 +11341,6 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+  
+  
 }

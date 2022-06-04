@@ -14,6 +14,7 @@
         <link href="/TeamProject/css/styles.css" rel="stylesheet" />
 </head>
 <body>
+<jsp:include page="/test/testUserInfo.jsp"></jsp:include>
 <jsp:include page="/ui/nav.jsp"></jsp:include>
         <!-- Header-->
         <header class="py-5" style="background-color:#fd7e14">
