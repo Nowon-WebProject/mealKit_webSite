@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="../css/shopping.css">
-<script type="text/javascript" src="../js/item.js?var=4"></script>
+<script type="text/javascript" src="../js/item.js?var=5"></script>
 <body>
 	<%
 		// 화면에 보여질 게시글 개수 7개로 고정한 버전

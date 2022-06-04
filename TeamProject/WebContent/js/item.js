@@ -47,7 +47,7 @@ function itemCheck() {
 function display(id) {
 	var s = document.getElementById(id);
 	if (s.style.display == 'none') {
-		s.style.display = 'table-row';
+		s.style.display = '';
 	} else {
 		s.style.display = 'none';
 	}
