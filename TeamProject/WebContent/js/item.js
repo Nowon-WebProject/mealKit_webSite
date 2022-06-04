@@ -45,10 +45,10 @@ function itemCheck() {
 }
 
 function display(id) {
-	var s = document.getElementById(id);
-	if (s.style.display == 'none') {
-		s.style.display = '';
+	var openClose = document.getElementById(id);
+	if (openClose.style.display == 'none') {
+		openClose.style.display = '';
 	} else {
-		s.style.display = 'none';
+		openClose.style.display = 'none';
 	}
 }

@@ -9,6 +9,7 @@ public class PostScriptVO {
 	private Integer post_hits;
 	private Double post_stars;
 	private String post_content;
+	private String post_image;
 
 	public Integer getPost_num() {
 		return post_num;
@@ -72,6 +73,14 @@ public class PostScriptVO {
 
 	public void setPost_content(String post_content) {
 		this.post_content = post_content;
+	}
+
+	public String getPost_image() {
+		return post_image;
+	}
+
+	public void setPost_image(String post_image) {
+		this.post_image = post_image;
 	}
 
 }

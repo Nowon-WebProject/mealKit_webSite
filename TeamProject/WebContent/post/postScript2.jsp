@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="../css/shopping.css">
-<script type="text/javascript" src="../js/item.js?var=5"></script>
+<script type="text/javascript" src="../js/item.js?var=6"></script>
 <body>
 	<%
 		// 화면에 보여질 게시글 개수 7개로 고정한 버전
@@ -106,13 +106,60 @@
 					<td>${post.post_hits}</td>
 					<td>${post.post_stars}</td>
 				</tr>
-				<tr id="js_detail${post.post_num}" style="display:none;">
+				<tr id="js_detail${post.post_num}" style="display: none;">
 					<td colspan="7">${post.post_content}</td>
 				</tr>
 			</c:forEach>
 			<tr>
+				<td colspan="7" id="js_detail_write" style="display: none;">
+					<form action="postWrite.do" method="post" enctype="multipart/form-data">
+						<table>
+							<tr>
+								<th>제목:</th>
+								<td><input type="text" name="post_subject"></td>
+							</tr>
+							<tr>
+								<th>평점:</th>
+								<td>
+									<select name="post_stars">
+										<option value="0">☆</option>
+										<%-- <option value="0.5">https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbYnQ6Y%2FbtqKhk79oyc%2FhmcUi1S0B9V8DMKMeLT3tk%2Fimg.jpg</option> --%>
+										<option value="0.5">0.5</option>
+										<option value="1.0">1.0</option>
+										<option value="1.5">1.5</option>
+										<option value="2.0">2.0</option>
+										<option value="2.5">2.5</option>
+										<option value="3.0">3.0</option>
+										<option value="3.5">3.5</option>
+										<option value="4.0">4.0</option>
+										<option value="4.5">4.5</option>
+										<option value="5.0" selected>5.0</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th>내용:</th>
+								<td><textarea name="post_content"></textarea></td>
+							</tr>
+							<tr>
+								<th>사진:</th>
+								<td><input type="file" name="post_image"></td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<input type="submit" value="작성하기">&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="reset" value="다시 쓰기">
+									<%-- 나중에 value 값에 로그인한 계정의 아이디로 수정할 것 --%>
+									<input type="hidden" value="${pVo.userid}" name="post_writer">
+								</td>
+							</tr>
+						</table>
+					</form>
+				</td>
+			</tr>
+			<tr>
 				<td colspan="7" style="border: white; text-align: right;">
-					<a href="postWrite.do">후기 쓰기</a>
+					<a href="javascript:display('js_detail_write')">후기 쓰기</a>
 				</td>
 			</tr>
 		</table>
@@ -142,18 +189,18 @@
 			// 아래는 페이지 표시 과정
 			if (startPage > 10) {
 		%>
-		<a href="postList.do?pageNum=<%=startPage - 10 %>">[이전]</a>
+		<a href="postScript2.jsp?pageNum=<%=startPage - 10 %>">[이전]</a>
 		<%
 			}
 			for (int i = startPage; i <= endPage; i++) {
 		%>
-		<a href="postList.do?pageNum=<%=i %>">[<%=i %>]
+		<a href="postScript2.jsp?pageNum=<%=i %>">[<%=i %>]
 		</a>
 		<%
 			}
 			if (endPage < pageCount) {
 		%>
-		<a href="postList.do?pageNum=<%=startPage + 10 %>">[다음]</a>
+		<a href="postScript2.jsp?pageNum=<%=startPage + 10 %>">[다음]</a>
 		<%
 			}
 		%>

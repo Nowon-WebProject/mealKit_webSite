@@ -76,6 +76,7 @@ public class PostScriptDAO {
 				pVo.setPost_hits(rs.getInt("post_hits"));
 				pVo.setPost_stars(rs.getDouble("post_stars"));
 				pVo.setPost_content(rs.getString("post_content"));
+				pVo.setPost_image(rs.getString("post_image"));
 				list.add(pVo);
 			}
 		} catch (Exception e) {
@@ -86,35 +87,6 @@ public class PostScriptDAO {
 
 		return list;
 	}
-		
-	/*
-	public void insertItem(PostScriptVO pVo) {
-		String sql = "insert into item values(?, ?, item_seq.nextval, ?, ?, ?, ?, ?, sysdate, ?, ?, ?, ?)";
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			conn = DBManager.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, pVo.getItem_pictureUrl1());
-			pstmt.setString(2, pVo.getItem_pictureUrl2());
-			pstmt.setString(3, pVo.getItem_category());
-			pstmt.setString(4, pVo.getItem_name());
-			pstmt.setString(5, pVo.getItem_content());
-			pstmt.setInt(6, pVo.getItem_price());
-			pstmt.setInt(7, pVo.getItem_quantity());
-			pstmt.setString(8, pVo.getItem_total());
-			pstmt.setString(9, pVo.getItem_time());
-			pstmt.setString(10, String.valueOf(pVo.getItem_main()));
-			pstmt.setInt(11, pVo.getItem_sales());
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			DBManager.close(conn, pstmt);
-		}
-	}
-	*/
 
 	public PostScriptVO selectPostByPost_num(String post_num) {
 		String sql = "select * from item where post_num=?";
@@ -133,14 +105,15 @@ public class PostScriptDAO {
 				
 				if (rs.next()) {
 					pVo = new PostScriptVO();
-					pVo.setPost_num(rs.getInt(1));
-					pVo.setPost_subject(rs.getString(2));
-					pVo.setPost_writer(rs.getString(3));
-					pVo.setPost_date(rs.getString(4));
-					pVo.setPost_help(rs.getInt(5));
-					pVo.setPost_hits(rs.getInt(6));
-					pVo.setPost_stars(rs.getDouble(7));
-					pVo.setPost_content(rs.getString(8));
+					pVo.setPost_num(rs.getInt("post_num"));
+					pVo.setPost_subject(rs.getString("post_subject"));
+					pVo.setPost_writer(rs.getString("post_writer"));
+					pVo.setPost_date(rs.getString("post_date"));
+					pVo.setPost_help(rs.getInt("post_help"));
+					pVo.setPost_hits(rs.getInt("post_hits"));
+					pVo.setPost_stars(rs.getDouble("post_stars"));
+					pVo.setPost_content(rs.getString("post_content"));
+					pVo.setPost_image(rs.getString("post_image"));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -152,6 +125,29 @@ public class PostScriptDAO {
 		}
 
 		return pVo;
+	}
+	
+	public void insertPostScript(PostScriptVO pVo) {
+		String sql = "insert into postScript values(postScript_seq.nextval, ?, ?, sysdate, ?, ?, ?, ?, ?)";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pVo.getPost_subject());
+			pstmt.setString(2, pVo.getPost_writer());
+			pstmt.setInt(3, pVo.getPost_help());
+			pstmt.setInt(4, pVo.getPost_hits());
+			pstmt.setDouble(5, pVo.getPost_stars());
+			pstmt.setString(6, pVo.getPost_content());
+			pstmt.setString(7, pVo.getPost_image());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt);
+		}
 	}
 
 	/*
