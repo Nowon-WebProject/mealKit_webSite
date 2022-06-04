@@ -43,3 +43,12 @@ function itemCheck() {
 
 	return true;
 }
+
+function display(id) {
+	var s = document.getElementById(id);
+	if (s.style.display == 'none') {
+		s.style.display = 'table-row';
+	} else {
+		s.style.display = 'none';
+	}
+}

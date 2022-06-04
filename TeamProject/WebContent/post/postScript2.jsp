@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="../css/shopping.css">
+<script type="text/javascript" src="../js/item.js?var=4"></script>
 <body>
 	<%
 		// 화면에 보여질 게시글 개수 7개로 고정한 버전
@@ -55,7 +56,7 @@
 		<h3>후기</h3>
 		<table class="list">
 			<tr>
-				<td colspan="7" style="border: white; text-align: right">
+				<td colspan="7" style="border: white; text-align: right;">
 					<c:set var="order" value="<%=order %>"></c:set>
 					<c:choose>
 						<c:when test="${order == 1}">
@@ -98,16 +99,19 @@
 			<c:forEach var="post" items="<%=list %>">
 				<tr>
 					<td>${post.post_num}</td>
-					<td>${post.post_subject}</td>
+					<td onclick="javascript:display('js_detail${post.post_num}')">${post.post_subject}</td>
 					<td>${post.post_writer}</td>
 					<td>${post.post_date}</td>
 					<td>${post.post_help}</td>
 					<td>${post.post_hits}</td>
 					<td>${post.post_stars}</td>
 				</tr>
+				<tr id="js_detail${post.post_num}" style="display:none;">
+					<td colspan="7">${post.post_content}</td>
+				</tr>
 			</c:forEach>
 			<tr>
-				<td colspan="7" style="border: white; text-align: right">
+				<td colspan="7" style="border: white; text-align: right;">
 					<a href="postWrite.do">후기 쓰기</a>
 				</td>
 			</tr>
