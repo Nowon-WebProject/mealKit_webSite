@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="3;url=orderOkList.do">
+<meta http-equiv="refresh" content="3;url=orderOkList.do?pageNum=1&pageSize=10">
 <title>이젠, 집에서 | 주문 완료</title>
 <style type="text/css">
 </style>

@@ -74,7 +74,6 @@ public class PaymentServlet extends HttpServlet {
 		String[] item_cnt = request.getParameterValues("item_cnt[]");
 		String item_num_toString = Arrays.toString(item_num);
 		String item_cnt_toString = Arrays.toString(item_cnt);
-		
 		int total_price = Integer.parseInt(request.getParameter("total_price"));
 		int usePoint =  Integer.parseInt(request.getParameter("usePoint"));
 		int amount = total_price - usePoint;

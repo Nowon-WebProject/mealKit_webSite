@@ -47,17 +47,33 @@ public class ItemMainServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 
 		ItemDAO idao = ItemDAO.getInstance();
-		ArrayList<ItemDTO> ilist1 = idao.selectMainItem(1);
+		ArrayList<ItemDTO> ilist1 = idao.selectMainItem("샐러드");
 		request.setAttribute("ilist1", ilist1);
 		
-		ArrayList<ItemDTO> ilist2 = idao.selectMainItem(2);
+		ArrayList<ItemDTO> ilist2 = idao.selectMainItem("해외여행");
 		request.setAttribute("ilist2", ilist2);
 		
-		ArrayList<ItemDTO> ilist3 = idao.selectMainItem(3);
+		ArrayList<ItemDTO> ilist3 = idao.selectMainItem("찌개");
 		request.setAttribute("ilist3", ilist3);
 		
-		ArrayList<ItemDTO> ilist4 = idao.selectMainItem(4);
+		ArrayList<ItemDTO> ilist4 = idao.selectMainItem("");
 		request.setAttribute("ilist4", ilist4);
+		
+		ArrayList<ItemDTO> ilist5 = idao.selectMainItem("");
+		request.setAttribute("ilist5", ilist5);
+		
+		ArrayList<ItemDTO> ilist6 = idao.selectMainItem("");
+		request.setAttribute("ilist6", ilist6);
+		
+		ArrayList<ItemDTO> ilist7 = idao.selectMainItem("");
+		request.setAttribute("ilist7", ilist7);
+		
+		ArrayList<ItemDTO> ilist8 = idao.selectMainItem("");
+		request.setAttribute("ilist8", ilist8);
+		
+		ArrayList<ItemDTO> ilist9 = idao.selectMainItem("");
+		request.setAttribute("ilist9", ilist9);
+		
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);

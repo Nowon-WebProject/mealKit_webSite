@@ -2,6 +2,7 @@ package kr.co.EZHOME.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,12 +48,8 @@ public class OrderOkServlet extends HttpServlet {
 		// payment.jsp에서 결제가 이루어진 후
 		// 주문 정보를 가지고 이곳으로 넘어옴.
 		// 넘어온 값들을 이용해
-		// 유저 포인트 갱신, 주문완료 테이블에 추가, 최근 배송지 추가/삭제가 이루어짐. 
-		
-		
-		
-		
-		
+		// 유저 포인트 갱신, 주문완료 테이블에 추가, 최근 배송지 추가/삭제가 이루어짐.
+
 		request.setCharacterEncoding("utf-8");
 
 		String userid = request.getParameter("userid");
@@ -70,9 +67,23 @@ public class OrderOkServlet extends HttpServlet {
 		String item_cnt = request.getParameter("item_cnt");
 		String deli_postcode = request.getParameter("deli_postcode");
 		
-		int random = (int) Math.floor((Math.random() * (10000-1000))+1000);
+		
+		//4자리 숫자+대문자영문 조합 생성
+		Random rnd=new Random();
+	    StringBuffer buf=new StringBuffer();
+	    for(int i=1;i<=8;i++) {
+	        if(rnd.nextBoolean())
+	            buf.append((char)(rnd.nextInt(26)+65));   // 0~25(26개) + 65 
+	        else
+	            buf.append(rnd.nextInt(10));
+	    }
+	
+		String random = buf.toString();
+		System.out.println(random);
+		
+		
 		String time = new SimpleDateFormat("yyMMddHHmmss").format(System.currentTimeMillis());
-		String order_num = time+String.valueOf(random);
+		String order_num = time+random;
 
 		UserDAO udao = UserDAO.getInstance();
 		udao.minusPoint(usePoint, userid);
@@ -90,6 +101,8 @@ public class OrderOkServlet extends HttpServlet {
 		//반복 횟수 : 장바구니에 들어있던 상품의 종류 갯수
 		CartDAO cdao = CartDAO.getInstance();
 		int cnt = cdao.cartCnt(userid);
+		
+
 		
 		// 주문한 품목에 대한 정보도 함께 db에 넣음.
 		for (int i = 0; i < cnt; i++) {
@@ -115,7 +128,9 @@ public class OrderOkServlet extends HttpServlet {
 				}
 			}
 			String item_name_ok = idao.selectItemName(item_num_ok);
+			System.out.println(item_num_ok);
 			int item_price_ok = idao.selectItemPrice(item_num_ok);
+			String item_pictureUrl1_ok = idao.selectItemPictureUrl1(item_num_ok);
 		
 			odto.setOrder_num(order_num);
 			odto.setUserid(userid);
@@ -128,17 +143,16 @@ public class OrderOkServlet extends HttpServlet {
 			odto.setDeli_msg(deli_msg);
 			odto.setDeli_pwd(deli_pwd);
 			odto.setDeli_status(deli_status);
+			odto.setItem_pictureUrl1(item_pictureUrl1_ok);
 			odto.setItem_num(item_num_ok);
 			odto.setItem_name(item_name_ok);
 			odto.setItem_price(item_price_ok);
 			odto.setItem_cnt(item_cnt_ok);
-			odto.setRefund_request(0);
+			odto.setRefund_request("");
 			odto.setRefund_status("미신청");
 			odto.setRefund_reject("");
 
-
 			odao.insertOrder(odto);
-			
 			//재고, 판매량 갱신
 			idao.itemSales(item_cnt_ok, item_num_ok);
 			idao.itemQuantity(item_cnt_ok, item_num_ok);
@@ -181,6 +195,8 @@ public class OrderOkServlet extends HttpServlet {
 		// RequestDispatcher dispatcher =
 		// request.getRequestDispatcher("purchaseOk.jsp");
 		// dispatcher.forward(request, response);
+		
+
 	}
 
 	/**

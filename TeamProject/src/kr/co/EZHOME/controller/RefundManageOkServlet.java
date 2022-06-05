@@ -49,7 +49,7 @@ public class RefundManageOkServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// doGet(request, response);
-		
+
 		// 취소/환불 요청 관리 서블릿
 		// refundManage.jsp에서 승인을 눌러 넘어온 값들을 이용하여
 		// 결제를 취소하는 작업을 함.
@@ -59,26 +59,51 @@ public class RefundManageOkServlet extends HttpServlet {
 
 		OrderDAO odao = OrderDAO.getInstance();
 
-		String[] a = request.getParameterValues("orderInfo");
+		String[] orderInfo = request.getParameterValues("orderInfo");
+		
+				
+		String pageNum = request.getParameter("pageNum");
+		int pageSize =Integer.parseInt(request.getParameter("pageSize"));
+
 
 		ItemDAO idao = ItemDAO.getInstance();
+		String check = request.getParameter("check");
 
-		for (int i = 0; i < a.length; i++) {
-			String a1 = a[i];
-			String[] a2 = a1.split("/");
+		if (check.equals("승인")) {
+			for (int i = 0; i < orderInfo.length; i++) {
+				String orderInfo2 = orderInfo[i];
+				String[] orderInfo3 = orderInfo2.split("/");
 
-			int num = Integer.parseInt(a2[0]); // item_num
-			int cnt = Integer.parseInt(a2[1]); // item_cnt
-			String order_num = a2[2];
+				int num = Integer.parseInt(orderInfo3[0]); // item_num
+				int cnt = Integer.parseInt(orderInfo3[1]); // item_cnt
+				String order_num = orderInfo3[2];
 
-			idao.itemQuantityRefund(cnt, num);
-			idao.itemSalesRefund(cnt, num);
-			String status = "취소 완료";
-			odao.modifyRefundStatus(num, status, order_num);
-			odao.addRequest(0, num, order_num);
+				idao.itemQuantityRefund(cnt, num);
+				idao.itemSalesRefund(cnt, num);
+				String status = "취소 완료";
+				odao.modifyRefundStatus(num, status, order_num);
 
+			}
+		} else {
+			for (int i = 0; i < orderInfo.length; i++) {
+				String orderInfo2 = orderInfo[i];
+				String[] orderInfo3 = orderInfo2.split("/");
+
+				int num = Integer.parseInt(orderInfo3[0]); // item_num
+				int cnt = Integer.parseInt(orderInfo3[1]); // item_cnt
+				String order_num = orderInfo3[2];
+				
+				String status = "거절";
+				odao.modifyRefundStatus(num, status, order_num);
+				
+				String reject = request.getParameter("reject");
+				if(reject.equals("empty")) {
+					reject = request.getParameter("reject2");
+				}
+				odao.updateReject(reject, order_num, num);
+			}
 		}
-
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("refundManage.do");
 		dispatcher.forward(request, response);
 

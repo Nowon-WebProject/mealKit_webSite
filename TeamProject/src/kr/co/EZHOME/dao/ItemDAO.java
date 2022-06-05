@@ -61,7 +61,9 @@ public class ItemDAO {
 				idto.setItem_total(rs.getString("item_total"));
 				idto.setItem_time(rs.getString("item_time"));
 				idto.setItem_main(rs.getString("item_main"));
-				idto.setItem_sales(rs.getString("item_sales"));
+				idto.setItem_sales(rs.getInt("item_sales"));
+				idto.setItem_discount(rs.getDouble("item_discount"));
+				idto.setItem_starsAvg(rs.getDouble("item_starsAvg"));
 
 				itemList.add(idto);
 
@@ -83,8 +85,11 @@ public class ItemDAO {
 		return itemList;
 	}
 
-	public ArrayList<ItemDTO> selectMainItem(int num) {
-		String sql = "select * from item where item_main=?";
+	public ArrayList<ItemDTO> selectMainItem(String main) {
+		if(main != "")
+		main = "%"+main+"%";
+		
+		String sql = "select * from item where item_main like ?";
 		ArrayList<ItemDTO> itemList = new ArrayList<ItemDTO>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -93,7 +98,7 @@ public class ItemDAO {
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
+			pstmt.setString(1, main);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -110,7 +115,9 @@ public class ItemDAO {
 				idto.setItem_total(rs.getString("item_total"));
 				idto.setItem_time(rs.getString("item_time"));
 				idto.setItem_main(rs.getString("item_main"));
-				idto.setItem_sales(rs.getString("item_sales"));
+				idto.setItem_sales(rs.getInt("item_sales"));
+				idto.setItem_discount(rs.getDouble("item_discount"));
+				idto.setItem_starsAvg(rs.getDouble("item_starsAvg"));
 
 				itemList.add(idto);
 
@@ -158,7 +165,9 @@ public class ItemDAO {
 				idto.setItem_total(rs.getString("item_total"));
 				idto.setItem_time(rs.getString("item_time"));
 				idto.setItem_main(rs.getString("item_main"));
-				idto.setItem_sales(rs.getString("item_sales"));
+				idto.setItem_sales(rs.getInt("item_sales"));
+				idto.setItem_discount(rs.getDouble("item_discount"));
+				idto.setItem_starsAvg(rs.getDouble("item_starsAvg"));
 
 				itemList.add(idto);
 
@@ -206,7 +215,9 @@ public class ItemDAO {
 				idto.setItem_total(rs.getString("item_total"));
 				idto.setItem_time(rs.getString("item_time"));
 				idto.setItem_main(rs.getString("item_main"));
-				idto.setItem_sales(rs.getString("item_sales"));
+				idto.setItem_sales(rs.getInt("item_sales"));
+				idto.setItem_discount(rs.getDouble("item_discount"));
+				idto.setItem_starsAvg(rs.getDouble("item_starsAvg"));
 
 				itemList.add(idto);
 
@@ -254,7 +265,9 @@ public class ItemDAO {
 				idto.setItem_total(rs.getString("item_total"));
 				idto.setItem_time(rs.getString("item_time"));
 				idto.setItem_main(rs.getString("item_main"));
-				idto.setItem_sales(rs.getString("item_sales"));
+				idto.setItem_sales(rs.getInt("item_sales"));
+				idto.setItem_discount(rs.getDouble("item_discount"));
+				idto.setItem_starsAvg(rs.getDouble("item_starsAvg"));
 
 				itemList.add(idto);
 
@@ -459,7 +472,76 @@ public class ItemDAO {
 
 		return itemName;
 	}
-
+	
+	public int selectItemPrice(int item_num){
+		int item_price=0;
+		String sql = "select item_price-(item_price * item_discount) from item where item_num=?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, item_num);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				item_price = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return item_price;
+	}
+	
+	public String selectItemPictureUrl1(int item_num){
+		String item_pictureUrl1=null;
+		String sql = "select item_pictureUrl1 from item where item_num=?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, item_num);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				item_pictureUrl1 = rs.getString("item_pictureUrl1");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return item_pictureUrl1;
+	}
+	
+	
 	public int itemBestCount(String check) {
 		int itemCount = 0;
 		String sql = "";
@@ -504,7 +586,7 @@ public class ItemDAO {
 	
 	public Vector<ItemDTO> getBestItem(int start, int end){
 		Vector<ItemDTO> vec = new Vector<>();
-		String sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_sales>0 order by to_number(item_sales) desc)A) item where Rnum >= ? and Rnum <= ?";
+		String sql = "select * from (select A.*, Rownum Rnum from(select * from item where item_sales>0 order by item_sales desc)A) item where Rnum >= ? and Rnum <= ?";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -530,7 +612,9 @@ public class ItemDAO {
 				idto.setItem_total(rs.getString("item_total"));
 				idto.setItem_time(rs.getString("item_time"));
 				idto.setItem_main(rs.getString("item_main"));
-				idto.setItem_sales(rs.getString("item_sales"));
+				idto.setItem_sales(rs.getInt("item_sales"));
+				idto.setItem_discount(rs.getDouble("item_discount"));
+				idto.setItem_starsAvg(rs.getDouble("item_starsAvg"));
 				vec.add(idto);
 			}
 		} catch (Exception e) {
@@ -580,7 +664,9 @@ public class ItemDAO {
 				idto.setItem_total(rs.getString("item_total"));
 				idto.setItem_time(rs.getString("item_time"));
 				idto.setItem_main(rs.getString("item_main"));
-				idto.setItem_sales(rs.getString("item_sales"));
+				idto.setItem_sales(rs.getInt("item_sales"));
+				idto.setItem_discount(rs.getDouble("item_discount"));
+				idto.setItem_starsAvg(rs.getDouble("item_starsAvg"));
 				vec.add(idto);
 			}
 		} catch (Exception e) {
@@ -629,7 +715,9 @@ public class ItemDAO {
 				idto.setItem_total(rs.getString("item_total"));
 				idto.setItem_time(rs.getString("item_time"));
 				idto.setItem_main(rs.getString("item_main"));
-				idto.setItem_sales(rs.getString("item_sales"));
+				idto.setItem_sales(rs.getInt("item_sales"));
+				idto.setItem_discount(rs.getDouble("item_discount"));
+				idto.setItem_starsAvg(rs.getDouble("item_starsAvg"));
 				vec.add(idto);
 			}
 		} catch (Exception e) {
@@ -735,7 +823,9 @@ public class ItemDAO {
 				idto.setItem_total(rs.getString("item_total"));
 				idto.setItem_time(rs.getString("item_time"));
 				idto.setItem_main(rs.getString("item_main"));
-				idto.setItem_sales(rs.getString("item_sales"));
+				idto.setItem_sales(rs.getInt("item_sales"));
+				idto.setItem_discount(rs.getDouble("item_discount"));
+				idto.setItem_starsAvg(rs.getDouble("item_starsAvg"));
 				vec.add(idto);
 			}
 		} catch (Exception e) {
@@ -840,7 +930,7 @@ public class ItemDAO {
 	
 	//////////////////////////////////////////////
 	public void insertItem(ItemDTO iVo3) {
-		String sql = "insert into item values(?, ?, item_seq.nextval, ?, ?, ?, ?, ?, to_char(sysdate, 'YY/MM/DD HH:MI:SS'), ?, ?, ?, ?)";
+		String sql = "insert into item values(?, ?, item_seq.nextval, ?, ?, ?, ?, ?, to_char(sysdate, 'YY/MM/DD HH:MI:SS'), ?, ?, ?, ?, ?, ?)";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -857,7 +947,9 @@ public class ItemDAO {
 			pstmt.setString(8, iVo3.getItem_total());
 			pstmt.setString(9, iVo3.getItem_time());
 			pstmt.setString(10, String.valueOf(iVo3.getItem_main()));
-			pstmt.setString(11, iVo3.getItem_sales());
+			pstmt.setInt(11, iVo3.getItem_sales());
+			pstmt.setDouble(12, iVo3.getItem_discount());
+			pstmt.setDouble(13, iVo3.getItem_starsAvg());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -914,40 +1006,5 @@ public class ItemDAO {
 		return vec;
 	}
 	
-	public int selectItemPrice(int item_num){
-		int item_price=0;
-		String sql = "select item_price from item where item_num=?";
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, item_num);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				ItemDTO idto = new ItemDTO();
-				item_price = rs.getInt("item_price");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (pstmt != null)
-					pstmt.close();
-				if (conn != null)
-					conn.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return item_price;
-	}
-	
-	
+
 }

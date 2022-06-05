@@ -51,17 +51,15 @@ public class OrderManageOkServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 
 		OrderDAO odao = OrderDAO.getInstance();
-		String[] num = request.getParameterValues("order_num");
+		String num = request.getParameter("order_num");
 		String deli_status = request.getParameter("deli_status");
-		
-		for(int i=0;i<num.length;i++) {
-		odao.updateDeli_Status(deli_status, num[i]);
-		}
+		odao.updateDeli_Status(deli_status, num);
 				
-		ItemDAO idao = ItemDAO.getInstance();
-
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher("orderManage.do");
+		String pageNum = request.getParameter("pageNum");
+		int pageSize =Integer.parseInt(request.getParameter("pageSize"));
+		
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("orderManage.do?pageSize="+pageSize+"&pageNum="+pageNum+"");
 		dispatcher.forward(request, response);
 	}
 

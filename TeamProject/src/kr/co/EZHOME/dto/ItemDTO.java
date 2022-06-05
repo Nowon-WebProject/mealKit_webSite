@@ -13,7 +13,9 @@ public class ItemDTO {
 	private String item_total;
 	private String item_time;
 	private String item_main;
-	private String item_sales;
+	private int item_sales;
+	private double item_discount;
+	private double item_starsAvg;
 
 	public ItemDTO() {
 		
@@ -116,13 +118,30 @@ public class ItemDTO {
 		this.item_main = item_main;
 	}
 
-	public String getItem_sales() {
+	public int getItem_sales() {
 		return item_sales;
 	}
 
-	public void setItem_sales(String item_sales) {
+	public void setItem_sales(int item_sales) {
 		this.item_sales = item_sales;
 	}
+
+	public double getItem_discount() {
+		return item_discount;
+	}
+
+	public void setItem_discount(double item_discount) {
+		this.item_discount = item_discount;
+	}
+
+	public double getItem_starsAvg() {
+		return item_starsAvg;
+	}
+
+	public void setItem_starsAvg(double item_starsAvg) {
+		this.item_starsAvg = item_starsAvg;
+	}
+
 
 
 	

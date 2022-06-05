@@ -13,12 +13,13 @@ public class OrderDTO {
 	private String deli_msg;
 	private String deli_pwd;
 	private String deli_status;
+	private String item_pictureUrl1;
 	private int item_num;
 	private String item_name;
 	private int item_price;
 	private int item_cnt;
 	private String refund_status;
-	private int refund_request;
+	private String refund_request;
 	private String refund_reject;
 
 	public OrderDTO() {
@@ -121,6 +122,14 @@ public class OrderDTO {
 		this.deli_status = deli_status;
 	}
 
+	public String getItem_pictureUrl1() {
+		return item_pictureUrl1;
+	}
+
+	public void setItem_pictureUrl1(String item_pictureUrl1) {
+		this.item_pictureUrl1 = item_pictureUrl1;
+	}
+
 	public int getItem_num() {
 		return item_num;
 	}
@@ -161,11 +170,11 @@ public class OrderDTO {
 		this.refund_status = refund_status;
 	}
 
-	public int getRefund_request() {
+	public String getRefund_request() {
 		return refund_request;
 	}
 
-	public void setRefund_request(int refund_request) {
+	public void setRefund_request(String refund_request) {
 		this.refund_request = refund_request;
 	}
 
@@ -177,5 +186,4 @@ public class OrderDTO {
 		this.refund_reject = refund_reject;
 	}
 
-	
 }

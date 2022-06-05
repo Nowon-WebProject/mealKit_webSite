@@ -340,18 +340,21 @@ button{
 border: 0;
 }
 
-.cart table{
-border:1px solid orange;
-text-align:center;
-width:100%;
+.cart table {
+    width: 100%;
+    border-top: 1px solid orange;
+    border-collapse: collapse;
 }
 
-.cart th{
-background-color:orange;
-border:1px solid orange;
+.cart th {
+	background-color: orange;
+    border-bottom: 1px solid #444444;
+    padding: 10px;
 }
-.cart td{
-border:1px solid orange;
+
+.cart td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
 }
 
 #deli_addr table{
@@ -498,6 +501,7 @@ li {
 					<c:set var="result" value="${result+(cart.item_price*cart.item_cnt)}" />
 					<input type="hidden" name="item_cnt[]" value="${cart.item_cnt}">
 					<input type="hidden" name="item_num[]" value="${cart.item_num}">
+					<input type="hidden" name="item_pictureUrl1[]" value="${cart.item_pictureUrl1}">
 				</c:forEach>
 			</table>
 <!-- 주문자 정보  -->
@@ -686,7 +690,7 @@ li {
 					<input type="hidden" name="item_name" value="${clist[0].item_name}">
 					<input type="hidden" name="userid" value="<%=session.getAttribute("userid")%>">
 					<input type="hidden" name="total_price" value="${result+3000}">
-					<input type="hidden" name="deli_status" value="결제 완료">
+					<input type="hidden" name="deli_status" value="결제완료">
 					<input type="hidden" name="point" value="${point}">
 					<input type="submit" id="submit" class="form-btn" value="결제">
 				</div>

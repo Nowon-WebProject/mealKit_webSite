@@ -23,7 +23,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style type="text/css">
 input[type='number']{
-    width: 50px;
+    width: 42px;
 } 
 
 .form-input {
@@ -74,7 +74,6 @@ input[type='number']{
 }
 
 
-}
 
 .form-btn:hover {
 	background-color: #FF9900;
@@ -108,6 +107,24 @@ function loginCheck() {
 		alert("장바구니에 담았습니다.");
 	}
 }
+
+function count(type,item_quantity,item_num){
+	 var inputValue = parseInt(document.getElementById(item_num).value,10);
+	 
+	 if(type=="minus"){
+		 if(inputValue != 1){
+	 		var result = inputValue -1;
+			 $('input[id='+item_num+']').attr('value',result);
+		 }										
+	 }else{
+		 if(inputValue < item_quantity){
+	 		var result = inputValue +1;
+			 $('input[id='+item_num+']').attr('value',result);
+		 }
+	 }
+	 
+}
+
 </script>        
         
 </head>
@@ -157,9 +174,6 @@ function loginCheck() {
 				count = idao.itemSearchCnt(keyword, category, check);
 			}
 		
-		
-
-	
 		int startRow = (currentPage - 1) * pageSize + 1;
 		int endRow = (currentPage * pageSize);
 
@@ -275,200 +289,213 @@ function loginCheck() {
 			<c:choose>
 			<c:when test="${view eq 'card'}">
 			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                	<c:forEach var="item" items="${ilist}" varStatus="i">
-                	<form action="cartInsert.do" method="post">
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                        <c:choose>
-                        <c:when test="${check eq 'best'}">
-                        	<c:choose>
-                        		<c:when test="${i.count eq '1'}">
-                  			 	     <div style="top: 0.1rem; left: 0.1rem; position:absolute"><img src="images/금.png"></div>
-                  			      </c:when>
-                        		<c:when test="${i.count eq '2'}">
-                  			 	     <div style="top: 0.1rem; left: 0.1rem; position:absolute"><img src="images/은.png"></div>
-                  			      </c:when>
-                        		<c:when test="${i.count eq '3'}">
-                  			 	     <div style="top: 0.1rem; left: 0.1rem; position:absolute"><img src="images/동.png"></div>
-                  			      </c:when>
-                        	</c:choose>
-                        </c:when>
-                        </c:choose>
-                        <c:choose>
-						<c:when test="${item.item_pictureUrl1 == null}">
-                            <!-- Product image-->
-                             <a href="itemAbout.do?item_num=${item.item_num}">
-                            <img class="card-img-top" src="upload/no_image1.jpg" alt="..." />
-                            </a>
-                            </c:when>
-                            <c:otherwise>
-                            	<c:choose>
-                            	<c:when test="${item.item_quantity != 0}">
-                          	    <a href="itemAbout.do?item_num=${item.item_num}">
-                         	   <img class="card-img-top" src="upload/${item.item_pictureUrl1}" alt="..." />
-                         	   </a>
-                         	   </c:when>
-                        	    <c:otherwise>
-                              <a href="itemAbout.do?item_num=${item.item_num}">
-                            <img style="background:#000;opacity:0.2" class="card-img-top" src="upload/${item.item_pictureUrl1}" alt="..." />
-                            </a>
-                            
-                            </c:otherwise>
-                            </c:choose>
-                            </c:otherwise>
-                            </c:choose>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                	<div style="height:50px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-                                    <!-- Product name-->
-                                    <c:choose>
-                                    <c:when test="${fn:length(item.item_name)>11}">
-                                  	   <marquee width="100%" scrollamount="5"><h5 class="fw-bolder">${item.item_name}</h5></marquee>
-                                    </c:when>
-                                    <c:otherwise>
-                                  	  <h5 class="fw-bolder">${item.item_name}</h5>
-                                    </c:otherwise>
-                                    </c:choose>
-                                    </div>
-                                	<div style="height:50px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-                                    <!-- Product name-->
-                                    <c:choose>
-                                    <c:when test="${fn:length(item.item_content)>15}">
-                                    <marquee width="100%"><p style="color:gray">${item.item_content}</p> </marquee>
-                                    </c:when>
-                                    <c:otherwise>
-                                    <p style="color:gray">${item.item_content}</p>
-                                    </c:otherwise>
-                                    </c:choose>
-                                    </div>
-                                    
-                                    
-                                    
-                                    
-                                    <p>
-                                    <c:choose>
-                                    <c:when test="${star == 5}">
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    </c:when>
-                                    <c:when test="${star >= 4.5}">
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-half"></i>
-                                    </c:when>
-                                    <c:when test="${star >= 4.0}">
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    </c:when>
-                                    <c:when test="${star >= 3.5}">
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-half"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    </c:when>
-                                    <c:when test="${star >= 3.0}">
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    </c:when>
-                                    <c:when test="${star >= 2.5}">
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-half"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    </c:when>
-                                    <c:when test="${star >= 2.0}">
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    </c:when>
-                                    <c:when test="${star >= 1.5}">
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star-half"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    </c:when>
-                                    <c:when test="${star >= 1.0}">
-                                    <i style="color:orange;" class="bi-star-fill"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    </c:when>
-                                    <c:when test="${star >= 0.5}">
-                                    <i style="color:orange;" class="bi-star-half"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    </c:when>
-                                    <c:otherwise>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    <i style="color:orange;" class="bi-star"></i>
-                                    </c:otherwise>
-                                    </c:choose>
-                                    <br>
-                                    <br>
+				<c:forEach var="item" items="${ilist}" varStatus="i">
+					<form action="cartInsert.do" method="post">
+						<div class="col mb-5">
+							<div class="card h-100">
+								<c:choose>
+									<c:when test="${item.item_discount > 0.00}">
+										<div style="font-weight: bold;border-radius: 15px; border:2px solid white; margin: 0 auto; width: 50px; height: 50px; top: 0.1rem; right: 0.1rem; position: absolute; background-color: crimson; color: white; text-align: center">SALE<br>
+											<fmt:formatNumber value="${item.item_discount*100}" />%
+										</div>
+									</c:when>
+								</c:choose>
+								<c:choose>
+									<c:when test="${item.item_pictureUrl1 == null}">
+										<!-- Product image-->
+										<a href="itemAbout.do?item_num=${item.item_num}">
+										<img class="card-img-top" src="upload/no_image1.jpg" alt="..." />
+										</a>
+									</c:when>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${item.item_quantity != 0}">
+												<a href="itemAbout.do?item_num=${item.item_num}">
+												<img class="card-img-top" src="upload/${item.item_pictureUrl1}" alt="..." />
+												</a>
+											</c:when>
+											<c:otherwise>
+												<a href="itemAbout.do?item_num=${item.item_num}">
+												<img style="background: #000; opacity: 0.2" class="card-img-top" src="upload/${item.item_pictureUrl1}" alt="..." />
+												</a>
 
-                                    <!-- Product price-->
-                                    <fmt:formatNumber value="${item.item_price}"/>원
-                                    
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <c:choose>
-                            	<c:when test="${item.item_quantity != 0}">
-                            	<% String userid = (String) session.getAttribute("userid");  %>
-                         		<c:set var="userid" value="<%=userid%>"/>
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto"><i class="bi-cart-fill me-1"></i>
-                    <input type="hidden" name="userid" value="${userid}">
-                    <input type="hidden" name="item_quantity" value="${item.item_quantity}">
-                    <input type="hidden" name="item_pictureUrl1" value="${item.item_pictureUrl1}">
-                    <input type="hidden" name="item_num" value="${item.item_num}">
-                    <input type="hidden" name="item_name" value="${item.item_name}">
-                    <input type="hidden" name="item_price" value="${item.item_price}">
-                    
-                    
-                    <i class="bi-dash-circle" onclick="count('minus', this)"></i>
-                    <input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="item_cnt" name="item_cnt" value="1" min="1" max="${item.item_quantity}">
-					<i class="bi-plus-circle" onclick="count('plus', this)"></i>
-								 <input type="submit" class="form-btn" value="장바구니에 담기" onClick="loginCheck()"></a></div>
-                  				  </c:when>
-                  				  <c:otherwise>
-                  				  <div class="text-center">
-                  				  <br>
-                  				  <a class="btn btn-outline-dark mt-auto">품절된 상품입니다.<br></a>
-                  				  <br>
-                  				  <br>
-                  				  </div>
-                  				  </c:otherwise>
-                            </c:choose>
-                            </div>
-                        </div>
-                    </div>
-                    </form>
-                    </c:forEach>
-                    </div>
+											</c:otherwise>
+										</c:choose>
+									</c:otherwise>
+								</c:choose>
+								<!-- Product details-->
+								<div class="card-body p-4">
+									<div class="text-center">
+										<div
+											style="height: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+											<!-- Product name-->
+											<c:choose>
+												<c:when test="${fn:length(item.item_name)>11}">
+													<marquee width="100%" scrollamount="5">
+														<h5 class="fw-bolder">${item.item_name}</h5>
+													</marquee>
+												</c:when>
+												<c:otherwise>
+													<h5 class="fw-bolder">${item.item_name}</h5>
+												</c:otherwise>
+											</c:choose>
+										</div>
+										<div
+											style="height: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+											<!-- Product name-->
+											<c:choose>
+												<c:when test="${fn:length(item.item_content)>15}">
+													<marquee width="100%">
+														<p style="color: gray">${item.item_content}</p>
+													</marquee>
+												</c:when>
+												<c:otherwise>
+													<p style="color: gray">${item.item_content}</p>
+												</c:otherwise>
+											</c:choose>
+										</div>
+
+
+
+
+										<p>
+											<c:choose>
+												<c:when test="${item.item_starsAvg == 5}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+												</c:when>
+												<c:when test="${item.item_starsAvg >= 4.5}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-half"></i>
+												</c:when>
+												<c:when test="${item.item_starsAvg >= 4.0}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${item.item_starsAvg >= 3.5}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-half"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${item.item_starsAvg >= 3.0}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${item.item_starsAvg >= 2.5}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-half"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${item.item_starsAvg >= 2.0}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${item.item_starsAvg >= 1.5}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-half"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${item.item_starsAvg >= 1.0}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${item.item_starsAvg >= 0.5}">
+													<i style="color: orange;" class="bi-star-half"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:otherwise>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:otherwise>
+											</c:choose>
+											<br> <br>
+
+											<!-- Product price-->
+											<c:choose>
+												<c:when test="${item.item_discount == 0.00 }">
+													<fmt:formatNumber value="${item.item_price}" />원<br>
+		                                    &nbsp;
+                                    	</c:when>
+												<c:otherwise>
+													<del>
+														<fmt:formatNumber value="${item.item_price}" />
+														원
+													</del>
+													<br>
+													<fmt:formatNumber
+														value="${item.item_price -(item.item_price * item.item_discount)}" />원
+                                    	</c:otherwise>
+											</c:choose>
+									</div>
+								</div>
+								<!-- Product actions-->
+								<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+									<c:choose>
+										<c:when test="${item.item_quantity != 0}">
+											<%
+												String userid = (String) session.getAttribute("userid");
+											%>
+											<c:set var="userid" value="<%=userid%>" />
+											<div class="text-center">
+												<a class="btn btn-outline-dark mt-auto"><i class="bi-cart-fill me-1"></i>
+												<input type="hidden" name="userid" value="${userid}">
+												<input type="hidden" name="item_quantity" value="${item.item_quantity}">
+												<input type="hidden" name="item_pictureUrl1" value="${item.item_pictureUrl1}">
+												<input type="hidden" name="item_num" value="${item.item_num}">
+												<input type="hidden" name="item_name" value="${item.item_name}">
+												<fmt:parseNumber var="item_price" integerOnly="true" value="${item.item_price -(item.item_price * item.item_discount)}" />
+												<input type="hidden" name="item_price" value="${item_price}">
+												<i class="bi-dash-circle" onclick="count('minus',${item.item_quantity},${item.item_num})"></i>
+												<input type="number" id="${item.item_num}" name="item_cnt" value="1" readonly>
+												<i class="bi-plus-circle" onclick="count('plus',${item.item_quantity},${item.item_num})"></i>
+												<input type="submit" class="form-btn" value="장바구니에 담기" 	onClick="loginCheck()"></a>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="text-center">
+												<br>
+												<a class="btn btn-outline-dark mt-auto">품절된 상품입니다.<br></a>
+												<br>
+												<br>
+											</div>
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+						</div>
+					</form>
+				</c:forEach>
+			</div>
                    </c:when>
                    <c:otherwise>
 				<c:forEach var="item" items="${ilist}">
@@ -507,9 +534,11 @@ function loginCheck() {
                					     <input type="hidden" name="item_name" value="${item.item_name}">
                				     <input type="hidden" name="item_price" value="${item.item_price}">
                				     
-               				     <input type="number" name="item_cnt" value="1" min="1" max="${item.item_quantity}">
-               				     
-               				     
+                    
+                    
+                    <i class="bi-dash-circle" onclick="count('minus',${item.item_quantity},${item.item_num})"></i>
+                    <input type="number"id="${item.item_num}" name="item_cnt" value="1" readonly>
+					<i class="bi-plus-circle" onclick="count('plus',${item.item_quantity},${item.item_num})"></i>
 								 <input type="submit" class="form-btn" value="장바구니에 담기" onClick="loginCheck()"></a></td>
 								 </c:when>
                   				 <c:otherwise>

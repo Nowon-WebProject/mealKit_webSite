@@ -124,10 +124,6 @@ public class ItemListServlet extends HttpServlet {
 		request.setAttribute("pageSize", pageSize);
 		request.setAttribute("currentPage", currentPage);
 		
-		//임시
-		double star = 4.5;
-		request.setAttribute("star", star);
-		
 		Vector<ItemDTO> categoryList = idao.category();
 		request.setAttribute("categoryList", categoryList);
 		

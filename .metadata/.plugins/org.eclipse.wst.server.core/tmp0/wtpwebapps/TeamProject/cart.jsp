@@ -19,21 +19,48 @@ $(document).ready(
 				alert(message);
 			}
 		});
+		
+function count(type,item_quantity,item_num){
+	 var inputValue = parseInt(document.getElementById(item_num).value,10);
+	 
+	 if(type=="minus"){
+		 if(inputValue != 1){
+	 		var result = inputValue -1;
+			 $('input[id='+item_num+']').attr('value',result);
+		 }										
+	 }else{
+		 if(inputValue < item_quantity){
+	 		var result = inputValue +1;
+			 $('input[id='+item_num+']').attr('value',result);
+		 }
+	 }
+	 
+}
+
+		
+		
 </script>
 <style type="text/css">
+input[type='number']{
+    width: 42px;
+} 
+
+
 .cart table {
-	border: 1px solid orange;
-	text-align: center;
-	width: 100%;
+    width: 100%;
+    border-top: 1px solid orange;
+    border-collapse: collapse;
 }
 
 .cart th {
 	background-color: orange;
-	border: 1px solid orange;
+    border-bottom: 1px solid #444444;
+    padding: 10px;
 }
 
 .cart td {
-	border: 1px solid orange;
+    border-bottom: 1px solid #444444;
+    padding: 10px;
 }
 
 .form-btn {
@@ -71,7 +98,7 @@ $(document).ready(
 				<span style="color: gray"> 03 주문완료 </span>
 			</div>
 			<table>
-				<tr style="text-align: center">
+				<tr align="center">
 					<th style="width: 75px">
 						<!-- 이미지  -->
 					</th>
@@ -83,7 +110,7 @@ $(document).ready(
 				</tr>
 				<c:set var="result" value="0" />
 				<c:forEach var="cart" items="${clist}">
-					<tr>
+					<tr align="center">
 						<td>
 							<c:choose>
 							<c:when test="${cart.item_pictureUrl1 == null}">
@@ -103,7 +130,9 @@ $(document).ready(
 						<td>
 							<form action="cartCntModify.do" method="post">
 								<input type="hidden" name="cart_seq" value="${cart.cart_seq}">
-								<input type="number" min="1" max="${cart.item_quantity}" name="item_cnt" size="2" value="${cart.item_cnt}">
+                			    <i class="bi-dash-circle" onclick="count('minus',${cart.item_quantity},${cart.cart_seq})"></i>
+								<input type="number" id="${cart.cart_seq}" name="item_cnt" value="${cart.item_cnt}" readonly>
+								<i class="bi-plus-circle" onclick="count('plus',${cart.item_quantity},${cart.cart_seq})"></i>
 								<input type="submit" value="변경">
 							</form>
 						</td>

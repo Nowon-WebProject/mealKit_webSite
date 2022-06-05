@@ -25,7 +25,7 @@ $(document).ready(
 			function() {
 				
 				var price = $('#price').val();
-				var cnt = $('#cnt').val();
+				var cnt = $('.cnt').val();
 
 				var total_price = price * cnt;
 				$('#total_price').text(
@@ -35,10 +35,11 @@ $(document).ready(
 
 	$(document).ready(
 			function() {
-				$('#cnt').click(
+				$('.bi-dash-circle').click(
 						function() {
+							$('.cnt').focus();
 							var price = $('#price').val();
-							var cnt = $('#cnt').val();
+							var cnt = $('.cnt').val();
 							var total_price = price * cnt;
 							$('#total_price').text(
 									total_price.toString().replace(
@@ -47,10 +48,10 @@ $(document).ready(
 			});
 	$(document).ready(
 			function() {
-				$('#cnt').keyup(
+				$('.bi-plus-circle').click(
 						function() {
 							var price = $('#price').val();
-							var cnt = $('#cnt').val();
+							var cnt = $('.cnt').val();
 							var total_price = price * cnt;
 							$('#total_price').text(
 									total_price.toString().replace(
@@ -58,8 +59,30 @@ $(document).ready(
 						});
 			});
 	
+	
+	function count(type,item_quantity,item_num){
+		 var inputValue = parseInt(document.getElementById(item_num).value,10);
+		 
+		 if(type=="minus"){
+			 if(inputValue != 1){
+		 		var result = inputValue -1;
+				 $('input[id='+item_num+']').attr('value',result);
+			 }										
+		 }else{
+			 if(inputValue < item_quantity){
+		 		var result = inputValue +1;
+				 $('input[id='+item_num+']').attr('value',result);
+			 }
+		 }
+		 
+	}
 </script>
 <style>
+input[type='number']{
+    width: 42px;
+} 
+
+
 .login-container {
 	width: 500px;
 	background-color: #fff;
@@ -184,8 +207,6 @@ $(document).ready(
 	<br>
 	<div style="width: 60%; margin-left: auto; margin-right: auto;"
 		align="center">
-		
-		
 		<div style="width: 60%; float: left;">
 		                        <c:choose>
 						<c:when test="${ilist[0].item_pictureUrl1 == null}">
@@ -206,16 +227,103 @@ $(document).ready(
 					${ilist[0].item_content}
 				</p>
 				 <p>
-                    <i style="color:orange;" class="bi-star-fill"></i>
-                    <i style="color:orange;" class="bi-star-fill"></i>
-                    <i style="color:orange;" class="bi-star-half"></i>
-                    <i style="color:orange;" class="bi-star"></i>
-                    <i style="color:orange;" class="bi-star"></i></p>
+											<c:choose>
+												<c:when test="${ilist[0].item_starsAvg == 5}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+												</c:when>
+												<c:when test="${ilist[0].item_starsAvg >= 4.5}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-half"></i>
+												</c:when>
+												<c:when test="${ilist[0].item_starsAvg >= 4.0}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${ilist[0].item_starsAvg >= 3.5}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-half"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${ilist[0].item_starsAvg >= 3.0}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${ilist[0].item_starsAvg >= 2.5}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-half"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${ilist[0].item_starsAvg >= 2.0}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${ilist[0].item_starsAvg >= 1.5}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-half"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${ilist[0].item_starsAvg >= 1.0}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${ilist[0].item_starsAvg >= 0.5}">
+													<i style="color: orange;" class="bi-star-half"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:otherwise>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:otherwise>
+											</c:choose></p>
 				<hr>
-				<p><fmt:formatNumber value="${ilist[0].item_price}"/>원</p>
+				<c:choose>
+					<c:when test="${ilist[0].item_discount == 0.00 }">
+					<del><p><fmt:formatNumber value="${ilist[0].item_price}"/>원</p></del>
+		                                    &nbsp;
+                                    	</c:when>
+					<c:otherwise>
+						<del>
+							<fmt:formatNumber value="${ilist[0].item_price}" />
+							원
+						</del>
+						<br>
+				<p><h3><fmt:formatNumber value="${ilist[0].item_price -(ilist[0].item_price * ilist[0].item_discount)}"/>원</h3></p>
+                                    	</c:otherwise>
+				</c:choose>
 				<p style="color:green">
 					[구매 혜택 / 적립포인트 (개당) +
-					<fmt:formatNumber value="${ilist[0].item_price*0.05}"/>p]
+					<fmt:formatNumber value="${(ilist[0].item_price -(ilist[0].item_price * ilist[0].item_discount))*0.05}" pattern="#,#00"/>p]
 				</p>
 				<hr>
 				<p>${ilist[0].item_total}인분</p>
@@ -228,13 +336,16 @@ $(document).ready(
 				<input type="hidden" name="item_num" value="${ilist[0].item_num}">
 				<input type="hidden" name="item_pictureUrl1" value="${ilist[0].item_pictureUrl1}">
 				<input type="hidden" name="item_name" value="${ilist[0].item_name}">
-				<input type="hidden" name="item_price"
-					value="${ilist[0].item_price}">
+				<fmt:parseNumber var="item_price" integerOnly="true" value="${ilist[0].item_price -(ilist[0].item_price * ilist[0].item_discount)}" />
+												<input type="hidden" name="item_price" value="${item_price}">
 				<c:choose>
 					<c:when test="${ilist[0].item_quantity != 0}">
 						<p>
-							수량 : <input type="number" name='item_cnt' id="cnt" value="1"
-								min="1" max="${ilist[0].item_quantity}"> <span style="color:gray;font-size:8pt">남은 수량(${ilist[0].item_quantity})</span>
+							수량 : 
+							<i class="bi-dash-circle" onclick="count('minus',${ilist[0].item_quantity},${ilist[0].item_num})"></i>
+							<input type="number" class="cnt" id="${ilist[0].item_num}" name="item_cnt" value="1" readonly>
+							<i class="bi-plus-circle" onclick="count('plus',${ilist[0].item_quantity},${ilist[0].item_num})"></i>
+							<span style="color:gray;font-size:8pt">남은 수량(${ilist[0].item_quantity})</span>
 						</p>
 						<p>누적 판매량 ${ilist[0].item_sales} (취소, 환불건 제외)</p>
 						

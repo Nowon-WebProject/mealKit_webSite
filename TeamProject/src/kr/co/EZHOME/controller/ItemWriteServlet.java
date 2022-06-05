@@ -75,7 +75,7 @@ public class ItemWriteServlet extends HttpServlet {
 		String item_total = multi.getParameter("item_total");
 		String item_time = multi.getParameter("item_time");
 		String item_main = multi.getParameter("item_main");
-		String item_sales = multi.getParameter("item_sales");
+		int item_sales = Integer.parseInt(multi.getParameter("item_sales"));
 		String item_pictureUrl1 = multi.getFilesystemName("item_pictureUrl1");
 		String item_pictureUrl2 = multi.getFilesystemName("item_pictureUrl2");
 

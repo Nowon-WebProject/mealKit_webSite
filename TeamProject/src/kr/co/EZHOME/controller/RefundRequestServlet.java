@@ -55,9 +55,11 @@ public class RefundRequestServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("utf-8");
 
-		String[] a = request.getParameterValues("test[]");
+		String[] a = request.getParameterValues("orderInfo");
 		String order_num = request.getParameter("order_num");
 		
+		String refund_request = request.getParameter("refund_request");
+		System.out.println(refund_request);
 		ItemDAO idao = ItemDAO.getInstance();
 		OrderDAO odao = OrderDAO.getInstance();
 		
@@ -71,13 +73,16 @@ public class RefundRequestServlet extends HttpServlet {
 			int cnt = Integer.parseInt(a2[3]); // item_cnt
 			String deli_status = a2[4]; // item_name
 
-			if (deli_status.equals("결제 완료")) {
+			if (deli_status.equals("결제완료")) {
 				idao.itemQuantityRefund(cnt, num);
 				idao.itemSalesRefund(cnt, num);
 				String status = "취소 완료";
 				odao.modifyRefundStatus(num, status, order_num);
 			}else {
-				odao.addRequest(1, num, order_num);
+				if(refund_request.equals("empty")) {
+					refund_request = request.getParameter("refund_request2");
+				}
+				odao.addRequest(refund_request, num, order_num);
 				String status = "취소 요청 중..";
 				odao.modifyRefundStatus(num, status, order_num);
 			}
@@ -85,7 +90,7 @@ public class RefundRequestServlet extends HttpServlet {
 			
 		}
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("refund.do");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("orderInfo.do");
 		dispatcher.forward(request, response);
 	}
 

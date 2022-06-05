@@ -5,11 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style tyle="text/css">
+<style style="text/css">
 html {
 	position: relative;
 	min-height: 100%;
-	
 }
 
 footer {
