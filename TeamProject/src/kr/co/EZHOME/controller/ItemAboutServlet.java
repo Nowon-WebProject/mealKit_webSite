@@ -48,8 +48,12 @@ public class ItemAboutServlet extends HttpServlet {
 		
 		ItemDAO idao = ItemDAO.getInstance();
 		
+		
+		
 		ArrayList<ItemDTO> ilist = idao.selectItem(item_num); 
 		request.setAttribute("ilist", ilist);
+		
+		
 		
 		
 		RequestDispatcher dispatcher=request.getRequestDispatcher(url);

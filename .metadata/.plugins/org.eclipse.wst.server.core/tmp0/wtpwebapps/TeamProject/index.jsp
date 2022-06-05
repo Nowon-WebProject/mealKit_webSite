@@ -125,29 +125,24 @@ input[type='number'] {
 										</div>
 									</c:when>
 								</c:choose>
+								<a href="itemAbout.do?item_num=${item.item_num}">
 								<c:choose>
 									<c:when test="${item.item_pictureUrl1 == null}">
 										<!-- Product image-->
-										<a href="itemAbout.do?item_num=${item.item_num}">
 										<img class="card-img-top" src="upload/no_image1.jpg" alt="..." />
-										</a>
 									</c:when>
 									<c:otherwise>
 										<c:choose>
 											<c:when test="${item.item_quantity != 0}">
-												<a href="itemAbout.do?item_num=${item.item_num}">
 												<img class="card-img-top" src="upload/${item.item_pictureUrl1}" alt="..." />
-												</a>
 											</c:when>
 											<c:otherwise>
-												<a href="itemAbout.do?item_num=${item.item_num}">
 												<img style="background: #000; opacity: 0.2" class="card-img-top" src="upload/${item.item_pictureUrl1}" alt="..." />
-												</a>
-
 											</c:otherwise>
 										</c:choose>
 									</c:otherwise>
 								</c:choose>
+								</a>
 								<!-- Product details-->
 								<div class="card-body p-4">
 									<div class="text-center">

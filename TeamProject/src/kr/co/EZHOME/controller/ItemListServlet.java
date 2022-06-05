@@ -65,7 +65,6 @@ public class ItemListServlet extends HttpServlet {
 		}
 
 		int count = 0; // 전체 글의 개수 저장
-
 		int currentPage = Integer.parseInt(pageNum);
 		ItemDAO idao = ItemDAO.getInstance();
 		
@@ -119,6 +118,49 @@ public class ItemListServlet extends HttpServlet {
 			}
 
 		}
+		
+		
+
+			if (check.equals("all")) {
+				count = idao.itemSearchCnt(keyword, category, check);
+			} else if (check.equals("best")) {
+				count = idao.itemSearchCnt(keyword, category, check);
+			} else if (check.equals("new")) {
+				count = idao.itemSearchCnt(keyword, category, check);
+			}
+		
+
+		
+			// 전체 페이지 개수 구하기
+			// count: 전체 글 개수, pageSize: 화면에 보여질 총 게시글 개수
+			int pageCount = count / pageSize + (count % pageSize == 0? 0:1);
+		
+			int startPage = 1;
+
+			// 시작 페이지 구하기
+			// currentPage: 현재 페이지
+			if (currentPage % 10 != 0) {
+				startPage = (currentPage / 10) * 10 + 1;
+			} else {		
+				startPage = (currentPage / 10 - 1) * 10 + 1;
+			}
+			
+			// 끝 페이지 구하기
+			int pageBlock = 10;
+			int endPage = startPage + pageBlock - 1;
+			
+			
+			
+			if(endPage > pageCount)
+				endPage = pageCount;
+					
+			
+			
+		
+			request.setAttribute("startPage", startPage);
+			request.setAttribute("pageCount", pageCount);
+			request.setAttribute("endPage", endPage);
+		request.setAttribute("count", count);
 		request.setAttribute("view", view);
 		request.setAttribute("count", count);
 		request.setAttribute("pageSize", pageSize);

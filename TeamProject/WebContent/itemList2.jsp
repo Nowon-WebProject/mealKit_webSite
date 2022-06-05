@@ -132,6 +132,28 @@ function count(type,item_quantity,item_num){
 
 <jsp:include page="nav.jsp"></jsp:include>
 	<%
+		// 화면에 보여질 총 게시글 개수
+		int pageSize = 0;
+		String ps = request.getParameter("pageSize");
+		if (ps == null)
+			pageSize = 12;
+		else
+			pageSize = Integer.parseInt(ps);
+			
+		// 누른 페이지
+		String pageNum = request.getParameter("pageNum");	
+		
+		// 처음엔 1페이지
+		if (pageNum == null)
+			pageNum = "1";
+
+		// 현재 페이지 (누른 페이지 또는 1페이지)
+		int currentPage = Integer.parseInt(pageNum);
+		
+		// 전체 글 개수
+		int count = 0;
+		// 페이지 숫자 세기
+		int number = 0;
 		
 		
 		String check = request.getParameter("check");
@@ -139,14 +161,22 @@ function count(type,item_quantity,item_num){
 		String category = request.getParameter("category");
 		String priceSort = request.getParameter("priceSort");
 		String view = request.getParameter("view");
-		int pageSize = Integer.parseInt(request.getParameter("pageSize"));
-		int count = Integer.parseInt(request.getAttribute("count").toString());
-		int currentPage = Integer.parseInt(request.getAttribute("currentPage").toString());
-		int pageCount = Integer.parseInt(request.getAttribute("pageCount").toString());
-		int endPage = Integer.parseInt(request.getAttribute("endPage").toString());
-		int startPage = Integer.parseInt(request.getAttribute("startPage").toString());
+		ItemDAO idao = ItemDAO.getInstance();
+		System.out.println("카테고리 : "+category);
+		System.out.println("키워드 : "+keyword);
 		
+
+			if (check.equals("all")) {
+				count = idao.itemSearchCnt(keyword, category, check);
+			} else if (check.equals("best")) {
+				count = idao.itemSearchCnt(keyword, category, check);
+			} else if (check.equals("new")) {
+				count = idao.itemSearchCnt(keyword, category, check);
+			}
 		
+		int startRow = (currentPage - 1) * pageSize + 1;
+		int endRow = (currentPage * pageSize);
+
 
 	%>
 				
@@ -513,7 +543,7 @@ function count(type,item_quantity,item_num){
                   				 <c:otherwise>
                   				 <td width="30%">품절된 상품입니다</td>
                					  </c:otherwise>
-							    </c:choose>
+           		                 </c:choose>
                 			</tr>
                 		</table>
                     </form>
@@ -561,6 +591,27 @@ function count(type,item_quantity,item_num){
         <div align="center">
         <h4>
 		<%
+			// 전체 페이지 개수 구하기
+			// count: 전체 글 개수, pageSize: 화면에 보여질 총 게시글 개수
+			int pageCount = count / pageSize + (count % pageSize == 0? 0:1);
+		
+			int startPage = 1;
+
+			// 시작 페이지 구하기
+			// currentPage: 현재 페이지
+			if (currentPage % 10 != 0) {
+				startPage = (currentPage / 10) * 10 + 1;
+			} else {		
+				startPage = (currentPage / 10 - 1) * 10 + 1;
+			}
+			
+			// 끝 페이지 구하기
+			int pageBlock = 10;
+			int endPage = startPage + pageBlock - 1;
+			
+			if(endPage > pageCount)
+				endPage = pageCount;
+					
 			// 아래는 페이지 표시 과정
 
 			if (startPage > 10) {
