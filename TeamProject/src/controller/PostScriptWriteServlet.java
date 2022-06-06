@@ -63,6 +63,8 @@ public class PostScriptWriteServlet extends HttpServlet {
 		PostScriptVO pVo = new PostScriptVO();
 		pVo.setPost_subject(post_subject);
 		pVo.setPost_writer(post_writer);
+		pVo.setPost_help(0);
+		pVo.setPost_hits(0);
 		pVo.setPost_stars(post_stars);
 		pVo.setPost_content(post_content);
 		pVo.setPost_image(post_image);
@@ -70,7 +72,7 @@ public class PostScriptWriteServlet extends HttpServlet {
 		PostScriptDAO pDao = PostScriptDAO.getInstance();
 		pDao.insertPostScript(pVo);
 
-		response.sendRedirect("postScript2.jsp");
+		response.sendRedirect("post/postScript2.jsp");
 	}
 
 }

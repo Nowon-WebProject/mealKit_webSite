@@ -52,3 +52,16 @@ function display(id) {
 		openClose.style.display = 'none';
 	}
 }
+
+// 이 화면 그대로 조회수만 1씩 늘어나게 하기 나중에 할 것
+function displayUpdate(id, post_num) {
+	var openClose = document.getElementById(id, post_num);
+	if (openClose.style.display == 'none') {
+		openClose.style.display = '';
+		
+		var url = "updateHits.jsp?post_num=" + post_num;
+		window.open(url,"_blank_1", "width=400, height=300, menubar=no, resizable=no, scrollbars=yes, toolbar=no");
+	} else {
+		openClose.style.display = 'none';
+	}
+}

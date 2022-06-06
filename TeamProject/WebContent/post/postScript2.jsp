@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="../css/shopping.css">
-<script type="text/javascript" src="../js/item.js?var=6"></script>
+<script type="text/javascript" src="../js/item.js?var=2"></script>
 <body>
 	<%
 		// 화면에 보여질 게시글 개수 7개로 고정한 버전
@@ -30,7 +30,7 @@
 				
 				// 전체 글 개수
 				int count = 0;
-				// 페이지 숫자 세기
+				// 현재 페이지의 시작 게시글 번호
 				int number = 0;
 				
 				PostScriptDAO pDao = PostScriptDAO.getInstance();
@@ -51,6 +51,9 @@
 					order = "1";
 	
 				List<PostScriptVO> list = pDao.selectAllPostScripts(startRow, endRow, order);
+	
+				// 현재 페이지의 시작 게시글 번호 받기
+				number = count - (currentPage - 1) * pageSize;
 	%>
 	<div id="wrap" style="width: 800px" align="center">
 		<h3>후기</h3>
@@ -98,8 +101,9 @@
 			</tr>
 			<c:forEach var="post" items="<%=list %>">
 				<tr>
-					<td>${post.post_num}</td>
-					<td onclick="javascript:display('js_detail${post.post_num}')">${post.post_subject}</td>
+					<td><%=number-- %></td>
+					<%-- 이 화면 그대로 조회수만 1씩 늘어나게 하기 나중에 할 것 --%>
+					<td onclick="javascript:displayUpdate('js_detail${post.post_num}', '${post.post_num}')">${post.post_subject}</td>
 					<td>${post.post_writer}</td>
 					<td>${post.post_date}</td>
 					<td>${post.post_help}</td>
@@ -107,12 +111,12 @@
 					<td>${post.post_stars}</td>
 				</tr>
 				<tr id="js_detail${post.post_num}" style="display: none;">
-					<td colspan="7">${post.post_content}</td>
+					<td colspan="7"><img src="../images/product/${post.post_image}">&nbsp;${post.post_content}</td>
 				</tr>
 			</c:forEach>
 			<tr>
 				<td colspan="7" id="js_detail_write" style="display: none;">
-					<form action="postWrite.do" method="post" enctype="multipart/form-data">
+					<form action="../postWrite.do" method="post" enctype="multipart/form-data">
 						<table>
 							<tr>
 								<th>제목:</th>
@@ -149,8 +153,8 @@
 								<td colspan="2">
 									<input type="submit" value="작성하기">&nbsp;&nbsp;&nbsp;&nbsp;
 									<input type="reset" value="다시 쓰기">
-									<%-- 나중에 value 값에 로그인한 계정의 아이디로 수정할 것 --%>
-									<input type="hidden" value="${pVo.userid}" name="post_writer">
+									<%-- 나중에 value 값을 로그인한 계정의 아이디로 바꿀 것 --%>
+									<input type="hidden" value="id" name="post_writer">
 								</td>
 							</tr>
 						</table>
