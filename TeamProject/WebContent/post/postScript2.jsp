@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="../css/shopping.css">
-<script type="text/javascript" src="../js/item.js?var=2"></script>
+<script type="text/javascript" src="../js/item.js?var=4"></script>
 <body>
 	<%
 		// 화면에 보여질 게시글 개수 7개로 고정한 버전
@@ -111,7 +111,11 @@
 					<td>${post.post_stars}</td>
 				</tr>
 				<tr id="js_detail${post.post_num}" style="display: none;">
-					<td colspan="7"><img src="../images/product/${post.post_image}">&nbsp;${post.post_content}</td>
+					<td colspan="7">
+						<img src="../images/product/${post.post_image}">&nbsp;
+						${post.post_content}
+						<input type="button" value="지우기" onclick="javascript:deleteOK('${post.post_num}')">
+					</td>
 				</tr>
 			</c:forEach>
 			<tr>

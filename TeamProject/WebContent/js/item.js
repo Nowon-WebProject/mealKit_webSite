@@ -65,3 +65,12 @@ function displayUpdate(id, post_num) {
 		openClose.style.display = 'none';
 	}
 }
+
+function deleteOK(post_num) {
+	var result = confirm("정말 후기를 삭제하시겠습니까?");
+	
+	if (result == true) {
+		location.href = "../post/postDelete.jsp?post_num=" + post_num;
+	}
+	
+}

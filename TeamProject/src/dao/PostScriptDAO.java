@@ -170,54 +170,24 @@ public class PostScriptDAO {
 		return result;
 	}
 
+	public void deletePostScript(String post_num) {
+		String sql = "delete from postScript where post_num=?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, post_num);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt);
+		}
+	}
+
 	/*
-	public void updateItem(PostScriptVO pVo) {
-		String sql = "update item set item_pictureUrl1=?, item_pictureUrl2=?, item_category=?, item_name=?, item_content=?, item_price=?, item_quantity=?, item_date=?, item_total=?, item_time=?, item_main=?, item_sales=? where item_num=?";
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			conn = DBManager.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, pVo.getItem_pictureUrl1());
-			pstmt.setString(2, pVo.getItem_pictureUrl2());
-			pstmt.setString(3, pVo.getItem_category());
-			pstmt.setString(4, pVo.getItem_name());
-			pstmt.setString(5, pVo.getItem_content());
-			pstmt.setInt(6, pVo.getItem_price());
-			pstmt.setInt(7, pVo.getItem_quantity());
-			pstmt.setString(8, new SimpleDateFormat("yy/MM/dd").format(new Date()));
-			pstmt.setString(9, pVo.getItem_total());
-			pstmt.setString(10, pVo.getItem_time());
-			pstmt.setString(11, String.valueOf(pVo.getItem_main()));
-			pstmt.setInt(12, pVo.getItem_sales());
-			pstmt.setInt(13, pVo.getItem_num());
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			DBManager.close(conn, pstmt);
-		}
-
-	}
-
-	public void deleteItem(String item_num) {
-		String sql = "delete from item where item_num=?";
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			conn = DBManager.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, item_num);
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			DBManager.close(conn, pstmt);
-		}
-	}
-
 	public void deleteAllItems() {
 		String sql1 = "delete from item";
 		String sql2 = "drop sequence item_seq";
