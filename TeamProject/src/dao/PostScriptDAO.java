@@ -150,24 +150,38 @@ public class PostScriptDAO {
 		}
 	}
 	
-	public int updateHits(int post_num) {
+	public void updateHits(int post_num) {
 		String sql = "update postScript set post_hits=post_hits+1 where post_num=?";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		int result = 0;
 		
 		try {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, post_num);
-			result = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DBManager.close(conn, pstmt);
 		}
+	}
+	
+	public void updateHelp(int post_num) {
+		String sql = "update postScript set post_help=post_help+1 where post_num=?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
 		
-		return result;
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, post_num);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt);
+		}
 	}
 
 	public void deletePostScript(String post_num) {

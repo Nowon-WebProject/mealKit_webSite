@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="../css/shopping.css">
-<script type="text/javascript" src="../js/item.js?var=4"></script>
+<script type="text/javascript" src="../js/item.js"></script>
 <body>
 	<%
 		// 화면에 보여질 게시글 개수 7개로 고정한 버전
@@ -102,7 +102,8 @@
 			<c:forEach var="post" items="<%=list %>">
 				<tr>
 					<td><%=number-- %></td>
-					<%-- 이 화면 그대로 조회수만 1씩 늘어나게 하기 나중에 할 것 --%>
+					<%-- 나중에 새 창을 띄워서 내용을 보여 주던가,
+						 아니면 화면 안 바뀌고 조회수만 1씩 늘어나게 할 것 --%>
 					<td onclick="javascript:displayUpdate('js_detail${post.post_num}', '${post.post_num}')">${post.post_subject}</td>
 					<td>${post.post_writer}</td>
 					<td>${post.post_date}</td>
@@ -112,9 +113,12 @@
 				</tr>
 				<tr id="js_detail${post.post_num}" style="display: none;">
 					<td colspan="7">
-						<img src="../images/product/${post.post_image}">&nbsp;
-						${post.post_content}
-						<input type="button" value="지우기" onclick="javascript:deleteOK('${post.post_num}')">
+						<img src="../images/product/${post.post_image}">&nbsp;&nbsp;
+						<div>${post.post_content}</div>
+						<input type="button" value="도움됐어요" onclick="javascript:helpful('${post.post_num}')">
+						<br>
+						<%-- 나중에 로그인한 아이디(userid)와 연결할 것 --%>
+						<input type="button" value="지우기" onclick="javascript:deleteOK('${post.post_num}', '${post.post_writer}', '${userid}')">
 					</td>
 				</tr>
 			</c:forEach>

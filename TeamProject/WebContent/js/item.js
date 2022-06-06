@@ -53,24 +53,35 @@ function display(id) {
 	}
 }
 
-// 이 화면 그대로 조회수만 1씩 늘어나게 하기 나중에 할 것
+// 나중에 새 창을 띄워서 내용을 보여 주던가,
+// 아니면 화면 안 바뀌고 조회수만 1씩 늘어나게 할 것
 function displayUpdate(id, post_num) {
-	var openClose = document.getElementById(id, post_num);
+	var openClose = document.getElementById(id);
 	if (openClose.style.display == 'none') {
 		openClose.style.display = '';
-		
+
 		var url = "updateHits.jsp?post_num=" + post_num;
-		window.open(url,"_blank_1", "width=400, height=300, menubar=no, resizable=no, scrollbars=yes, toolbar=no");
+		window.open(url, "_blank_1", "width=400, height=300, menubar=no, resizable=no, scrollbars=yes, toolbar=no");
 	} else {
 		openClose.style.display = 'none';
 	}
 }
 
-function deleteOK(post_num) {
-	var result = confirm("정말 후기를 삭제하시겠습니까?");
+function helpful(post_num) {
+	alert("도움된 후기예요!");
 	
-	if (result == true) {
-		location.href = "../post/postDelete.jsp?post_num=" + post_num;
+	location.href = "../post/updateHelp.jsp?post_num=" + post_num;
+}
+
+function deleteOK(post_num, post_writer, userid) {
+	if (post_writer == userid) {
+		var result = confirm("정말 후기를 삭제하시겠습니까?");
+
+		if (result == true) {
+			location.href = "../post/postDelete.jsp?post_num=" + post_num;
+		}
+	} else {
+		alert("이 후기는 다른 사람이 쓴 거예요!");
 	}
-	
+
 }
