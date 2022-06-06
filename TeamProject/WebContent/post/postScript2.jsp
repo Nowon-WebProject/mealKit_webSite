@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="../css/shopping.css">
+<link rel="stylesheet" type="text/css" href="../css/shopping.css?var=8">
 <script type="text/javascript" src="../js/item.js"></script>
 <body>
 	<%
@@ -69,8 +69,6 @@
 								<option value="postScript2.jsp?order=3">조회많은순</option>
 							</select>
 						</c:when>
-					</c:choose>
-					<c:choose>
 						<c:when test="${order == 2}">
 							<select onchange="window.open(value, '_self');">
 								<option value="postScript2.jsp?order=1">최근등록순</option>
@@ -78,8 +76,6 @@
 								<option value="postScript2.jsp?order=3">조회많은순</option>
 							</select>
 						</c:when>
-					</c:choose>
-					<c:choose>
 						<c:when test="${order == 3}">
 							<select onchange="window.open(value, '_self');">
 								<option value="postScript2.jsp?order=1">최근등록순</option>
@@ -109,11 +105,52 @@
 					<td>${post.post_date}</td>
 					<td>${post.post_help}</td>
 					<td>${post.post_hits}</td>
-					<td>${post.post_stars}</td>
+					<td>
+					<!-- 별 그림 출처: https://hwasin.tistory.com/9 -->
+						<c:set var="stars" value="${post.post_stars}"/>
+						<c:choose>
+							<c:when test="${stars == 0}">
+								☆
+							</c:when>
+							<c:when test="${stars > 0 and stars < 0.5}">
+								<img class="stars" src="../images/stars/0.5.jpeg">
+							</c:when>
+							<c:when test="${stars >= 0.5 and stars < 1}">
+								<img class="stars" src="../images/stars/1.0.jpeg">
+							</c:when>
+							<c:when test="${stars >= 1 and stars < 1.5}">
+								<img class="stars" src="../images/stars/1.5.jpeg">
+							</c:when>
+							<c:when test="${stars >= 1.5 and stars < 2}">
+								<img class="stars" src="../images/stars/2.0.jpeg">
+							</c:when>
+							<c:when test="${stars >= 2 and stars < 2.5}">
+								<img class="stars" src="../images/stars/2.5.jpeg">
+							</c:when>
+							<c:when test="${stars >= 2.5 and stars < 3}">
+								<img class="stars" src="../images/stars/3.0.jpeg">
+							</c:when>
+							<c:when test="${stars >= 3 and stars < 3.5}">
+								<img class="stars" src="../images/stars/3.5.jpeg">
+							</c:when>
+							<c:when test="${stars >= 3.5 and stars < 4}">
+								<img class="stars" src="../images/stars/4.0.jpeg">
+							</c:when>
+							<c:when test="${stars >= 4 and stars < 4.5}">
+								<img class="stars" src="../images/stars/4.5.jpeg">
+							</c:when>
+							<c:when test="${stars >= 4.5 and stars <= 5}">
+								<img class="stars" src="../images/stars/5.0.jpeg">
+							</c:when>
+						</c:choose>
+					</td>
 				</tr>
 				<tr id="js_detail${post.post_num}" style="display: none;">
 					<td colspan="7">
-						<img src="../images/product/${post.post_image}">&nbsp;&nbsp;
+						<c:set var="image" value="${post.post_image}"/>
+						<c:if test="${image != null}">
+							<img src="../images/product/${post.post_image}">&nbsp;&nbsp;
+						</c:if>
 						<div>${post.post_content}</div>
 						<input type="button" value="도움됐어요" onclick="javascript:helpful('${post.post_num}')">
 						<br>
@@ -134,8 +171,7 @@
 								<th>평점:</th>
 								<td>
 									<select name="post_stars">
-										<option value="0">☆</option>
-										<%-- <option value="0.5">https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbYnQ6Y%2FbtqKhk79oyc%2FhmcUi1S0B9V8DMKMeLT3tk%2Fimg.jpg</option> --%>
+										<option value="0">0</option>
 										<option value="0.5">0.5</option>
 										<option value="1.0">1.0</option>
 										<option value="1.5">1.5</option>
