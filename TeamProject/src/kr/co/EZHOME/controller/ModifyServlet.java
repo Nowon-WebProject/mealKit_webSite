@@ -60,8 +60,8 @@ public class ModifyServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String userid = request.getParameter("userid");
 		String pwd = request.getParameter("pwd");
- 		String email=request.getParameter("email")+"@"+request.getParameter("eMailSite");
-		String addr= "("+request.getParameter("addr")+") "+ request.getParameter("addr1") +", "+ request.getParameter("addr2");
+ 		String email=request.getParameter("email1")+"@"+request.getParameter("eMailSite");
+ 		String addr= "("+request.getParameter("addr")+") "+ request.getParameter("addr1") +", "+ request.getParameter("addr2");
 		String name=request.getParameter("name");
 		String phone=request.getParameter("phone");
 		
@@ -85,7 +85,7 @@ public class ModifyServlet extends HttpServlet {
 			session.setAttribute("id", udto.getUserid());
 			session.setAttribute("pwd",udto.getPwd());
 			session.setAttribute("birth", udto.getBirth());
-			session.setAttribute("email",udto.getEmail());			 
+			session.setAttribute("email",udto.getEmail());	
 			session.setAttribute("phone",udto.getPhone());
 			session.setAttribute("rdate", udto.getRegistDate());
 			session.setAttribute("addr", udto.getAddr());

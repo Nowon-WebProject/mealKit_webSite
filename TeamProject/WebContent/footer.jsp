@@ -13,15 +13,14 @@ html {
 	
 }
 footer {
-	position: absolute;
-	left: 0;
-	padding-bottom:150;
-	width: 100%;
-	padding: 50px;
-	text-align: center;
-	color: white;
-	background-color: #FD7E14;
-	
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 50px;
+    text-align: center;
+    color: white;
+    background-color: #fd7e14;
 }
 
 </style>

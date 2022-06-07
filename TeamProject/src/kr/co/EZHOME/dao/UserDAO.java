@@ -243,5 +243,71 @@ public class UserDAO {
 		return result;
 	}
 	
+	
+	public int deleteMember(String userid) {
+		 int result=1;
+		 String sql= "delete from usertbl where userid=?";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+			
+	        try {
+	        	conn=getConnection();
+	            pstmt = conn.prepareStatement(sql);
+	            pstmt.setString(1, userid);
+	            pstmt.executeUpdate();
+	            if(result==1) {
+	            	System.out.println("삭제완료"+result);
+	            }else{
+	            	System.out.println("삭제안됨"+result);
+	            }
+	        }catch(Exception e) {
+	            e.printStackTrace();
+	        }
+	        return result;
+	    }
+	
+	
+	public UserDTO selectProductByUserid(String userid) {
+		UserDTO udto=null;
+		String sql="select * from usertbl where userid=?";
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1,userid);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				udto.setName(rs.getString("name"));
+				udto.setUserid(rs.getString("userid"));
+				udto.setPwd(rs.getString("pwd"));
+				udto.setBirth(rs.getString("birth"));
+				udto.setEmail(rs.getString("email"));
+				udto.setPhone(rs.getString("phone"));
+				udto.setAddr(rs.getString("addr"));
+				udto.setDeliAddr(rs.getString("deli"));
+				udto.setPoint(rs.getInt("point"));
+				udto.setAdmin(rs.getInt("admin"));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null)
+					pstmt.close();
+				if(conn != null)
+					conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return udto;
+	}
 
 }

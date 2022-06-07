@@ -178,11 +178,11 @@ function check() {
         alert("이메일을 입력해주세요.");
         document.frm.email.focus();
         return false;
-    } if (document.frm.eMailForm.option.getElementById("직접입력").value=="" || document.frm.eMailForm.option.value=="") {	
+    } if(document.frm.eMailForm.options[document.frm.eMailForm.selectedIndex].getElementById("선택하세요").value=="" || document.frm.eMailForm.option.value=="") {	
        alert("이메일사이트를 입력해주세요.");
        document.frm.eMailForm.focus();
        	return false;
-    }if(document.frm.eMailSite.value="선택하세요"){
+    }if(document.frm.eMailSite.value=""){
     	alert("이메일 사이트를 선택해주세요.")
     	document.frm.eMailSite.focus();
     	return false;
@@ -211,14 +211,14 @@ function check() {
 /*
 function em_submit() {
       var text = document.getElementByEmail('text').value;
-      var frmEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z]);
-      if (frmEmail.test(text) === true) {
+      var Email = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z]);
+      if (frm.Email.test(text) === true) {
 
     	  	return true;
 	      }
       }
- */
-      
+*/ 
+    
 // 핸드폰 - 자동기능
 function mobile_keyup(obj){
     let mobile_len=obj.value.length;
@@ -231,14 +231,20 @@ function mobile_keyup(obj){
     }
 }
 
-/*var pattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-var pattern = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
-var pattern = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]+$/;
-var pattern = new RegExp(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]+$/);
-return pattern.test(obj.value);
-return (obj.value.match(pattern) != null);*/
+/*function deleteCheck(){
+	var deleteCheck; 
+	 //페이지 이동 전 confirm() 사용해 다시 한 번 확인하기. // confirm() : yes, no 확인 창
+	deleteCheck=confirm("정말 탈퇴하시겠습니까?");
+	// 확인 선택 시, deleteCheck에 true, 취소 선택 시 false
+	if(deleteCheck==true){
+		location="delete.jsp";
+	}
+	
+}*/
 
 
 
- 
+
+
+
 

@@ -14,16 +14,16 @@ import kr.co.EZHOME.dao.UserDAO;
 import kr.co.EZHOME.dto.UserDTO;
 
 /**
- * Servlet implementation class ModifyOkServlet
+ * Servlet implementation class DeleteOkServlet
  */
-@WebServlet("/modifyOK.do")
-public class ModifyOkServlet extends HttpServlet {
+@WebServlet("/DeleteOk.do")
+public class DeleteOkServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ModifyOkServlet() {
+    public DeleteOkServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,8 +34,7 @@ public class ModifyOkServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		RequestDispatcher dispatcher = request.getRequestDispatcher("modifyOK.jsp");
-		dispatcher.forward(request, response);
+		
 	}
 
 	/**
@@ -44,9 +43,9 @@ public class ModifyOkServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
 		
-		
-		String url = "modifyOK.jsp";
+		String url = "deleteOK.jsp";
 		String userid = request.getParameter("userid");
 		String pwd = request.getParameter("pwd");
 
@@ -75,7 +74,7 @@ public class ModifyOkServlet extends HttpServlet {
 			session.setAttribute("result", result);
 			
 			request.setAttribute("message", "로그인 되었습니다.");
-			url="modify.jsp";
+			url="deleteTerms.jsp";
 		} else if (result == 0) {
 			request.setAttribute("message", "비밀번호가 맞지 않습니다.");
 		} 
@@ -85,4 +84,6 @@ public class ModifyOkServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
  
+
+
 }

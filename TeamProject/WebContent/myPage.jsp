@@ -7,9 +7,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>이젠, 집에서 | 회원가입</title>
+<title>이젠, 집에서 | 마이페이지</title>
 <link href="css/styles.css" rel="stylesheet" />
-
+<style>
+body{
+	clear:both;
+}
+.mypage{
+	text-align:center:
+}
+</style>
 </head>
 <body>
 <%
@@ -18,18 +25,18 @@
 	UserDTO udto=udao.getMember(id);
 	
 %>
-<jsp:include page="nav.jsp"></jsp:include>
-<jsp:include page="side.jsp"></jsp:include>
-	
-	<div align="center">
+<%-- <jsp:include page="nav.jsp"></jsp:include>
+<jsp:include page="side.jsp"></jsp:include> --%>
+
+	<div class="mypage">
+	<br>
+	<script>
+	 alert("${loginUser.name}님 안녕하세요!");
+	</script>
 	<br>
 	<br>
-	<%= session.getAttribute("name")%>님 안녕하세요<br>
-	
-	<input type="submit" value="회원정보수정" onclick="location.href='modifyOK.jsp'">&nbsp;&nbsp;&nbsp;
-	<input type="button" value="회원탈퇴"><a href = "delete.jsp"></a>
-	
+	<jsp:include page="modifyOK.jsp"></jsp:include>
 	</div>
-<jsp:include page="footer.jsp"></jsp:include>
+<%-- <jsp:include page="footer.jsp"></jsp:include> --%>
 </body>
 </html>

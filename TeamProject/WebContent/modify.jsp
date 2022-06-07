@@ -6,19 +6,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원정보수정</title>
-<script type="text/javascript" src="/TeamProject/js/member.js?version=95"></script>
+<title>이젠, 집에서 | 회원정보수정</title>
+<script type="text/javascript" src="/TeamProject/js/member.js?version=96"></script>
 <link href="css/styles.css" rel="stylesheet" />
 </head>
 <body>
 <jsp:include page="nav.jsp"></jsp:include>
-<%-- <jsp:include page="side.jsp"></jsp:include> --%>
+<jsp:include page="side.jsp"></jsp:include>
 	<br><br><br><br><br>
 <!-- 정보  -->	
 	<%
 	String id=(String)session.getAttribute("id");
 	UserDAO udao=UserDAO.getInstance();
 	UserDTO udto=udao.getMember(id);
+	/* String email1=request.getParameter("email1"); */
 	
 	%>
 <!-- 주소 api -->
@@ -27,15 +28,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <form action="Modify.do" method="post" name="frm">	
-	<br><br><br><br><br>
 		<div id="wrap" align="center">	
 		<h3><b><i class="bi bi-brush"></i> 개인 정보 수정</b></h3><br>
-		<p>
 		<hr>
-		<br><br>
+		<br>
 		<table>
 			<tr>
-				<td>이름<span style="color:red"> <i class="bi bi-check-lg"></i> </span>	</td>
+				<td>이름 <i class="bi bi-check-lg" style="color:red"></i></td>
 				<td><input type="text" name="name" size="20" value="<%=udto.getName() %>"><br>
 				<!-- <span> 숫자, 특수문자 입력 불가 </span> -->
 				</td>
@@ -46,8 +45,6 @@
 				<td><%=udto.getUserid() %>
 				<input type="hidden" name="userid" value="<%=udto.getUserid() %>"><br></td>
 			</tr>
-			
-			
 			<!-- <tr>
 				<td>현재 비밀번호</td>
 				<td><input type="password" name="pwd" value="" size="20"><br></td>
@@ -55,17 +52,18 @@
 			
 			
 			<tr><!--"word-break:nowrap" 사용하면 한 줄로 표현 가능한데 안 먹힘...  -->
-				<td>새로운 비밀번호<span style="color:red"> <i class="bi bi-check-lg"></i> </span></td>
+				<td>새로운 비밀번호 <i class="bi bi-check-lg" style="color:red"></i></td>
 				<td><input type="password" name="pwd" size="20" placeholder="비밀번호를 입력하시오" ></td>
 			</tr>
 			<tr height="30">
-				<td width="80">비밀번호 확인<span style="color:red"> * </span></td>
+				<td width="80">비밀번호 확인 <i class="bi bi-check-lg" style="color:red"></i></td>
 				<td><input type="password" name="pwd_check" size="20"></td>
 			</tr>
 
 			<tr>
-				<td>이메일<span style="color:red"> <i class="bi bi-check-lg"></i> </span></td>
-				<td><input type="text" name="email" value=""> @ <input type="text" name="eMailSite" value="" readonly>
+				<td>이메일</td>
+				<td><input type="text" name="email1" value=""> @ <input type="text" name="eMailSite" value="" readonly>
+				<%-- <input type="hidden" name="email1" value="<%=email1%>"> --%>
 					<select	id="eMailForm" name="eMailForm" size="1" onchange="email_check()">
 						<option value="">선택하세요</option>
 						<option value="naver.com">naver.com</option>
@@ -76,19 +74,17 @@
 						<option value="gmail.com">gmail.com</option>
 						<option id="직접입력">직접입력</option>
 					</select>
-					<span class="1">숫자, 영어, 한글 사용가능</span></td>
 				</tr>
-
 				<tr>
-				<td><span class="form-label">전화번호</span><span style="color:red"><i class="bi bi-check-lg"></i> </span></td>
+				<td><!-- <span class="form-label"> -->전화번호<!-- </span> --></td>
 				<td><input type="text" name="phone" onkeyup="mobile_keyup(this)" size="20" value="<%=udto.getPhone() %>" ><br></td>
 			</tr>
 			<tr>
-				<td>주소<span style="color:red"> <i class="bi bi-check-lg"></i> </span></td>
+				<td>주소 <i class="bi bi-check-lg" style="color:red"></i></td>
 				<td>
 				<input type="text" name="addr" id="sample4_postcode" placeholder="우편번호" >
 				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-				<input type="text"  name="addr1" id="sample4_roadAddress" placeholder="도로명주소">
+				<input type="text"  name="addr1" id="sample4_roadAddress" value="" placeholder="도로명주소">
 				<input type="hidden" name="1" id="sample4_jibunAddress" placeholder="지번주소"><br>
 				<span id="guide" id="deli1" style="color:#999;display:none"></span> <!-- 예상주소 -->
 				<input type="text" name="addr2" id="sample4_detailAddress" placeholder="상세주소" size="60"><br>

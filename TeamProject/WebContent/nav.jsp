@@ -37,12 +37,12 @@
 	%>
 
 	
-	이름<%=name%><br>
+	<%-- 이름<%=name%><br>
 	아이디<%=id%><br>
 	비밀번호<%=pw%><br>
 	이메일<%=email%><br>
 	전화번호<%=phone%><br>
-	권한<%=admin%><br>
+	권한<%=admin%><br> --%>
 	
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">

@@ -105,10 +105,9 @@ li {
 	<div id="wrap">
 	<div class="table" align="center">
 		<div class="table-cell">
-			<form action="modifyOK.do" method="post" name="frm">
+			<form action="DeleteOk.do" method="post" name="frm">
 				<div class="login-container">
-				<br>
-					<h3 class="login--title">회원정보 수정</h3>
+					<h3 class="login--title"><i class="bi bi-exclamation-triangle-fill"></i> 회원탈퇴</h3>
 					<br>
 					<br>
 					<h4 align="left">비밀번호 재확인</h4>
@@ -123,7 +122,7 @@ li {
 					<div align="left"><label class=form-input--title for="pwd">비밀번호</label></div>
 					<input type="password" id="userid" name="pwd" class="form-input">
 					<div style="color:red"><Strong>${message}</Strong></div>
-					<input type="submit" class="form-btn" value="로그인" id="login" onclick="location.href='modify.jsp'">
+					<input type="submit" class="form-btn" value="로그인" id="login" onclick="location.href='deleteTerms.jsp'">
 					<br>
 				</div>
 			</form>
