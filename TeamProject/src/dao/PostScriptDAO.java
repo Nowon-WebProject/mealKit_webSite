@@ -128,7 +128,7 @@ public class PostScriptDAO {
 	}
 	
 	public void insertPostScript(PostScriptVO pVo) {
-		String sql = "insert into postScript values(postScript_seq.nextval, ?, ?, sysdate, ?, ?, ?, ?, ?)";
+		String sql = "insert into postScript values(postScript_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -137,11 +137,12 @@ public class PostScriptDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, pVo.getPost_subject());
 			pstmt.setString(2, pVo.getPost_writer());
-			pstmt.setInt(3, pVo.getPost_help());
-			pstmt.setInt(4, pVo.getPost_hits());
-			pstmt.setDouble(5, pVo.getPost_stars());
-			pstmt.setString(6, pVo.getPost_content());
-			pstmt.setString(7, pVo.getPost_image());
+			pstmt.setString(3, pVo.getPost_date());
+			pstmt.setInt(4, pVo.getPost_help());
+			pstmt.setInt(5, pVo.getPost_hits());
+			pstmt.setDouble(6, pVo.getPost_stars());
+			pstmt.setString(7, pVo.getPost_content());
+			pstmt.setString(8, pVo.getPost_image());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -63,6 +65,7 @@ public class PostScriptWriteServlet extends HttpServlet {
 		PostScriptVO pVo = new PostScriptVO();
 		pVo.setPost_subject(post_subject);
 		pVo.setPost_writer(post_writer);
+		pVo.setPost_date(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		pVo.setPost_help(0);
 		pVo.setPost_hits(0);
 		pVo.setPost_stars(post_stars);

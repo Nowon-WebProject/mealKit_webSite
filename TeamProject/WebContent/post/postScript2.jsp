@@ -197,7 +197,7 @@
 								<td colspan="2">
 									<input type="submit" value="작성하기">&nbsp;&nbsp;&nbsp;&nbsp;
 									<input type="reset" value="다시 쓰기">
-									<%-- 나중에 value 값을 로그인한 계정의 아이디로 바꿀 것 --%>
+									<%-- 나중에 value 값을 로그인한 계정의 아이디로 바꿀 것 (ex. ${id}) --%>
 									<input type="hidden" value="id" name="post_writer">
 								</td>
 							</tr>
