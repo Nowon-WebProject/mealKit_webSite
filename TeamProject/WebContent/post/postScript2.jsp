@@ -98,7 +98,7 @@
 			<c:forEach var="post" items="<%=list %>">
 				<tr>
 					<td><%=number-- %></td>
-					<td class="title" onclick="javascript:displayUpdate('js_detail${post.post_num}', '${post.post_num}')">${post.post_subject}</td>
+					<td class="title" onclick="javascript:displayContent('js_detail${post.post_num}', '${post.post_num}')">${post.post_subject}</td>
 					<td>${post.post_writer}</td>
 					<td>${post.post_date}</td>
 					<td>${post.post_help}</td>
@@ -145,7 +145,7 @@
 				</tr>
 				<tr id="js_detail${post.post_num}" style="display: none;">
 					<td colspan="7">
-						<div>${post.post_content}</div>
+						<div style="width: 75%; margin: 0 auto;">${post.post_content}</div>
 						<input type="button" value="도움됐어요" onclick="javascript:helpful('${post.post_num}')">
 						<br>
 						<%-- 나중에 로그인한 아이디(userid 등)와 연결할 것 --%>
@@ -159,7 +159,7 @@
 						<table>
 							<tr>
 								<th>제목:</th>
-								<td><input type="text" name="post_subject" size="30"></td>
+								<td><input type="text" name="post_subject" size="40" maxlength="25"></td>
 							</tr>
 							<tr>
 								<th>평점:</th>

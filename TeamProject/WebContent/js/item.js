@@ -53,7 +53,7 @@ function displayWrite(id) {
 	}
 }
 
-function displayUpdate(id, post_num) {
+function displayContent(id, post_num) {
 	var openClose = document.getElementById(id);
 	if (openClose.style.display == 'none') {
 		openClose.style.display = '';

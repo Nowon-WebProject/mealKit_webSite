@@ -46,7 +46,7 @@ img {
 		</tr>
 		<tr style="height:90px;">
 			<td><%=pVo.getPost_content()%></td>
-			<td style="text-align:right; vertical-align: bottom;">
+			<td style="width:20%; text-align:right; vertical-align: bottom;">
 				조회: <%=pVo.getPost_hits()%>
 				<br>
 				작성일: <%=pVo.getPost_date()%>
