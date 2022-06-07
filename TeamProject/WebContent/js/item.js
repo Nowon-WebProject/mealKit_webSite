@@ -55,13 +55,15 @@ function display(id) {
 
 // 나중에 새 창을 띄워서 내용을 보여 주던가,
 // 아니면 화면 안 바뀌고 조회수만 1씩 늘어나게 할 것
-function displayUpdate(id, post_num) {
+function displayUpdate(id, post_num, post_image) {
 	var openClose = document.getElementById(id);
 	if (openClose.style.display == 'none') {
 		openClose.style.display = '';
-
-		var url = "postScriptContent.jsp?post_num=" + post_num;
-		window.open(url, "_blank_1", "width=800, height=600, menubar=no, resizable=no, scrollbars=yes, toolbar=no");
+		
+		if (post_image != "") {
+			var url = "postScriptContent.jsp?post_num=" + post_num;
+			window.open(url, "_blank_1", "width=800, height=600, menubar=no, resizable=no, scrollbars=yes, toolbar=no");
+		}
 	} else {
 		openClose.style.display = 'none';
 	}

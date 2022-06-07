@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="../css/shopping.css?var=8">
-<script type="text/javascript" src="../js/item.js?var=6"></script>
+<script type="text/javascript" src="../js/item.js?var=9"></script>
 <body>
 	<%
 		// 화면에 보여질 게시글 개수 7개로 고정한 버전
@@ -100,7 +100,7 @@
 					<td><%=number-- %></td>
 					<%-- 나중에 새 창을 띄워서 내용을 보여 주던가,
 						 아니면 화면 안 바뀌고 조회수만 1씩 늘어나게 할 것 --%>
-					<td onclick="javascript:displayUpdate('js_detail${post.post_num}', '${post.post_num}')">${post.post_subject}</td>
+					<td onclick="javascript:displayUpdate('js_detail${post.post_num}', '${post.post_num}', '${post.post_image}')">${post.post_subject}</td>
 					<td>${post.post_writer}</td>
 					<td>${post.post_date}</td>
 					<td>${post.post_help}</td>
@@ -110,7 +110,7 @@
 						<c:set var="stars" value="${post.post_stars}"/>
 						<c:choose>
 							<c:when test="${stars == 0}">
-								☆
+								<img class="stars" src="../images/stars/0.jpg">
 							</c:when>
 							<c:when test="${stars > 0 and stars < 0.5}">
 								<img class="stars" src="../images/stars/0.5.jpeg">
@@ -147,10 +147,6 @@
 				</tr>
 				<tr id="js_detail${post.post_num}" style="display: none;">
 					<td colspan="7">
-						<c:set var="image" value="${post.post_image}"/>
-						<c:if test="${image != null}">
-							<img src="../images/product/${post.post_image}">
-						</c:if>
 						<div>${post.post_content}</div>
 						<input type="button" value="도움됐어요" onclick="javascript:helpful('${post.post_num}')">
 						<br>
@@ -173,15 +169,15 @@
 									<select name="post_stars">
 										<option value="0">0</option>
 										<option value="0.5">0.5</option>
-										<option value="1.0">1.0</option>
+										<option value="1.0">1</option>
 										<option value="1.5">1.5</option>
-										<option value="2.0">2.0</option>
+										<option value="2.0">2</option>
 										<option value="2.5">2.5</option>
-										<option value="3.0">3.0</option>
+										<option value="3.0">3</option>
 										<option value="3.5">3.5</option>
-										<option value="4.0">4.0</option>
+										<option value="4.0">4</option>
 										<option value="4.5">4.5</option>
-										<option value="5.0" selected>5.0</option>
+										<option value="5.0" selected>5</option>
 									</select>
 								</td>
 							</tr>

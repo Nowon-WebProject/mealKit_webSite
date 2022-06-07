@@ -40,8 +40,7 @@ td {
 	%>
 	<table>
 		<tr style="height:45px;">
-			<td id="headline">자세히 보는 후기</td>
-			<td align="right">닫기 버튼</td>
+			<td colspan="2" id="headline">자세히 보는 후기</td>
 		</tr>
 		<tr style="height:90px;">
 			<td><%=pVo.getPost_content()%></td>
@@ -59,9 +58,6 @@ td {
 				</c:if>
 			</td>
 		</tr>
-		<tr style="height:90px;">
-			<td colspan="2" style="text-align:right; vertical-align: top;">신고 버튼</td>
-		</tr>	
 	</table>
 </body>
 </html>
