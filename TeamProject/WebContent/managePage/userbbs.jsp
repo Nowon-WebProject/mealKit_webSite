@@ -73,7 +73,7 @@
     %>
 				<tr>
 					<td><%=bdto.getBbsid() %></td>
-					<td><a href="javascript:method('<%=bdto.getBbsid()%>')"><%=bdto.getBbstitle() %></a></td>
+					<td><a href="javascript:method1('<%=bdto.getBbsid()%>')"><%=bdto.getBbstitle() %></a></td>
 					<td><%=bdto.getUserid() %></td>
 					<td><%=bdto.getBbsdate() %></td>
 					<td><%=bdto.getBbscount() %></td>
@@ -85,7 +85,7 @@
 	</div>
 	<br>
 	<div align="center">
-		<form action="/TeamProject/bbsList.do" method="post">
+		<form action="/TeamProject/userBbs.do" method="post">
 			<% if((start / 10) != 0){%>
 			<span><button type="submit" name="page"
 					value="<%=start - 10 %>">이전</button></span>
@@ -105,11 +105,7 @@
 				type="submit" value="페이지씩 보기">
 		</form>
 	</div>
-	<div align="right">
-		<h2>
-			<a href="/TeamProject/managePage/bbsWrite.jsp">글쓰기</a>
-		</h2>
-	</div>
+	
 	<br>
 	<br>
 	<br>

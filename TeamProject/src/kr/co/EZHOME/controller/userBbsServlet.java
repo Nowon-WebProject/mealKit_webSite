@@ -14,16 +14,16 @@ import kr.co.EZHOME.dao.BbsDAO;
 import kr.co.EZHOME.dto.BbsDTO;
 
 /**
- * Servlet implementation class bbsListServlet
+ * Servlet implementation class userBbsServlet
  */
-@WebServlet("/bbsList.do")
-public class bbsListServlet extends HttpServlet {
+@WebServlet("/userBbs.do")
+public class userBbsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public bbsListServlet() {
+    public userBbsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -95,36 +95,10 @@ public class bbsListServlet extends HttpServlet {
 		request.setAttribute("vec", vec1);
 		request.setAttribute("arr", arr);
 		
-		/*int pageNum=1;
-		vec=bdao.bbsList();	
-		int size=vec.size();
-		int a=size / 10 ;
-		int b=size % 10 ;
-		if( b != 0 ) {
-			a=a+1;
-		}
-		if( page == null || page == "") {
-			page = "1";
-		}else { pageNum = Integer.parseInt(page);}
-		
-		int c=(pageNum*10)-9;
-		
-		for(int i = c ; i<c+10; i++) {
-			if(i>size) {break;}
-			BbsDTO bdto=new BbsDTO();
-			bdto=null;
-			bdto=vec.get(i-1);
-			vec1.add(bdto);
-		}
 		
 		
-		request.setAttribute("pageNum", pageNum);
-		request.setAttribute("pageSize", a);
-		request.setAttribute("vec", vec1);*/
-		
-		RequestDispatcher dispatcher=request.getRequestDispatcher("/managePage/bbsList.jsp");
+		RequestDispatcher dispatcher=request.getRequestDispatcher("/managePage/userbbs.jsp");
 		dispatcher.forward(request, response);
-		
 		
 	}
 

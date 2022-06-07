@@ -16,6 +16,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="/TeamProject/js/scripts.js"></script>
+        <script type="text/javascript" src="js/sunwoo.js"></script>
         
 </head>
 <body>
@@ -38,7 +39,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">게시판</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">공지사항</a></li>
+                                <li><a class="dropdown-item" href="javascript:method2();">공지사항</a></li>
                                 <li><hr class="dropdown-divider" /></li>
                                 <li><a class="dropdown-item" href="#!">문의하기</a></li>
                                 <li><a class="dropdown-item" href="#!">자주묻는 질문</a></li>
