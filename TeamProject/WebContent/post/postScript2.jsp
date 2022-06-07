@@ -9,8 +9,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="../css/shopping.css?var=8">
-<script type="text/javascript" src="../js/item.js?var=9"></script>
+<link rel="stylesheet" type="text/css" href="../css/shopping.css?var=2">
+<script type="text/javascript" src="../js/item.js?var=1"></script>
 <body>
 	<%
 		// 화면에 보여질 게시글 개수 7개로 고정한 버전
@@ -88,8 +88,8 @@
 			</tr>
 			<tr>
 				<td>번호</td>
-				<td>제목</td>
-				<td>작성자</td>
+				<td class="title">제목</td>
+				<td>회원</td>
 				<td>작성일</td>
 				<td>도움</td>
 				<td>조회</td>
@@ -98,9 +98,7 @@
 			<c:forEach var="post" items="<%=list %>">
 				<tr>
 					<td><%=number-- %></td>
-					<%-- 나중에 새 창을 띄워서 내용을 보여 주던가,
-						 아니면 화면 안 바뀌고 조회수만 1씩 늘어나게 할 것 --%>
-					<td onclick="javascript:displayUpdate('js_detail${post.post_num}', '${post.post_num}', '${post.post_image}')">${post.post_subject}</td>
+					<td class="title" onclick="javascript:displayUpdate('js_detail${post.post_num}', '${post.post_num}')">${post.post_subject}</td>
 					<td>${post.post_writer}</td>
 					<td>${post.post_date}</td>
 					<td>${post.post_help}</td>
@@ -161,7 +159,7 @@
 						<table>
 							<tr>
 								<th>제목:</th>
-								<td><input type="text" name="post_subject"></td>
+								<td><input type="text" name="post_subject" size="30"></td>
 							</tr>
 							<tr>
 								<th>평점:</th>
@@ -203,7 +201,7 @@
 			</tr>
 			<tr>
 				<td colspan="7" style="border: white; text-align: right;">
-					<a href="javascript:display('js_detail_write')">후기 쓰기</a>
+					<a href="javascript:displayWrite('js_detail_write')">후기 쓰기</a>
 				</td>
 			</tr>
 		</table>

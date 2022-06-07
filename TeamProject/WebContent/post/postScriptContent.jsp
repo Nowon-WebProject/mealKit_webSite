@@ -9,27 +9,29 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+#headline {
+	font-family: sans-serif;
+	font-size: 30px;
+	color: rgb(56, 69, 170);
+}
+
 table {
 	width: 780px;
 	height: 550px;
 }
 
 td {
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid rgb(180, 180, 180);
 }
 
-#headline {
-	font-family: sans-serif;
-	font-size: 30px;
-	color: rgb(56, 69, 170);
+img {
+	width: 400px;
+	height: 400px;
 }
 </style>
 </head>
 <body>
-		<%-- 나중에 새 창을 띄워서 내용을 보여 주던가,
-		아니면 화면 안 바뀌고 조회수만 1씩 늘어나게 할 것 --%>
 	<%
-		// 여기 post_num이 invalid identifier라는 문제 해결할 것
 		String post_num = request.getParameter("post_num");
 
 		PostScriptDAO pDao = PostScriptDAO.getInstance();

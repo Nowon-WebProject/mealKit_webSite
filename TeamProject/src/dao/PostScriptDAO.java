@@ -202,43 +202,4 @@ public class PostScriptDAO {
 		}
 	}
 
-	/*
-	public void deleteAllItems() {
-		String sql1 = "delete from item";
-		String sql2 = "drop sequence item_seq";
-		String sql3 = "create sequence item_seq start with 1 increment by 1";
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			conn = DBManager.getConnection();
-			pstmt = conn.prepareStatement(sql1);
-			pstmt.executeUpdate();
-			pstmt = conn.prepareStatement(sql2);
-			pstmt.executeUpdate();
-			pstmt = conn.prepareStatement(sql3);
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			DBManager.close(conn, pstmt);
-		}
-	}
-	
-	public void resetItem_num() {
-		String sql = "alter table item auto_increment=1";
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			conn = DBManager.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			DBManager.close(conn, pstmt);
-		}
-	}
-	*/
 }
