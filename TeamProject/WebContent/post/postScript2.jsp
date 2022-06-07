@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="../css/shopping.css?var=8">
-<script type="text/javascript" src="../js/item.js"></script>
+<script type="text/javascript" src="../js/item.js?var=6"></script>
 <body>
 	<%
 		// 화면에 보여질 게시글 개수 7개로 고정한 버전
@@ -149,12 +149,12 @@
 					<td colspan="7">
 						<c:set var="image" value="${post.post_image}"/>
 						<c:if test="${image != null}">
-							<img src="../images/product/${post.post_image}">&nbsp;&nbsp;
+							<img src="../images/product/${post.post_image}">
 						</c:if>
 						<div>${post.post_content}</div>
 						<input type="button" value="도움됐어요" onclick="javascript:helpful('${post.post_num}')">
 						<br>
-						<%-- 나중에 로그인한 아이디(userid)와 연결할 것 --%>
+						<%-- 나중에 로그인한 아이디(userid 등)와 연결할 것 --%>
 						<input type="button" value="지우기" onclick="javascript:deleteOK('${post.post_num}', '${post.post_writer}', '${userid}')">
 					</td>
 				</tr>

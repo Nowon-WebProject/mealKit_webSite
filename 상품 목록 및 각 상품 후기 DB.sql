@@ -96,12 +96,17 @@ insert into postScript values(postScript_seq.nextval, '뭘 봐', 'kim991', sysda
 
 
 
--- 삭제하기
+-- DB 삭제하기
 -- drop table item;
 -- drop sequence item_seq;
 
 -- drop table postScript;
 -- drop sequence postScript_seq;
+
+
+-- 행 삭제하기
+-- delete from item;
+-- delete from postScript;
 
 
 

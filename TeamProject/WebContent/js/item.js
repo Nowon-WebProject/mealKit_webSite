@@ -60,8 +60,8 @@ function displayUpdate(id, post_num) {
 	if (openClose.style.display == 'none') {
 		openClose.style.display = '';
 
-		var url = "updateHits.jsp?post_num=" + post_num;
-		window.open(url, "_blank_1", "width=400, height=300, menubar=no, resizable=no, scrollbars=yes, toolbar=no");
+		var url = "postScriptContent.jsp?post_num=" + post_num;
+		window.open(url, "_blank_1", "width=800, height=600, menubar=no, resizable=no, scrollbars=yes, toolbar=no");
 	} else {
 		openClose.style.display = 'none';
 	}

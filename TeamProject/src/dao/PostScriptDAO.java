@@ -89,7 +89,7 @@ public class PostScriptDAO {
 	}
 
 	public PostScriptVO selectPostByPost_num(String post_num) {
-		String sql = "select * from item where post_num=?";
+		String sql = "select * from postScript where post_num=?";
 		PostScriptVO pVo = null;
 
 		try {
