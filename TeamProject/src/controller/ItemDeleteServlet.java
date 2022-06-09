@@ -18,43 +18,55 @@ import dto.ItemVO;
 @WebServlet("/itemDelete.do")
 public class ItemDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ItemDeleteServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ItemDeleteServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
-	
+
+		String str = "item/itemDelete3.jsp";
 		String item_num = request.getParameter("item_num");
-		ItemDAO iDao = ItemDAO.getInstance();
-		ItemVO iVo = iDao.selectItemByItem_num(item_num);
-		request.setAttribute("item", iVo);
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("item/itemDelete.jsp");
+
+		ItemDAO iDao3 = ItemDAO.getInstance();
+
+		if (item_num == null) {
+			iDao3.deleteAllItems();
+			str = "item/itemList3.jsp";
+		}
+
+		ItemVO iVo3 = iDao3.selectItemByItem_num(item_num);
+		request.setAttribute("item", iVo3);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher(str);
 		dispatcher.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// doGet(request, response);
-		
+
 		String item_num = request.getParameter("item_num");
-		
-		ItemDAO iDao = ItemDAO.getInstance();
-		iDao.deleteItem(item_num);
-		response.sendRedirect("itemList.do");
+
+		ItemDAO iDao3 = ItemDAO.getInstance();
+		iDao3.deleteItem(item_num);
+		response.sendRedirect("itemList3.do");
 	}
 
 }

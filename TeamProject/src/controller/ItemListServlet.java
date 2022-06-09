@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,9 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import dao.ItemDAO;
-import dto.ItemVO;
 
 /**
  * Servlet implementation class ProductListServlet
@@ -37,9 +33,6 @@ public class ItemListServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 
-		ItemDAO iDao = ItemDAO.getInstance();
-		List<ItemVO> itemList = iDao.selectAllItems();
-		request.setAttribute("itemList", itemList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("item/itemList.jsp");
 		dispatcher.forward(request, response);
 	}

@@ -3,11 +3,15 @@ package controller;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.ItemDAO;
 import dto.ItemVO;
@@ -37,12 +41,12 @@ public class ItemUpdateServlet extends HttpServlet {
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		String item_num = request.getParameter("item_num");
-		
-		ItemDAO iDao = ItemDAO.getInstance();
-		ItemVO iVo = iDao.selectItemByItem_num(item_num);
 
-		request.setAttribute("item", iVo);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("item/itemUpdate.jsp");
+		ItemDAO iDao3 = ItemDAO.getInstance();
+		ItemVO iVo3 = iDao3.selectItemByItem_num(item_num);
+
+		request.setAttribute("item", iVo3);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("item/itemUpdate3.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -56,29 +60,56 @@ public class ItemUpdateServlet extends HttpServlet {
 		// doGet(request, response);
 
 		request.setCharacterEncoding("utf-8");
-		String item_category = request.getParameter("item_category");
-		String item_name = request.getParameter("item_name");
-		String item_content = request.getParameter("item_content");
-		String item_price = request.getParameter("item_price");
-		String item_quantity = request.getParameter("item_quantity");
-		String item_total = request.getParameter("item_total");
-		String item_time = request.getParameter("item_time");
-		String item_num = request.getParameter("item_num");
+		ServletContext context = getServletContext();
+		String path = context.getRealPath("upload");
+		String encType = "utf-8";
+		int sizeLimit = 20 * 1024 * 1024;
+
+		MultipartRequest multi = new MultipartRequest(request, path, sizeLimit, encType, new DefaultFileRenamePolicy());
+
+		String item_category = multi.getParameter("item_category");
+		String item_name = multi.getParameter("item_name");
+		String item_content = multi.getParameter("item_content");
+		String item_price = multi.getParameter("item_price");
+		String item_quantity = multi.getParameter("item_quantity");
+		String item_total = multi.getParameter("item_total");
+		String item_time = multi.getParameter("item_time");
+		String item_main = multi.getParameter("item_main");
+		String item_sales = multi.getParameter("item_sales");
+		String item_discount = multi.getParameter("item_discount");
+		String item_starsAvg = multi.getParameter("item_starsAvg");
+		String item_pictureUrl1 = multi.getFilesystemName("item_pictureUrl1");
+		String item_pictureUrl2 = multi.getFilesystemName("item_pictureUrl2");
+		String item_num = multi.getParameter("item_num");
+
+		if (item_pictureUrl1 == null) {
+			item_pictureUrl1 = multi.getParameter("nonmakeImg1");
+		}
 		
-		ItemVO iVo = new ItemVO();
-		iVo.setItem_category(item_category);
-		iVo.setItem_name(item_name);
-		iVo.setItem_content(item_content);
-		iVo.setItem_price(Integer.parseInt(item_price));
-		iVo.setItem_quantity(Integer.parseInt(item_quantity));
-		iVo.setItem_total(item_total);
-		iVo.setItem_time(item_time);
-		iVo.setItem_num(Integer.parseInt(item_num));
+		if (item_pictureUrl2 == null) {
+			item_pictureUrl2 = multi.getParameter("nonmakeImg2");
+		}
 
-		ItemDAO iDao = ItemDAO.getInstance();
-		iDao.updateItem(iVo);
+		ItemVO iVo3 = new ItemVO();
+		iVo3.setItem_category(item_category);
+		iVo3.setItem_name(item_name);
+		iVo3.setItem_content(item_content);
+		iVo3.setItem_price(Integer.parseInt(item_price));
+		iVo3.setItem_quantity(Integer.parseInt(item_quantity));
+		iVo3.setItem_total(item_total);
+		iVo3.setItem_time(item_time);
+		iVo3.setItem_main(item_main);
+		iVo3.setItem_sales(Integer.parseInt(item_sales));
+		iVo3.setItem_discount(Double.parseDouble(item_discount));
+		iVo3.setItem_starsAvg(Double.parseDouble(item_starsAvg));
+		iVo3.setItem_pictureUrl1(item_pictureUrl1);
+		iVo3.setItem_pictureUrl2(item_pictureUrl2);
+		iVo3.setItem_num(Integer.parseInt(item_num));
 
-		response.sendRedirect("itemList.do");
+		ItemDAO iDao3 = ItemDAO.getInstance();
+		iDao3.updateItem(iVo3);
+
+		response.sendRedirect("itemList3.do");
 	}
 
 }

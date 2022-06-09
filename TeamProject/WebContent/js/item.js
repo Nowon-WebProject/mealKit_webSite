@@ -68,7 +68,7 @@ function displayContent(id, post_num) {
 function helpful(post_num) {
 	alert("도움된 후기예요!");
 	
-	location.href = "../post/updateHelp.jsp?post_num=" + post_num;
+	location.href = "updateHelp?post_num=" + post_num;
 }
 
 function deleteOK(post_num, post_writer, userid) {
@@ -76,7 +76,7 @@ function deleteOK(post_num, post_writer, userid) {
 		var result = confirm("정말 후기를 삭제하시겠습니까?");
 
 		if (result == true) {
-			location.href = "../post/postDelete.jsp?post_num=" + post_num;
+			location.href = "postDelete?post_num=" + post_num;
 		}
 	} else {
 		alert("이 후기는 다른 사람이 쓴 거예요!");
