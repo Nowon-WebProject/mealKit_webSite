@@ -42,7 +42,7 @@ create table item(
     item_date varchar2(50), -- 등록한 날짜
     item_total varchar2(50), -- 인분
     item_time varchar2(50), -- 조리 시간
-    item_main varchar2(50), -- 메인 등장 여부
+    item_main nvarchar2(50), -- 메인 등장 여부
     item_sales number, -- 판매량
     item_discount number(4,2), -- 적용될 할인율
     item_starsAvg number(4,2), -- 후기 평점의 평균
