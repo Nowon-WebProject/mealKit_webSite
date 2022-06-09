@@ -58,7 +58,7 @@ function displayContent(id, post_num) {
 	if (openClose.style.display == 'none') {
 		openClose.style.display = '';
 		
-		var url = "postScriptContent.jsp?post_num=" + post_num;
+		var url = "postScriptContent?post_num=" + post_num;
 		window.open(url, "_blank_1", "width=800, height=600, menubar=no, resizable=no, scrollbars=yes, toolbar=no");
 	} else {
 		openClose.style.display = 'none';
